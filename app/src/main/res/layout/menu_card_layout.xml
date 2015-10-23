@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent" android:layout_height="wrap_content"
+    android:background="@drawable/card_background_white"
+    android:orientation="vertical"
+    android:layout_margin="5dp"
+    >
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:elevation="20dp"
+
+        android:background="@drawable/google_cards_background_top">
+
+        <ImageView
+            android:layout_margin="15dp"
+            android:background="@drawable/icon_menu"
+            android:layout_width="115dp"
+            android:layout_height="115dp"
+            android:id="@+id/foodImage" />
+
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Item Name"
+            android:layout_marginTop="10dp"
+            android:id="@+id/foodName"
+            android:layout_alignTop="@+id/foodImage"
+            android:layout_centerHorizontal="true" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Item Price"
+            android:id="@+id/foodPrice"
+            android:layout_below="@+id/foodName"
+            android:layout_marginTop="10dp"
+            android:layout_alignLeft="@+id/foodName"
+            android:layout_alignStart="@+id/foodName"
+            android:layout_centerHorizontal="true"
+             />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Item Contents"
+            android:id="@+id/foodContent"
+            android:layout_marginTop="10dp"
+            android:layout_below="@+id/foodPrice"
+            android:layout_alignLeft="@+id/foodPrice"
+            android:layout_alignStart="@+id/foodPrice" />
+
+        <RatingBar
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/ratingBar"
+            android:numStars="5"
+            android:rating="2"
+            android:stepSize=".5"
+            android:layout_marginBottom="10dp"
+            android:style="?android:attr/ratingBarStyleSmall"
+            android:layout_alignBottom="@+id/foodImage"
+            android:layout_toRightOf="@+id/foodImage"
+            android:layout_toEndOf="@+id/foodImage" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:id="@+id/sepLine"
+            android:layout_below="@id/ratingBar"
+            android:background="@android:color/background_dark" />
+
+        <com.balysv.materialripple.MaterialRippleLayout
+            style="@style/RippleStyle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="10dp"
+            android:elevation="20dp"
+            android:layout_below="@+id/sepLine"
+            android:id="@+id/container">
+            <Button
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Add to Cart"
+                android:textColor="@color/button_text_color"
+                android:background="@color/button_color"
+                android:id="@+id/addToCartButton"
+                android:layout_gravity="center_horizontal"
+                android:layout_below="@+id/foodImage"
+                android:layout_alignLeft="@+id/container"
+                android:layout_alignStart="@+id/container" />
+        </com.balysv.materialripple.MaterialRippleLayout>
+
+        <ImageButton
+            android:layout_width="25dp"
+            android:layout_height="20dp"
+            android:background="@drawable/next"
+            android:id="@+id/openItemButton"
+            android:layout_below="@+id/foodPrice"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentEnd="true"
+            android:layout_alignBottom="@+id/foodContent" />
+
+
+    </RelativeLayout>
+
+
+
+
+</LinearLayout>
