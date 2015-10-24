@@ -12,6 +12,7 @@ import android.view.MenuItem;
 import android.widget.FrameLayout;
 
 import waitr.vendorapp.mc.waitruser.Fragments.MenuFragment;
+import waitr.vendorapp.mc.waitruser.Fragments.SignOut;
 import waitr.vendorapp.mc.waitruser.R;
 
 public class MainActivity extends AppCompatActivity {
@@ -106,6 +107,9 @@ public class MainActivity extends AppCompatActivity {
                                 break;
 
                             case R.id.nav_settings:
+                            case R.id.nav_sign_out: fragmentManager.beginTransaction()
+                                    .replace(R.id.content_frame, new SignOut()).commit();
+                                getSupportActionBar().setTitle(R.string.sign_out_screen);break;
 
 
                         }

@@ -5,6 +5,7 @@
     android:background="@drawable/card_background_white"
     android:orientation="vertical"
     android:layout_margin="5dp"
+
     >
 
     <RelativeLayout
