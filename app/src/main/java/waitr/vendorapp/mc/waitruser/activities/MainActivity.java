@@ -49,7 +49,7 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.C
         Intent receivedIntent = getIntent();
         personName = receivedIntent.getStringExtra("name");
         personId = receivedIntent.getStringExtra("id");
-        displayPic = receivedIntent.getStringExtra("photo");
+        displayPic = receivedIntent.getStringExtra("photo");    //url for dp
 
     }
     @Override
