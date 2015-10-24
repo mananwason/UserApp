@@ -14,4 +14,27 @@
     <style name="FrameLayout">
         <item name="android:background">@color/color_window_background</item>
     </style>
+    <style name="RippleStyle">
+        <item name="mrl_rippleOverlay">true</item>
+        <item name="mrl_rippleColor">#DDDDDD</item>
+        <item name="mrl_rippleAlpha">0.7</item>
+        <item name="mrl_rippleDimension">45dp</item>
+        <item name="mrl_rippleHover">true</item>
+        <item name="mrl_rippleDuration">200</item>
+        <item name="mrl_rippleFadeDuration">50</item>
+        <item name="mrl_rippleBackground">@android:color/transparent</item>
+        <item name="mrl_rippleDelayClick">true</item>
+        <item name="mrl_ripplePersistent">false</item>
+        <item name="mrl_rippleInAdapter">false</item>
+    </style>
+    <style name="ListViewStyle">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">match_parent</item>
+        <item name="android:background">@color/material_grey_600</item>
+        <item name="android:cacheColorHint">@android:color/transparent</item>
+        <item name="android:choiceMode">singleChoice</item>
+        <item name="android:divider">@android:color/transparent</item>
+        <item name="android:dividerHeight">0dp</item>
+    </style>
+
 </resources>
