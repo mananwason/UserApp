@@ -1,5 +1,6 @@
 package waitr.vendorapp.mc.waitruser.activities;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;
 import android.support.v4.app.FragmentManager;
@@ -7,20 +8,30 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.FrameLayout;
+import android.widget.Toast;
+
+import com.google.android.gms.common.ConnectionResult;
+import com.google.android.gms.common.api.GoogleApiClient;
+import com.google.android.gms.common.api.ResultCallback;
+import com.google.android.gms.common.api.Status;
+import com.google.android.gms.plus.Plus;
 
 import waitr.vendorapp.mc.waitruser.Fragments.MenuFragment;
-import waitr.vendorapp.mc.waitruser.Fragments.SignOut;
 import waitr.vendorapp.mc.waitruser.R;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements GoogleApiClient.ConnectionCallbacks,
+        GoogleApiClient.OnConnectionFailedListener{
 
     private DrawerLayout mDrawerLayout;
     private Toolbar mToolbar;
     private NavigationView navigationView;
     private FrameLayout mainFrame;
+    private String personName,personId,displayPic;
+    private GoogleApiClient mGoogleApiClient1;
 
 
     @Override
@@ -31,11 +42,57 @@ public class MainActivity extends AppCompatActivity {
         setUpNavDrawer();
         mainFrame = (FrameLayout) findViewById(R.id.layout_main);
         navigationView = (NavigationView) findViewById(R.id.nav_view);
-
+        buildGoogleApiClient();
         FragmentManager fragmentManager = getSupportFragmentManager();
         fragmentManager.beginTransaction()
                 .replace(R.id.content_frame, new MenuFragment()).commit();
+        Intent receivedIntent = getIntent();
+        personName = receivedIntent.getStringExtra("name");
+        personId = receivedIntent.getStringExtra("id");
+        displayPic = receivedIntent.getStringExtra("photo");
 
+    }
+    @Override
+    protected void onStart() {
+        super.onStart();
+        mGoogleApiClient1.connect();
+
+    }
+    @Override
+    protected void onStop() {
+        super.onStop();
+        mGoogleApiClient1.disconnect();
+    }
+    @Override
+    protected void onDestroy(){
+        super.onDestroy();
+        if (mGoogleApiClient1.isConnected()) {
+            Plus.AccountApi.revokeAccessAndDisconnect(mGoogleApiClient1)
+                    .setResultCallback(new ResultCallback<Status>() {
+                        @Override
+                        public void onResult(Status arg0) {
+                            Log.e("Access", "User access revoked!");
+                        }
+
+                    });
+        }
+
+    }
+    protected synchronized void buildGoogleApiClient() {
+        mGoogleApiClient1 = new GoogleApiClient.Builder(this)
+                .addConnectionCallbacks(this)
+                .addOnConnectionFailedListener(this)
+                .addApi(Plus.API)
+                .build();
+    }
+    @Override
+    public void onBackPressed() {
+//        super.onBackPressed();
+        Intent intent = new Intent(Intent.ACTION_MAIN);
+        intent.addCategory(Intent.CATEGORY_HOME);
+        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        startActivity(intent);
+        finish();
     }
 
     @Override
@@ -107,9 +164,8 @@ public class MainActivity extends AppCompatActivity {
                                 break;
 
                             case R.id.nav_settings:
-                            case R.id.nav_sign_out: fragmentManager.beginTransaction()
-                                    .replace(R.id.content_frame, new SignOut()).commit();
-                                getSupportActionBar().setTitle(R.string.sign_out_screen);break;
+                            case R.id.nav_sign_out: logOut();
+                                break;
 
 
                         }
@@ -117,5 +173,32 @@ public class MainActivity extends AppCompatActivity {
                         return true;
                     }
                 });
+    }
+    public void logOut(){
+        if (mGoogleApiClient1.isConnected()) {
+            Plus.AccountApi.clearDefaultAccount(mGoogleApiClient1);
+            mGoogleApiClient1.disconnect();
+//            mGoogleApiClient.connect();
+            Toast.makeText(this, "Signed out", Toast.LENGTH_SHORT).show();
+            Intent mIntent = new Intent(this, SignOut.class);
+            startActivity(mIntent);
+
+        }
+    }
+
+    @Override
+    public void onConnected(Bundle bundle) {
+
+    }
+
+    @Override
+    public void onConnectionSuspended(int i) {
+
+        mGoogleApiClient1.connect();
+    }
+
+    @Override
+    public void onConnectionFailed(ConnectionResult connectionResult) {
+        mGoogleApiClient1.connect();
     }
 }
