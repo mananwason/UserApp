@@ -3,21 +3,21 @@
         <item
             android:id="@+id/nav_menu"
             android:checked="true"
-            android:icon="@drawable/ic_restaurant_menu_black_24dp"
+            android:icon="@drawable/ic_restaurant_menu_white_24dp"
             android:title="@string/menu_items" />
 
         <item
             android:id="@+id/nav_pending_orders"
-            android:icon="@drawable/pending_order"
+            android:icon="@drawable/ic_local_shipping_white_24dp"
             android:title="Pending Orders" />
         <item
             android:id="@+id/nav_past_orders"
-            android:icon="@drawable/past_order"
+            android:icon="@drawable/ic_history_white_24dp"
             android:title="Past Orders" />
 
         <item
             android:id="@+id/nav_cart"
-            android:icon="@drawable/ic_shopping_cart_black_24dp"
+            android:icon="@drawable/ic_shopping_cart_white_24dp"
             android:title="Cart" />
     </group>
     <item android:title="">
@@ -25,17 +25,17 @@
             <item
 
                 android:id="@+id/nav_settings"
-                android:icon="@drawable/ic_settings_black_24dp"
+                android:icon="@drawable/ic_settings_white_24dp"
                 android:title="Settings" />
             <item
                 android:id="@+id/nav_about_us"
-                android:icon="@drawable/about_us"
+                android:icon="@drawable/ic_info_white_24dp"
                 android:title="About us" />
 
 
             <item
                 android:id="@+id/nav_sign_out"
-                android:icon="@drawable/sign_out"
+                android:icon="@drawable/ic_exit_to_app_white_24dp"
                 android:title="Sign Out"/>
         </menu>
     </item>

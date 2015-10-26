@@ -42,6 +42,7 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.C
         setUpNavDrawer();
         mainFrame = (FrameLayout) findViewById(R.id.layout_main);
         navigationView = (NavigationView) findViewById(R.id.nav_view);
+        navigationView.setItemIconTintList(null);
         buildGoogleApiClient();
         FragmentManager fragmentManager = getSupportFragmentManager();
         fragmentManager.beginTransaction()
