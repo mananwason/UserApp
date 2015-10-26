@@ -12,15 +12,18 @@ public class MenuItemObject {
     private Bitmap foodImage;
     private String foodName;
     private String contents;
+    private double quantity;
     private double price;
     private double rating;
+    private int id;
 
-    public MenuItemObject(Bitmap foodImage, String foodName, String contents, double price, double rating) {
+    public MenuItemObject(Bitmap foodImage, String foodName, String contents, double price, double rating,int id) {
         this.foodImage = foodImage;
         this.foodName = foodName;
         this.contents = contents;
         this.price = price;
         this.rating = rating;
+        this.id = id;
     }
 
     public void setFoodImage(Bitmap foodImage) {
@@ -52,6 +55,14 @@ public class MenuItemObject {
         return foodName;
     }
 
+    public void setQuantity(double qty){
+        this.quantity = qty;
+    }
+
+    public double getQuantity(){
+        return quantity;
+    }
+
     public String getContents() {
         return contents;
     }
@@ -63,4 +74,9 @@ public class MenuItemObject {
     public double getRating() {
         return rating;
     }
+
+    public int getID(){
+        return id;
+    }
+
 }

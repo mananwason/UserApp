@@ -13,13 +13,13 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.FrameLayout;
 import android.widget.Toast;
-
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.common.api.ResultCallback;
 import com.google.android.gms.common.api.Status;
 import com.google.android.gms.plus.Plus;
 
+import waitr.vendorapp.mc.waitruser.Fragments.CartFragment;
 import waitr.vendorapp.mc.waitruser.Fragments.MenuFragment;
 import waitr.vendorapp.mc.waitruser.R;
 
@@ -164,6 +164,11 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.C
                                 break;
 
                             case R.id.nav_settings:
+                            case R.id.nav_cart:
+                                fragmentManager.beginTransaction()
+                                        .replace(R.id.content_frame, new CartFragment()).commit();
+                                getSupportActionBar().setTitle(R.string.cart_items);
+                                break;
                             case R.id.nav_sign_out: logOut();
                                 break;
 

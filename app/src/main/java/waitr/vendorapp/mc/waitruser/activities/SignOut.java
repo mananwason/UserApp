@@ -20,7 +20,7 @@ public class SignOut extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.fragment_sign_out);
+        setContentView(R.layout.sign_out_activity);
         setUpToolbar();
     }
     private void setUpToolbar() {

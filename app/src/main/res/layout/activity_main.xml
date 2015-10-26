@@ -21,6 +21,7 @@
         <android.support.v4.widget.DrawerLayout
             android:id="@+id/drawer"
             android:layout_width="match_parent"
+
             android:layout_height="match_parent">
 
             <FrameLayout
@@ -31,10 +32,12 @@
             <android.support.design.widget.NavigationView
                 android:id="@+id/nav_view"
                 android:layout_width="wrap_content"
+                android:background="@drawable/nav_background"
                 android:layout_height="match_parent"
                 android:layout_gravity="start"
                 android:fitsSystemWindows="true"
                 app:headerLayout="@layout/nav_header"
+                app:itemTextColor="@android:color/background_light"
                 app:menu="@menu/drawer" />
         </android.support.v4.widget.DrawerLayout>
     </LinearLayout>

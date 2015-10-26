@@ -4,6 +4,7 @@ import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.util.TypedValue;
@@ -18,11 +19,14 @@ import java.util.List;
 import waitr.vendorapp.mc.waitruser.R;
 import waitr.vendorapp.mc.waitruser.adapters.MenuAdapter;
 import waitr.vendorapp.mc.waitruser.dataObjects.MenuItemObject;
+//import waitr.vendorapp.mc.waitruser.listview.appearance.simple.SwingBottomInAnimationAdapter;
+//import waitr.vendorapp.mc.waitruser.listview.itemmanipulation.swipedismiss.OnDismissCallback;
+//import waitr.vendorapp.mc.waitruser.listview.itemmanipulation.swipedismiss.SwipeDismissAdapter;
 
 /**
  * Created by Manan Wason on 23/10/15.
  */
-public class MenuFragment extends Fragment{
+public class MenuFragment extends Fragment {
     private static final int INITIAL_DELAY_MILLIS = 300;
 
     private MenuAdapter menuAdapter;
@@ -34,13 +38,15 @@ public class MenuFragment extends Fragment{
         ListView listView = (ListView) rootView.findViewById(R.id.list_view);
 
         Bitmap bitmap = BitmapFactory.decodeResource(getResources(), R.drawable.icon_menu);
-        MenuItemObject m1 = new MenuItemObject(bitmap, "Item 1", "contents", 100, 3.5);
-        MenuItemObject m2 = new MenuItemObject(bitmap, "Item 2", "contents", 100.9, 3.5);
-        MenuItemObject m3 = new MenuItemObject(bitmap, "Item 3", "contents", 111, 3.5);
-        MenuItemObject m4 = new MenuItemObject(bitmap, "Item 4", "contents", 1000, 3.5);
+        MenuItemObject m1 = new MenuItemObject(bitmap, "Item 1", "contents", 100, 3.5, 1);
+        MenuItemObject m2 = new MenuItemObject(bitmap, "Item 2", "contents", 100.9, 3.5, 2);
+        MenuItemObject m3 = new MenuItemObject(bitmap, "Item 3", "contents", 111, 3.5, 3);
+        MenuItemObject m4 = new MenuItemObject(bitmap, "Item 4", "contents", 1000, 3.5, 4);
         List<MenuItemObject> list = new ArrayList<>();
         list.add(m1);list.add(m2);list.add(m3);list.add(m4);
         menuAdapter = new MenuAdapter(getContext(), list);
+//        SwingBottomInAnimationAdapter swingBottomInAnimationAdapter = new SwingBottomInAnimationAdapter(
+//                new SwipeDismissAdapter(menuAdapter, this));
         listView.setClipToPadding(false);
         listView.setDivider(null);
         Resources r = getResources();
@@ -56,4 +62,9 @@ public class MenuFragment extends Fragment{
         listView.setAdapter(menuAdapter);
         return rootView;
     }
+
+//    @Override
+//    public void onDismiss(@NonNull ViewGroup listView, @NonNull int[] reverseSortedPositions) {
+//
+//    }
 }

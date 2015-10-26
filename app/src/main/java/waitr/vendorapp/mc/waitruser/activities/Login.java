@@ -42,10 +42,10 @@ public class Login extends AppCompatActivity implements GoogleApiClient.Connecti
                 .addApi(Plus.API)
                 .addScope(new Scope(Scopes.EMAIL))
                 .addScope(new Scope(Scopes.PROFILE))
+                .addScope(new Scope(Scopes.PLUS_LOGIN))
                 .build();
 
         findViewById(R.id.sign_in_button).setOnClickListener(this);
-
     }
 
     @Override
@@ -124,23 +124,23 @@ public class Login extends AppCompatActivity implements GoogleApiClient.Connecti
     public void onConnected(Bundle bundle) {
         mSignInClicked = false;
         String id = Plus.AccountApi.getAccountName(mGoogleApiClient);
-        String[] email = id.split("@");
-        if(!email[email.length-1].equals("iiitd.ac.in")){
-            Plus.AccountApi.clearDefaultAccount(mGoogleApiClient);
-            mGoogleApiClient.disconnect();
-            Toast.makeText(Login.this, "Invalid account", Toast.LENGTH_SHORT).show();
-        }
-        else {
+//        String[] email = id.split("@");
+//        if(!email[email.length-1].equals("iiitd.ac.in")){
+//            Plus.AccountApi.clearDefaultAccount(mGoogleApiClient);
+//            mGoogleApiClient.disconnect();
+//            Toast.makeText(Login.this, "Invalid account", Toast.LENGTH_SHORT).show();
+//        }
+//        else {
             Person currentPerson = Plus.PeopleApi.getCurrentPerson(mGoogleApiClient);
             String personName = currentPerson.getDisplayName();
             String personPhoto = currentPerson.getImage().getUrl();
-            Toast.makeText(this, "Signed in as " + id, Toast.LENGTH_SHORT).show();
             Intent mIntent = new Intent(Login.this,MainActivity.class);
             mIntent.putExtra("name",personName);
             mIntent.putExtra("id",id);
             mIntent.putExtra("photo",personPhoto);
+            Toast.makeText(this, "Signed in as " + id+"\n"+personName+" "+personPhoto, Toast.LENGTH_SHORT).show();
             startActivity(mIntent);
-        }
+//        }
     }
 
     @Override

@@ -19,10 +19,10 @@ import waitr.vendorapp.mc.waitruser.dataObjects.MenuItemObject;
 /**
  * Created by siddharth on 10/23/15.
  */
+
 public class MenuAdapter extends ArrayAdapter<MenuItemObject> implements View.OnClickListener {
 
     private LayoutInflater mInflater;
-
 
     public MenuAdapter(Context context, List<MenuItemObject> items) {
         super(context, 0, items);

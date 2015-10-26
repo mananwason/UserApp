@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent" android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:layout_marginTop="5dp"
+    android:layout_marginStart="5dp"
+    android:layout_marginEnd="5dp"
+
+    >
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="horizontal"
+        android:elevation="5dp"
+        android:background="@drawable/google_cards_background_top">
+
+        <ImageView
+            android:layout_margin="15dp"
+            android:background="@drawable/icon_menu"
+            android:layout_width="115dp"
+            android:layout_height="115dp"
+            android:id="@+id/foodImage" />
+
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Item Name"
+            android:layout_marginTop="15dp"
+            android:id="@+id/foodName"
+            android:layout_alignTop="@+id/foodImage"
+            android:layout_centerHorizontal="true" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Item Price"
+            android:id="@+id/foodPrice"
+            android:layout_below="@+id/foodName"
+            android:layout_marginTop="15dp"
+            android:layout_alignLeft="@+id/foodName"
+            android:layout_alignStart="@+id/foodName"
+            android:layout_centerHorizontal="true"
+            />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Quantity"
+            android:id="@+id/foodQuantity"
+            android:layout_marginTop="15dp"
+            android:layout_below="@+id/foodPrice"
+            android:layout_alignLeft="@+id/foodPrice"
+            android:layout_alignStart="@+id/foodPrice" />
+
+
+        <!--<View-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="1dp"-->
+            <!--android:id="@+id/sepLine"-->
+            <!--android:layout_below="@+id/foodQuantity"-->
+            <!--android:layout_marginTop="20dp"-->
+            <!--android:background="@android:color/background_dark" />-->
+
+        <ImageButton
+            android:layout_width="25dp"
+            android:layout_height="25dp"
+            android:layout_marginRight="5dp"
+            android:background="@drawable/ic_highlight_off_black_24dp"
+            android:id="@+id/removeItemButton"
+            android:layout_alignTop="@+id/foodPrice"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentEnd="true" />
+
+
+
+    </RelativeLayout>
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceSmall"
+        android:visibility="invisible"
+        android:id="@+id/itemId"
+        android:layout_alignBottom="@+id/foodImage"
+        android:layout_toLeftOf="@+id/removeItemButton"
+        android:layout_toStartOf="@+id/removeItemButton" />
+
+
+
+</LinearLayout>
