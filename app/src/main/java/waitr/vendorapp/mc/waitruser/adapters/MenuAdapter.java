@@ -66,7 +66,7 @@ public class MenuAdapter extends ArrayAdapter<MenuItemObject> implements View.On
         holder.foodName.setText(item.getFoodName());
         holder.contents.setText(item.getContents());
         holder.price.setText(item.getPrice() + "");
-        holder.rating.setRating((float)item.getRating());
+        holder.rating.setRating((float) item.getRating());
         holder.addToCartButton.setTag(position);
         holder.openItemButton.setTag(position);
 
@@ -75,9 +75,11 @@ public class MenuAdapter extends ArrayAdapter<MenuItemObject> implements View.On
 
     @Override
     public void onClick(View v) {
-        switch(v.getId()){
-            case R.id.addToCartButton:break;
-            case R.id.openItemButton:break;
+        switch (v.getId()) {
+            case R.id.addToCartButton:
+                break;
+            case R.id.openItemButton:
+                break;
         }
 
     }

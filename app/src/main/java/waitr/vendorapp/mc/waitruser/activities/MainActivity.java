@@ -28,13 +28,13 @@ import waitr.vendorapp.mc.waitruser.Helpers.CircleTransform;
 import waitr.vendorapp.mc.waitruser.R;
 
 public class MainActivity extends AppCompatActivity implements GoogleApiClient.ConnectionCallbacks,
-        GoogleApiClient.OnConnectionFailedListener{
+        GoogleApiClient.OnConnectionFailedListener {
 
     private DrawerLayout mDrawerLayout;
     private Toolbar mToolbar;
     private NavigationView navigationView;
     private FrameLayout mainFrame;
-    private String personName,personId,displayPic;
+    private String personName, personId, displayPic;
     private GoogleApiClient mGoogleApiClient1;
 
 
@@ -57,24 +57,27 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.C
         personId = receivedIntent.getStringExtra("id");
         displayPic = receivedIntent.getStringExtra("photo");    //url for dp
 
-        if(displayPic != null){
+        if (displayPic != null) {
             Picasso.with(this).load(displayPic).transform(new CircleTransform()).into(header);
         }
 
     }
+
     @Override
     protected void onStart() {
         super.onStart();
         mGoogleApiClient1.connect();
 
     }
+
     @Override
     protected void onStop() {
         super.onStop();
         mGoogleApiClient1.disconnect();
     }
+
     @Override
-    protected void onDestroy(){
+    protected void onDestroy() {
         super.onDestroy();
         if (mGoogleApiClient1.isConnected()) {
             Plus.AccountApi.revokeAccessAndDisconnect(mGoogleApiClient1)
@@ -88,6 +91,7 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.C
         }
 
     }
+
     protected synchronized void buildGoogleApiClient() {
         mGoogleApiClient1 = new GoogleApiClient.Builder(this)
                 .addConnectionCallbacks(this)
@@ -95,6 +99,7 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.C
                 .addApi(Plus.API)
                 .build();
     }
+
     @Override
     public void onBackPressed() {
 //        super.onBackPressed();
@@ -177,8 +182,10 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.C
                                 break;
 
 
-                            case R.id.nav_settings:break;
-                            case R.id.nav_sign_out: logOut();
+                            case R.id.nav_settings:
+                                break;
+                            case R.id.nav_sign_out:
+                                logOut();
                                 break;
 
 
@@ -188,7 +195,8 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.C
                     }
                 });
     }
-    public void logOut(){
+
+    public void logOut() {
         if (mGoogleApiClient1.isConnected()) {
             Plus.AccountApi.clearDefaultAccount(mGoogleApiClient1);
             mGoogleApiClient1.disconnect();

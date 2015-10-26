@@ -20,7 +20,7 @@ import waitr.vendorapp.mc.waitruser.dataObjects.MenuItemObject;
 /**
  * Created by MananWason on 8/18/2015.
  */
-public class CartAdapter extends RecyclerView.Adapter<CartAdapter.Viewholder> implements View.OnClickListener{
+public class CartAdapter extends RecyclerView.Adapter<CartAdapter.Viewholder> implements View.OnClickListener {
 
     List<MenuItemObject> menuitem;
 
@@ -43,7 +43,7 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.Viewholder> im
         MenuItemObject current = menuitem.get(position);
         holder.name.setText(current.getFoodName());
         holder.price.setText("Price : " + current.getPrice());
-        holder.itemId.setText(current.getID()+"");
+        holder.itemId.setText(current.getID() + "");
         holder.quantity.setText("Quantity : " + current.getQuantity());
     }
 
@@ -111,13 +111,13 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.Viewholder> im
 
     @Override
     public void onClick(View v) {
-        ViewGroup parent = (ViewGroup)v.getParent().getParent();
-        int pid  = Integer.parseInt(((TextView)parent.findViewById(R.id.itemId)).getText().toString());
-        int pos=-1;
-        Log.d("ABC","PID : " +pid);
+        ViewGroup parent = (ViewGroup) v.getParent().getParent();
+        int pid = Integer.parseInt(((TextView) parent.findViewById(R.id.itemId)).getText().toString());
+        int pos = -1;
+        Log.d("ABC", "PID : " + pid);
 //        Iterator<MenuItemObject> itr = menuitem.iterator();
         for (int i = 0; i < menuitem.size(); i++)
-            if(menuitem.get(i).getID()==pid){
+            if (menuitem.get(i).getID() == pid) {
                 pos = i;
                 break;
             }
@@ -137,8 +137,8 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.Viewholder> im
             name = (TextView) itemView.findViewById(R.id.foodName);
             quantity = (TextView) itemView.findViewById(R.id.foodQuantity);
             price = (TextView) itemView.findViewById(R.id.foodPrice);
-            itemId = (TextView)itemView.findViewById(R.id.itemId);
-            removeItem = (ImageButton)itemView.findViewById(R.id.removeItemButton);
+            itemId = (TextView) itemView.findViewById(R.id.itemId);
+            removeItem = (ImageButton) itemView.findViewById(R.id.removeItemButton);
             removeItem.setOnClickListener(CartAdapter.this);
 //            removeItem.setClickable(true);
 

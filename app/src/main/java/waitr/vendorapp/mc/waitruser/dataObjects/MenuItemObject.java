@@ -3,6 +3,7 @@ package waitr.vendorapp.mc.waitruser.dataObjects;
 /**
  * Created by siddharth on 10/24/15.
  */
+
 import android.graphics.Bitmap;
 
 /**
@@ -17,7 +18,7 @@ public class MenuItemObject {
     private double rating;
     private int id;
 
-    public MenuItemObject(Bitmap foodImage, String foodName, String contents, double price, double rating,int id) {
+    public MenuItemObject(Bitmap foodImage, String foodName, String contents, double price, double rating, int id) {
         this.foodImage = foodImage;
         this.foodName = foodName;
         this.contents = contents;
@@ -43,11 +44,11 @@ public class MenuItemObject {
         this.foodName = foodName;
     }
 
-    public double getQuantity(){
+    public double getQuantity() {
         return quantity;
     }
 
-    public void setQuantity(double qty){
+    public void setQuantity(double qty) {
         this.quantity = qty;
     }
 
@@ -75,7 +76,7 @@ public class MenuItemObject {
         this.rating = rating;
     }
 
-    public int getID(){
+    public int getID() {
         return id;
     }
 

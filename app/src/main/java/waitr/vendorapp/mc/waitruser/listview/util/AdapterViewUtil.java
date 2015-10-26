@@ -34,7 +34,6 @@ public class AdapterViewUtil {
      *
      * @param listViewWrapper the IListViewWrapper wrapping the ListView containing the view.
      * @param view            an adapter item or a descendant of an adapter item. This must be visible in given AdapterView at the time of the call.
-     *
      * @return the position of the item in the AdapterView represented by given view, or {@link AdapterView#INVALID_POSITION} if the view does not
      * correspond to a list item (or it is not visible).
      */
@@ -49,7 +48,6 @@ public class AdapterViewUtil {
      *
      * @param absListView the ListView containing the view.
      * @param view        an adapter item or a descendant of an adapter item. This must be visible in given AdapterView at the time of the call.
-     *
      * @return the position of the item in the AdapterView represented by given view, or {@link AdapterView#INVALID_POSITION} if the view does not
      * correspond to a list item (or it is not visible).
      */
@@ -66,7 +64,6 @@ public class AdapterViewUtil {
      *
      * @param listViewWrapper the {@link ListViewWrapper} wrapping the ListView that should be examined
      * @param position        the position for which the {@code View} should be returned.
-     *
      * @return the {@code View}, or {@code null} if the position is not currently visible.
      */
     @Nullable
@@ -87,7 +84,6 @@ public class AdapterViewUtil {
      *
      * @param absListView the ListView that should be examined
      * @param position    the position for which the {@code View} should be returned.
-     *
      * @return the {@code View}, or {@code null} if the position is not currently visible.
      */
     @Nullable
