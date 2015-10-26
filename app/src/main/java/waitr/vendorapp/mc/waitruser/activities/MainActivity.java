@@ -12,15 +12,18 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.FrameLayout;
+import android.widget.ImageView;
 import android.widget.Toast;
+
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.common.api.ResultCallback;
 import com.google.android.gms.common.api.Status;
 import com.google.android.gms.plus.Plus;
+import com.squareup.picasso.Picasso;
 
-import waitr.vendorapp.mc.waitruser.Fragments.CartFragment;
 import waitr.vendorapp.mc.waitruser.Fragments.MenuFragment;
+import waitr.vendorapp.mc.waitruser.Helpers.CircleTransform;
 import waitr.vendorapp.mc.waitruser.R;
 
 public class MainActivity extends AppCompatActivity implements GoogleApiClient.ConnectionCallbacks,
@@ -43,6 +46,7 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.C
         mainFrame = (FrameLayout) findViewById(R.id.layout_main);
         navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setItemIconTintList(null);
+        ImageView header = (ImageView) findViewById(R.id.headerDrawer);
         buildGoogleApiClient();
         FragmentManager fragmentManager = getSupportFragmentManager();
         fragmentManager.beginTransaction()
@@ -51,6 +55,10 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.C
         personName = receivedIntent.getStringExtra("name");
         personId = receivedIntent.getStringExtra("id");
         displayPic = receivedIntent.getStringExtra("photo");    //url for dp
+
+        if(displayPic != null){
+            Picasso.with(this).load(displayPic).transform(new CircleTransform()).into(header);
+        }
 
     }
     @Override
@@ -165,10 +173,10 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.C
                                 break;
 
                             case R.id.nav_settings:
-                            case R.id.nav_cart:
-                                fragmentManager.beginTransaction()
-                                        .replace(R.id.content_frame, new CartFragment()).commit();
-                                getSupportActionBar().setTitle(R.string.cart_items);
+//                            case R.id.nav_cart:
+//                                fragmentManager.beginTransaction()
+//                                        .replace(R.id.content_frame, new CartFragment()).commit();
+//                                getSupportActionBar().setTitle(R.string.cart_items);
                                 break;
                             case R.id.nav_sign_out: logOut();
                                 break;

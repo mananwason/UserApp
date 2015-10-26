@@ -1,5 +1,6 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
     tools:context="waitr.vendorapp.mc.waitruser.activities.SignOut">
@@ -11,7 +12,9 @@
         android:layout_height="?attr/actionBarSize"
         android:title="@string/abc_search_hint" />
 
-    <TextView android:layout_width="match_parent" android:layout_height="match_parent"
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
         android:gravity="center"
         android:text="@string/sign_out" />
 

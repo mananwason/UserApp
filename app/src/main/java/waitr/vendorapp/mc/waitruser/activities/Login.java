@@ -2,13 +2,12 @@ package waitr.vendorapp.mc.waitruser.activities;
 
 import android.content.Intent;
 import android.content.IntentSender;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.Button;
 import android.widget.Toast;
 
 import com.google.android.gms.common.ConnectionResult;
@@ -26,11 +25,11 @@ import waitr.vendorapp.mc.waitruser.R;
 public class Login extends AppCompatActivity implements GoogleApiClient.ConnectionCallbacks,
         GoogleApiClient.OnConnectionFailedListener, View.OnClickListener{
 
+    private static final int RC_SIGN_IN = 0;
+    public static GoogleApiClient mGoogleApiClient;
     private boolean mIntentInProgress;
     private boolean mSignInClicked;
     private ConnectionResult mConnectionResult;
-    public static GoogleApiClient mGoogleApiClient;
-    private static final int RC_SIGN_IN = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -132,8 +131,11 @@ public class Login extends AppCompatActivity implements GoogleApiClient.Connecti
 //        }
 //        else {
             Person currentPerson = Plus.PeopleApi.getCurrentPerson(mGoogleApiClient);
-            String personName = currentPerson.getDisplayName();
-            String personPhoto = currentPerson.getImage().getUrl();
+            String personName=null,personPhoto=null;
+            if(currentPerson!=null) {
+                personName = currentPerson.getDisplayName();
+                personPhoto = currentPerson.getImage().getUrl();
+            }
             Intent mIntent = new Intent(Login.this,MainActivity.class);
             mIntent.putExtra("name",personName);
             mIntent.putExtra("id",id);

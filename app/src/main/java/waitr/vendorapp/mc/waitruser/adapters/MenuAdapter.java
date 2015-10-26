@@ -29,15 +29,6 @@ public class MenuAdapter extends ArrayAdapter<MenuItemObject> implements View.On
         mInflater = (LayoutInflater) context
                 .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
     }
-    private static class ViewHolder {
-        public ImageView foodImage;
-        public TextView foodName;
-        public TextView contents;
-        public TextView price;
-        public RatingBar rating;
-        public Button addToCartButton;
-        public ImageButton openItemButton;
-    }
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
@@ -89,5 +80,15 @@ public class MenuAdapter extends ArrayAdapter<MenuItemObject> implements View.On
             case R.id.openItemButton:break;
         }
 
+    }
+
+    private static class ViewHolder {
+        public ImageView foodImage;
+        public TextView foodName;
+        public TextView contents;
+        public TextView price;
+        public RatingBar rating;
+        public Button addToCartButton;
+        public ImageButton openItemButton;
     }
 }

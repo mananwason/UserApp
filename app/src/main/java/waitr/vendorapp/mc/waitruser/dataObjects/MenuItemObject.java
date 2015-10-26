@@ -26,53 +26,53 @@ public class MenuItemObject {
         this.id = id;
     }
 
-    public void setFoodImage(Bitmap foodImage) {
-        this.foodImage = foodImage;
-    }
-
-    public void setFoodName(String foodName) {
-        this.foodName = foodName;
-    }
-
-    public void setContents(String contents) {
-        this.contents = contents;
-    }
-
-    public void setPrice(double price) {
-        this.price = price;
-    }
-
-    public void setRating(double rating) {
-        this.rating = rating;
-    }
-
     public Bitmap getFoodImage() {
 
         return foodImage;
+    }
+
+    public void setFoodImage(Bitmap foodImage) {
+        this.foodImage = foodImage;
     }
 
     public String getFoodName() {
         return foodName;
     }
 
-    public void setQuantity(double qty){
-        this.quantity = qty;
+    public void setFoodName(String foodName) {
+        this.foodName = foodName;
     }
 
     public double getQuantity(){
         return quantity;
     }
 
+    public void setQuantity(double qty){
+        this.quantity = qty;
+    }
+
     public String getContents() {
         return contents;
+    }
+
+    public void setContents(String contents) {
+        this.contents = contents;
     }
 
     public double getPrice() {
         return price;
     }
 
+    public void setPrice(double price) {
+        this.price = price;
+    }
+
     public double getRating() {
         return rating;
+    }
+
+    public void setRating(double rating) {
+        this.rating = rating;
     }
 
     public int getID(){

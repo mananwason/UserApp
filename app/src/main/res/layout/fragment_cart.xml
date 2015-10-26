@@ -5,10 +5,12 @@
     android:id="@+id/frame_layout"
     xmlns:android="http://schemas.android.com/apk/res/android" >
 
-<LinearLayout
-    android:orientation="vertical" android:layout_width="match_parent"
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
     android:id="@+id/ll_cart"
-    android:layout_height="match_parent">
+    android:orientation="vertical">
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/list_tracks"
@@ -16,8 +18,7 @@
         android:layout_height="wrap_content"
         android:clipToPadding="false"
         android:paddingBottom="30dp"
-        android:scrollbars="vertical"/>
-
+        android:scrollbars="vertical" />
 
 </LinearLayout>
 </FrameLayout>
