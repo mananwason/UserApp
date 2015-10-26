@@ -22,6 +22,7 @@ import com.google.android.gms.common.api.Status;
 import com.google.android.gms.plus.Plus;
 import com.squareup.picasso.Picasso;
 
+import waitr.vendorapp.mc.waitruser.Fragments.CartFragment;
 import waitr.vendorapp.mc.waitruser.Fragments.MenuFragment;
 import waitr.vendorapp.mc.waitruser.Helpers.CircleTransform;
 import waitr.vendorapp.mc.waitruser.R;
@@ -126,6 +127,9 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.C
 
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_settings) {
+            getSupportFragmentManager().beginTransaction()
+                    .replace(R.id.content_frame, new CartFragment()).commit();
+            getSupportActionBar().setTitle(R.string.cart_items);
             return true;
         }
 
@@ -172,12 +176,8 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.C
                                 getSupportActionBar().setTitle(R.string.menu_items);
                                 break;
 
-                            case R.id.nav_settings:
-//                            case R.id.nav_cart:
-//                                fragmentManager.beginTransaction()
-//                                        .replace(R.id.content_frame, new CartFragment()).commit();
-//                                getSupportActionBar().setTitle(R.string.cart_items);
-                                break;
+
+                            case R.id.nav_settings:break;
                             case R.id.nav_sign_out: logOut();
                                 break;
 

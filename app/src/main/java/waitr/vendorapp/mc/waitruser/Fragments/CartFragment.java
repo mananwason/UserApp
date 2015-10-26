@@ -17,15 +17,24 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.FrameLayout;
-import android.widget.LinearLayout;
-import android.widget.TextView;
+import android.widget.Toast;
+
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+import java.util.Random;
 
 import waitr.vendorapp.mc.waitruser.R;
 import waitr.vendorapp.mc.waitruser.adapters.CartAdapter;
 import waitr.vendorapp.mc.waitruser.dataObjects.MenuItemObject;
+
+import com.paytm.pgsdk.PaytmClientCertificate;
+import com.paytm.pgsdk.PaytmMerchant;
+import com.paytm.pgsdk.PaytmOrder;
+import com.paytm.pgsdk.PaytmPGService;
+import com.paytm.pgsdk.PaytmPaymentTransactionCallback;
 
 public class CartFragment extends Fragment {
 
@@ -33,6 +42,8 @@ public class CartFragment extends Fragment {
         private CartAdapter cartAdapter;
         private List<MenuItemObject> list;
         private FrameLayout frameLayout;
+        private PaytmPGService Service = null;
+
 
         @Override
         public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -56,7 +67,55 @@ public class CartFragment extends Fragment {
                     .setAction("Proceed to payment", new View.OnClickListener() {
                         @Override
                         public void onClick(View v) {
+                            Service = PaytmPGService.getStagingService(); //for testing environment
+                            Map<String, String> paramMap = new HashMap<>();
+                            Random randomGenerator = new Random();
+                            String randomInt = String.valueOf(randomGenerator.nextInt(10000));
+                            //these are mandatory parameters
+                            paramMap.put("REQUEST_TYPE", "DEFAULT");
+                            paramMap.put("ORDER_ID", randomInt);
+                            paramMap.put("MID", "shopma19998593390567");
+                            paramMap.put("CUST_ID", "sid0893");
+                            paramMap.put("CHANNEL_ID", "WAP");
+                            paramMap.put("INDUSTRY_TYPE_ID", "Retail");
+                            paramMap.put("WEBSITE", "shpmteswap");
+                            paramMap.put("TXN_AMOUNT", String.valueOf(1311.9));
+                            paramMap.put("THEME", "merchant");
+                            PaytmOrder Order = new PaytmOrder(paramMap);
+                            PaytmMerchant Merchant = new PaytmMerchant("http://www.theshopmates.com/paytm/generate_checksum","http://www.theshopmates.com/paytm/verify_checksum");
+                            PaytmClientCertificate Certificate = null;
+                            Service.initialize(Order, Merchant, Certificate);
+                            Service.startPaymentTransaction(getContext(), true, true, new PaytmPaymentTransactionCallback() {
+                                @Override
+                                public void onTransactionSuccess(Bundle bundle) {
+                                    Toast.makeText(getContext(), "Success", Toast.LENGTH_SHORT).show();
+                                }
 
+                                @Override
+                                public void onTransactionFailure(String s, Bundle bundle) {
+                                    Toast.makeText(getContext(), "Failure", Toast.LENGTH_SHORT).show();
+                                }
+
+                                @Override
+                                public void networkNotAvailable() {
+                                    Toast.makeText(getContext(), "Nw unavailable", Toast.LENGTH_SHORT).show();
+                                }
+
+                                @Override
+                                public void clientAuthenticationFailed(String s) {
+                                    Toast.makeText(getContext(), "Client auth failed", Toast.LENGTH_SHORT).show();
+                                }
+
+                                @Override
+                                public void someUIErrorOccurred(String s) {
+
+                                }
+
+                                @Override
+                                public void onErrorLoadingWebPage(int i, String s, String s2) {
+
+                                }
+                            });
                         }
                     })
                     .setActionTextColor(Color.RED)

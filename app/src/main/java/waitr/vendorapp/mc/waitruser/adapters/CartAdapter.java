@@ -12,7 +12,6 @@ import android.view.ViewGroup;
 import android.widget.ImageButton;
 import android.widget.TextView;
 
-import java.util.Iterator;
 import java.util.List;
 
 import waitr.vendorapp.mc.waitruser.R;
