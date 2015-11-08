@@ -2,9 +2,7 @@ package waitr.vendorapp.mc.waitruser.activities;
 
 
 import android.content.Intent;
-
 import android.os.Bundle;
-
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 
@@ -23,12 +21,14 @@ public class SignOut extends AppCompatActivity {
         setContentView(R.layout.sign_out_activity);
         setUpToolbar();
     }
+
     private void setUpToolbar() {
         mToolbar = (Toolbar) findViewById(R.id.toolbar);
         if (mToolbar != null) {
             setSupportActionBar(mToolbar);
         }
     }
+
     @Override
     public void onBackPressed() {
         Intent intent = new Intent(Intent.ACTION_MAIN);

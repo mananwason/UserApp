@@ -26,7 +26,7 @@ import com.google.android.gms.plus.model.people.Person;
 import waitr.vendorapp.mc.waitruser.R;
 
 public class Login extends AppCompatActivity implements GoogleApiClient.ConnectionCallbacks,
-        GoogleApiClient.OnConnectionFailedListener, View.OnClickListener{
+        GoogleApiClient.OnConnectionFailedListener, View.OnClickListener {
 
     private static final int RC_SIGN_IN = 0;
     public static GoogleApiClient mGoogleApiClient;
@@ -80,8 +80,9 @@ public class Login extends AppCompatActivity implements GoogleApiClient.Connecti
 //                    });
         }
     }
+
     @Override
-    protected void onDestroy(){
+    protected void onDestroy() {
         super.onDestroy();
         if (mGoogleApiClient.isConnected()) {
             Plus.AccountApi.revokeAccessAndDisconnect(mGoogleApiClient)
@@ -95,6 +96,7 @@ public class Login extends AppCompatActivity implements GoogleApiClient.Connecti
         }
 
     }
+
     private void resolveSignInError() {
         if (mConnectionResult.hasResolution()) {
             try {
@@ -141,25 +143,25 @@ public class Login extends AppCompatActivity implements GoogleApiClient.Connecti
 //            Toast.makeText(Login.this, "Invalid account", Toast.LENGTH_SHORT).show();
 //        }
 //        else {
-            Person currentPerson = Plus.PeopleApi.getCurrentPerson(mGoogleApiClient);
-            String personName=null,personPhoto=null;
-            if(currentPerson!=null) {
-                personName = currentPerson.getDisplayName();
-                personPhoto = currentPerson.getImage().getUrl();
-            }
-            Intent mIntent = new Intent(Login.this,MainActivity.class);
-            mIntent.putExtra("name",personName);
-            mIntent.putExtra("id",id);
-            mIntent.putExtra("photo",personPhoto);
-            Toast.makeText(this, "Signed in as " + id+"\n"+personName+" "+personPhoto, Toast.LENGTH_SHORT).show();
-            startActivity(mIntent);
+        Person currentPerson = Plus.PeopleApi.getCurrentPerson(mGoogleApiClient);
+        String personName = null, personPhoto = null;
+        if (currentPerson != null) {
+            personName = currentPerson.getDisplayName();
+            personPhoto = currentPerson.getImage().getUrl();
+        }
+        Intent mIntent = new Intent(Login.this, MainActivity.class);
+        mIntent.putExtra("name", personName);
+        mIntent.putExtra("id", id);
+        mIntent.putExtra("photo", personPhoto);
+        Toast.makeText(this, "Signed in as " + id + "\n" + personName + " " + personPhoto, Toast.LENGTH_SHORT).show();
+        startActivity(mIntent);
 //        }
     }
 
     @Override
     public void onConnectionSuspended(int i) {
 
-        Toast.makeText(this,"Connection Suspended",Toast.LENGTH_SHORT).show();
+        Toast.makeText(this, "Connection Suspended", Toast.LENGTH_SHORT).show();
         mGoogleApiClient.connect();
     }
 
@@ -176,6 +178,7 @@ public class Login extends AppCompatActivity implements GoogleApiClient.Connecti
         else
             Toast.makeText(this,"Network Not available",Toast.LENGTH_SHORT).show();
     }
+
     @Override
     protected void onActivityResult(int requestCode, int responseCode,
                                     Intent intent) {

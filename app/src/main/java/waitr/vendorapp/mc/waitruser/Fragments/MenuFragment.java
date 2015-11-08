@@ -4,7 +4,6 @@ import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.util.TypedValue;
@@ -43,7 +42,10 @@ public class MenuFragment extends Fragment {
         MenuItemObject m3 = new MenuItemObject(bitmap, "Item 3", "contents", 111, 3.5, 3);
         MenuItemObject m4 = new MenuItemObject(bitmap, "Item 4", "contents", 1000, 3.5, 4);
         List<MenuItemObject> list = new ArrayList<>();
-        list.add(m1);list.add(m2);list.add(m3);list.add(m4);
+        list.add(m1);
+        list.add(m2);
+        list.add(m3);
+        list.add(m4);
         menuAdapter = new MenuAdapter(getContext(), list);
 //        SwingBottomInAnimationAdapter swingBottomInAnimationAdapter = new SwingBottomInAnimationAdapter(
 //                new SwipeDismissAdapter(menuAdapter, this));

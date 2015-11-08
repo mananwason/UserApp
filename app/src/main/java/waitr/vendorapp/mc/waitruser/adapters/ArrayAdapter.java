@@ -19,7 +19,6 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.widget.BaseAdapter;
 
-
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
@@ -87,7 +86,6 @@ public abstract class ArrayAdapter<T> extends BaseAdapter implements Swappable, 
      * Appends the specified element to the end of the {@code List}.
      *
      * @param object the object to add.
-     *
      * @return always true.
      */
     public boolean add(@NonNull final T object) {
@@ -106,7 +104,6 @@ public abstract class ArrayAdapter<T> extends BaseAdapter implements Swappable, 
      * Adds the objects in the specified collection to the end of this List. The objects are added in the order in which they are returned from the collection's iterator.
      *
      * @param collection the collection of objects.
-     *
      * @return {@code true} if this {@code List} is modified, {@code false} otherwise.
      */
     public boolean addAll(@NonNull final Collection<? extends T> collection) {
