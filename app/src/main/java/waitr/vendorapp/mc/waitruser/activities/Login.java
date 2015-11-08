@@ -1,7 +1,10 @@
 package waitr.vendorapp.mc.waitruser.activities;
 
+import android.content.Context;
 import android.content.Intent;
 import android.content.IntentSender;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
@@ -50,7 +53,15 @@ public class Login extends AppCompatActivity implements GoogleApiClient.Connecti
     @Override
     protected void onStart() {
         super.onStart();
-        mGoogleApiClient.connect();
+//        if(isNetworkAvailable())
+             mGoogleApiClient.connect();
+    }
+
+    private boolean isNetworkAvailable() {
+        ConnectivityManager connectivityManager
+                = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkInfo activeNetworkInfo = connectivityManager.getActiveNetworkInfo();
+        return activeNetworkInfo != null && activeNetworkInfo.isConnected();
     }
 
     @Override
@@ -155,11 +166,15 @@ public class Login extends AppCompatActivity implements GoogleApiClient.Connecti
     @Override
     public void onClick(View v) {
 
-        if (!mGoogleApiClient.isConnecting()) {
-            mSignInClicked = true;
-            resolveSignInError();
+        if(isNetworkAvailable()) {
+            if (!mGoogleApiClient.isConnecting()) {
+                mSignInClicked = true;
+                resolveSignInError();
 
+            }
         }
+        else
+            Toast.makeText(this,"Network Not available",Toast.LENGTH_SHORT).show();
     }
     @Override
     protected void onActivityResult(int requestCode, int responseCode,
