@@ -34,8 +34,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:layout_gravity="start"
-                android:background="@drawable/nav_background1"
-                android:backgroundTint="@android:color/transparent"
+                android:background="@drawable/nav_back2"
+
                 android:fitsSystemWindows="true"
                 app:headerLayout="@layout/nav_header"
                 app:itemTextColor="@android:color/background_light"
