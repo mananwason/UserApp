@@ -1,0 +1,139 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginEnd="5dp"
+
+    android:layout_marginStart="5dp"
+    android:layout_marginTop="2dp"
+    android:orientation="vertical"
+    android:padding="5dp"
+
+    >
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/google_cards_background_top"
+        android:layout_marginBottom="5dp"
+        android:elevation="5dp"
+       >
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Vendor"
+            style="?android:textAppearanceMedium"
+            android:id="@+id/textView"
+            android:layout_marginLeft="43dp"
+            android:layout_marginStart="43dp"
+            android:layout_marginTop="5dp"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:hint="Vendor Name"
+            android:id="@+id/vendorNameTextview"
+            android:layout_above="@+id/textView2"
+            android:layout_toRightOf="@+id/textView3"
+            android:layout_toEndOf="@+id/textView3"
+            android:layout_marginLeft="43dp"
+            android:layout_marginStart="43dp" />
+
+        <TextView
+            style="?android:textAppearanceMedium"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Order ID"
+            android:id="@+id/textView2"
+            android:layout_below="@+id/textView"
+            android:layout_alignLeft="@+id/textView"
+            android:layout_alignStart="@+id/textView"
+            android:layout_marginTop="7dp" />
+
+        <ImageButton
+            android:id="@+id/viewOrderDetailsButton"
+            android:layout_width="25dp"
+            android:layout_height="25dp"
+            android:background="@drawable/next"
+            android:layout_gravity="right"
+            android:layout_below="@+id/textView2"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentEnd="true" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:hint="Order ID"
+            android:id="@+id/orderIdTextview"
+            android:layout_alignBottom="@+id/textView2"
+            android:layout_alignLeft="@+id/vendorNameTextview"
+            android:layout_alignStart="@+id/vendorNameTextview" />
+
+        <TextView
+            style="?android:textAppearanceMedium"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Date Of Order"
+            android:id="@+id/textView3"
+            android:layout_below="@+id/textView2"
+            android:layout_marginTop="7dp"
+            android:layout_alignLeft="@+id/textView2"
+            android:layout_alignStart="@+id/textView2" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:hint="Date Of Order"
+            android:id="@+id/dateTextView"
+            android:layout_alignBottom="@+id/textView3"
+            android:layout_alignLeft="@+id/orderIdTextview"
+            android:layout_alignStart="@+id/orderIdTextview" />
+
+        <TextView
+            style="?android:textAppearanceMedium"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Time"
+            android:id="@+id/textView4"
+            android:layout_marginTop="7dp"
+            android:layout_below="@+id/textView3"
+            android:layout_alignLeft="@+id/textView3"
+            android:layout_alignStart="@+id/textView3" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:hint="Time"
+            android:id="@+id/timeTextview"
+            android:layout_alignBottom="@+id/textView4"
+            android:layout_alignLeft="@+id/dateTextView"
+            android:layout_alignStart="@+id/dateTextView" />
+
+        <TextView
+            style="?android:textAppearanceMedium"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Total Cost"
+            android:id="@+id/textView6"
+            android:layout_below="@+id/textView4"
+            android:layout_alignLeft="@+id/textView4"
+            android:layout_alignStart="@+id/textView4"
+            android:layout_marginTop="7dp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:hint="Cost"
+            android:id="@+id/costTextView"
+            android:layout_alignBottom="@+id/textView6"
+            android:layout_alignLeft="@+id/timeTextview"
+            android:layout_alignStart="@+id/timeTextview" />
+
+
+    </RelativeLayout>
+
+
+</LinearLayout>

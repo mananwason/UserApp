@@ -4,6 +4,7 @@ package waitr.vendorapp.mc.waitruser.adapters;
  * Created by siddharth on 10/26/15.
  */
 
+import android.content.Context;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -12,21 +13,22 @@ import android.view.ViewGroup;
 import android.widget.ImageButton;
 import android.widget.TextView;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import waitr.vendorapp.mc.waitruser.R;
 import waitr.vendorapp.mc.waitruser.dataObjects.MenuItemObject;
 
-/**
- * Created by MananWason on 8/18/2015.
- */
+
 public class CartAdapter extends RecyclerView.Adapter<CartAdapter.Viewholder> implements View.OnClickListener {
 
-    List<MenuItemObject> menuitem;
+    ArrayList<MenuItemObject> menuitem;
+    private static Context sContext;
 
 
-    public CartAdapter(List<MenuItemObject> menuItem) {
+    public CartAdapter(ArrayList<MenuItemObject> menuItem,Context context) {
         this.menuitem = menuItem;
+        sContext = context;
     }
 
     @Override
@@ -52,7 +54,7 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.Viewholder> im
         return menuitem.size();
     }
 
-    public void refresh() {
+   /* public void refresh() {
 
         notifyDataSetChanged();
 
@@ -92,11 +94,7 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.Viewholder> im
         }
     }
 
-    public MenuItemObject removeItem(int position) {
-        final MenuItemObject mMenuItemObject = menuitem.remove(position);
-        notifyItemRemoved(position);
-        return mMenuItemObject;
-    }
+
 
     public void addItem(int position, MenuItemObject MenuItemObject) {
         menuitem.add(position, MenuItemObject);
@@ -108,7 +106,12 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.Viewholder> im
         menuitem.add(toPosition, location);
         notifyItemMoved(fromPosition, toPosition);
     }
-
+*/
+   public MenuItemObject removeItem(int position) {
+       final MenuItemObject mMenuItemObject = menuitem.remove(position);
+       notifyItemRemoved(position);
+       return mMenuItemObject;
+   }
     @Override
     public void onClick(View v) {
         ViewGroup parent = (ViewGroup) v.getParent().getParent();

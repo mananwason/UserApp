@@ -24,6 +24,7 @@ import com.squareup.picasso.Picasso;
 
 import waitr.vendorapp.mc.waitruser.Fragments.CartFragment;
 import waitr.vendorapp.mc.waitruser.Fragments.MenuFragment;
+import waitr.vendorapp.mc.waitruser.Fragments.PendingOrderFragment;
 import waitr.vendorapp.mc.waitruser.Helpers.CircleTransform;
 import waitr.vendorapp.mc.waitruser.R;
 
@@ -178,9 +179,13 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.C
                             case R.id.nav_menu:
                                 fragmentManager.beginTransaction()
                                         .replace(R.id.content_frame, new MenuFragment()).commit();
-                                getSupportActionBar().setTitle(R.string.menu_items);
+                                getSupportActionBar().setTitle(R.string.app_name);
                                 break;
 
+                            case R.id.nav_pending_orders : fragmentManager.beginTransaction().replace(
+                                    R.id.content_frame,new PendingOrderFragment()).commit();
+                                getSupportActionBar().setTitle(R.string.pending_orders);
+                                break;
 
                             case R.id.nav_settings:
                                 break;

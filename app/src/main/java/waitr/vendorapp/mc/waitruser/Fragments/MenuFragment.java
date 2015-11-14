@@ -13,17 +13,16 @@ import android.view.ViewGroup;
 import android.widget.ListView;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import waitr.vendorapp.mc.waitruser.R;
 import waitr.vendorapp.mc.waitruser.adapters.MenuAdapter;
 import waitr.vendorapp.mc.waitruser.dataObjects.MenuItemObject;
-//import waitr.vendorapp.mc.waitruser.listview.appearance.simple.SwingBottomInAnimationAdapter;
-//import waitr.vendorapp.mc.waitruser.listview.itemmanipulation.swipedismiss.OnDismissCallback;
-//import waitr.vendorapp.mc.waitruser.listview.itemmanipulation.swipedismiss.SwipeDismissAdapter;
+
 
 /**
- * Created by Manan Wason on 23/10/15.
+ * Created by siddharth on 23/10/15.
  */
 public class MenuFragment extends Fragment {
     private static final int INITIAL_DELAY_MILLIS = 300;
@@ -46,9 +45,8 @@ public class MenuFragment extends Fragment {
         list.add(m2);
         list.add(m3);
         list.add(m4);
+
         menuAdapter = new MenuAdapter(getContext(), list);
-//        SwingBottomInAnimationAdapter swingBottomInAnimationAdapter = new SwingBottomInAnimationAdapter(
-//                new SwipeDismissAdapter(menuAdapter, this));
         listView.setClipToPadding(false);
         listView.setDivider(null);
         Resources r = getResources();

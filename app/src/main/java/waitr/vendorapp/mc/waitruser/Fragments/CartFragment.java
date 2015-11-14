@@ -24,6 +24,7 @@ import com.paytm.pgsdk.PaytmPGService;
 import com.paytm.pgsdk.PaytmPaymentTransactionCallback;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -31,13 +32,15 @@ import java.util.Random;
 
 import waitr.vendorapp.mc.waitruser.R;
 import waitr.vendorapp.mc.waitruser.adapters.CartAdapter;
+import waitr.vendorapp.mc.waitruser.adapters.OrderAdapter;
 import waitr.vendorapp.mc.waitruser.dataObjects.MenuItemObject;
+import waitr.vendorapp.mc.waitruser.dataObjects.OrderObject;
 
 public class CartFragment extends Fragment {
 
     private RecyclerView tracksRecyclerView;
     private CartAdapter cartAdapter;
-    private List<MenuItemObject> list;
+    private ArrayList<MenuItemObject> list;
     private FrameLayout frameLayout;
     private PaytmPGService Service = null;
 
@@ -58,8 +61,9 @@ public class CartFragment extends Fragment {
         list.add(m2);
         list.add(m3);
         list.add(m4);
-        cartAdapter = new CartAdapter(list);
+        cartAdapter = new CartAdapter(list, getContext());
         tracksRecyclerView.setAdapter(cartAdapter);
+
         tracksRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false));
         Snackbar.make(frameLayout,
                 "Total price: " + 1311.9,
@@ -122,18 +126,5 @@ public class CartFragment extends Fragment {
                 .show();
         return view;
     }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-
-        return super.onOptionsItemSelected(item);
-    }
-
-    @Override
-    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
-        menu.clear();
-
-    }
-
 
 }

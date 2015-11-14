@@ -28,7 +28,6 @@ public class MenuItemObject {
     }
 
     public Bitmap getFoodImage() {
-
         return foodImage;
     }
 
