@@ -13,12 +13,11 @@ import android.view.ViewGroup;
 import android.widget.ListView;
 
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 import waitr.vendorapp.mc.waitruser.R;
 import waitr.vendorapp.mc.waitruser.adapters.MenuAdapter;
-import waitr.vendorapp.mc.waitruser.dataObjects.MenuItemObject;
+import waitr.vendorapp.mc.waitruser.dataObjects.Item;
 
 
 /**
@@ -36,11 +35,11 @@ public class MenuFragment extends Fragment {
         ListView listView = (ListView) rootView.findViewById(R.id.list_view);
 
         Bitmap bitmap = BitmapFactory.decodeResource(getResources(), R.drawable.icon_menu);
-        MenuItemObject m1 = new MenuItemObject(bitmap, "Item 1", "contents", 100, 3.5, 1);
-        MenuItemObject m2 = new MenuItemObject(bitmap, "Item 2", "contents", 100.9, 3.5, 2);
-        MenuItemObject m3 = new MenuItemObject(bitmap, "Item 3", "contents", 111, 3.5, 3);
-        MenuItemObject m4 = new MenuItemObject(bitmap, "Item 4", "contents", 1000, 3.5, 4);
-        List<MenuItemObject> list = new ArrayList<>();
+        Item m1 = new Item(bitmap, "Item 1", "contents", 100, 3.5, 1);
+        Item m2 = new Item(bitmap, "Item 2", "contents", 100.9, 3.5, 2);
+        Item m3 = new Item(bitmap, "Item 3", "contents", 111, 3.5, 3);
+        Item m4 = new Item(bitmap, "Item 4", "contents", 1000, 3.5, 4);
+        List<Item> list = new ArrayList<>();
         list.add(m1);
         list.add(m2);
         list.add(m3);

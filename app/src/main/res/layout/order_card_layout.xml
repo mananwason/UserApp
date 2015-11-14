@@ -14,163 +14,163 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@drawable/google_cards_background_top"
         android:layout_marginBottom="5dp"
-        android:elevation="5dp"
-       >
+        android:background="@drawable/google_cards_background_top"
+        android:elevation="5dp">
+
         <TextView
+            android:id="@+id/textView"
+            style="?android:textAppearanceMedium"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Vendor"
-            style="?android:textAppearanceMedium"
-            android:id="@+id/textView"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentTop="true"
             android:layout_marginLeft="43dp"
             android:layout_marginStart="43dp"
             android:layout_marginTop="5dp"
-            android:layout_alignParentTop="true"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentStart="true" />
+            android:text="Vendor" />
 
         <TextView
+            android:id="@+id/vendorNameTextview"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:hint="Vendor Name"
-            android:id="@+id/vendorNameTextview"
             android:layout_above="@+id/textView2"
-            android:layout_toRightOf="@+id/textView3"
-            android:layout_toEndOf="@+id/textView3"
             android:layout_marginLeft="43dp"
-            android:layout_marginStart="43dp" />
+            android:layout_marginStart="43dp"
+            android:layout_toEndOf="@+id/textView3"
+            android:layout_toRightOf="@+id/textView3"
+            android:hint="Vendor Name" />
 
         <TextView
+            android:id="@+id/textView2"
             style="?android:textAppearanceMedium"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Order ID"
-            android:id="@+id/textView2"
-            android:layout_below="@+id/textView"
             android:layout_alignLeft="@+id/textView"
             android:layout_alignStart="@+id/textView"
-            android:layout_marginTop="4dp" />
+            android:layout_below="@+id/textView"
+            android:layout_marginTop="4dp"
+            android:text="Order ID" />
 
         <ImageButton
             android:id="@+id/viewOrderDetailsButton"
             android:layout_width="25dp"
             android:layout_height="25dp"
-            android:background="@drawable/next"
-            android:layout_gravity="right"
-            android:layout_below="@+id/dateTextView"
+            android:layout_alignParentEnd="true"
             android:layout_alignParentRight="true"
-            android:layout_alignParentEnd="true" />
+            android:layout_below="@+id/dateTextView"
+            android:layout_gravity="right"
+            android:background="@drawable/next" />
 
         <TextView
+            android:id="@+id/orderIdTextview"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:hint="Order ID"
-            android:id="@+id/orderIdTextview"
             android:layout_alignBottom="@+id/textView2"
             android:layout_alignLeft="@+id/vendorNameTextview"
-            android:layout_alignStart="@+id/vendorNameTextview" />
+            android:layout_alignStart="@+id/vendorNameTextview"
+            android:hint="Order ID" />
 
         <TextView
+            android:id="@+id/textView3"
             style="?android:textAppearanceMedium"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Date Of Order"
-            android:id="@+id/textView3"
+            android:layout_alignLeft="@+id/textView2"
+            android:layout_alignStart="@+id/textView2"
             android:layout_below="@+id/textView2"
             android:layout_marginTop="4dp"
-            android:layout_alignLeft="@+id/textView2"
-            android:layout_alignStart="@+id/textView2" />
+            android:text="Date Of Order" />
 
         <TextView
+            android:id="@+id/dateTextView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:hint="Date Of Order"
-            android:id="@+id/dateTextView"
             android:layout_alignBottom="@+id/textView3"
             android:layout_alignLeft="@+id/orderIdTextview"
-            android:layout_alignStart="@+id/orderIdTextview" />
+            android:layout_alignStart="@+id/orderIdTextview"
+            android:hint="Date Of Order" />
 
         <TextView
+            android:id="@+id/textView4"
             style="?android:textAppearanceMedium"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Time"
-            android:id="@+id/textView4"
-            android:layout_marginTop="4dp"
-            android:layout_below="@+id/textView3"
             android:layout_alignLeft="@+id/textView3"
-            android:layout_alignStart="@+id/textView3" />
+            android:layout_alignStart="@+id/textView3"
+            android:layout_below="@+id/textView3"
+            android:layout_marginTop="4dp"
+            android:text="Time" />
 
         <TextView
+            android:id="@+id/timeTextview"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:hint="Time"
-            android:id="@+id/timeTextview"
             android:layout_alignBottom="@+id/textView4"
             android:layout_alignLeft="@+id/dateTextView"
-            android:layout_alignStart="@+id/dateTextView" />
+            android:layout_alignStart="@+id/dateTextView"
+            android:hint="Time" />
 
         <TextView
+            android:id="@+id/textView6"
             style="?android:textAppearanceMedium"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Total Cost"
-            android:id="@+id/textView6"
-            android:layout_below="@+id/textView4"
             android:layout_alignLeft="@+id/textView4"
             android:layout_alignStart="@+id/textView4"
-            android:layout_marginTop="4dp" />
+            android:layout_below="@+id/textView4"
+            android:layout_marginTop="4dp"
+            android:text="Total Cost" />
 
         <TextView
+            android:id="@+id/costTextView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:hint="Cost"
-            android:id="@+id/costTextView"
             android:layout_alignBottom="@+id/textView6"
             android:layout_alignLeft="@+id/timeTextview"
-            android:layout_alignStart="@+id/timeTextview" />
+            android:layout_alignStart="@+id/timeTextview"
+            android:hint="Cost" />
 
         <TextView
+            android:id="@+id/textView5"
             style="?android:textAppearanceMedium"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Order Status"
-            android:id="@+id/textView5"
-            android:layout_below="@+id/textView6"
             android:layout_alignLeft="@+id/textView6"
             android:layout_alignStart="@+id/textView6"
-            android:layout_marginTop="4dp" />
+            android:layout_below="@+id/textView6"
+            android:layout_marginTop="4dp"
+            android:text="Order Status" />
 
         <TextView
+            android:id="@+id/orderStatusTextView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:hint="Completed or not"
-            android:id="@+id/orderStatusTextView"
             android:layout_alignBottom="@+id/textView5"
             android:layout_alignLeft="@+id/costTextView"
-            android:layout_alignStart="@+id/costTextView" />
+            android:layout_alignStart="@+id/costTextView"
+            android:hint="Completed or not" />
 
         <TextView
+            android:id="@+id/textView7"
             style="?android:textAppearanceMedium"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Payment Status"
-            android:id="@+id/textView7"
-            android:layout_marginTop="4dp"
-            android:layout_below="@+id/textView5"
             android:layout_alignLeft="@+id/textView5"
-            android:layout_alignStart="@+id/textView5" />
+            android:layout_alignStart="@+id/textView5"
+            android:layout_below="@+id/textView5"
+            android:layout_marginTop="4dp"
+            android:text="Payment Status" />
 
         <TextView
+            android:id="@+id/paymentStatusTextview"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:hint="Paid or not"
-            android:id="@+id/paymentStatusTextview"
             android:layout_alignBottom="@+id/textView7"
             android:layout_alignLeft="@+id/orderStatusTextView"
-            android:layout_alignStart="@+id/orderStatusTextView" />
+            android:layout_alignStart="@+id/orderStatusTextView"
+            android:hint="Paid or not" />
 
 
     </RelativeLayout>

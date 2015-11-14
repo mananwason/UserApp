@@ -9,6 +9,7 @@ import waitr.vendorapp.mc.waitruser.api.processor.OrdersListResponseProcessor;
  */
 public class DataDownload {
     APIClient client = new APIClient();
+
     public void downloadItems() {
         client.getmApi().getItems(new ItemsListResponseProcessor());
     }

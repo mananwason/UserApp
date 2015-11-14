@@ -9,7 +9,7 @@ import retrofit.RetrofitError;
 import retrofit.client.Response;
 import waitr.vendorapp.mc.waitruser.Helpers.CommonTaskLoop;
 import waitr.vendorapp.mc.waitruser.api.protocol.OrdersResponseList;
-import waitr.vendorapp.mc.waitruser.dataObjects.OrderObject;
+import waitr.vendorapp.mc.waitruser.dataObjects.Order;
 
 /**
  * Created by Manan Wason on 15/11/15.
@@ -26,9 +26,9 @@ public class OrdersListResponseProcessor implements Callback<waitr.vendorapp.mc.
             public void run() {
                 ArrayList<String> queries = new ArrayList<String>();
 
-                for (OrderObject order : ordersResponseList.orders) {
+                for (Order order : ordersResponseList.orders) {
                     String query = order.generateSql();
-                    Log.d("retro", order.getOrderId()+"");
+                    Log.d("retro", order.getOrderId() + "");
                     queries.add(query);
                     Log.d(TAG, query);
                 }

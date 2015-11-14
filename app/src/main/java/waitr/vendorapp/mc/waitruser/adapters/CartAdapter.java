@@ -14,19 +14,18 @@ import android.widget.ImageButton;
 import android.widget.TextView;
 
 import java.util.ArrayList;
-import java.util.List;
 
 import waitr.vendorapp.mc.waitruser.R;
-import waitr.vendorapp.mc.waitruser.dataObjects.MenuItemObject;
+import waitr.vendorapp.mc.waitruser.dataObjects.Item;
 
 
 public class CartAdapter extends RecyclerView.Adapter<CartAdapter.Viewholder> implements View.OnClickListener {
 
-    ArrayList<MenuItemObject> menuitem;
     private static Context sContext;
+    ArrayList<Item> menuitem;
 
 
-    public CartAdapter(ArrayList<MenuItemObject> menuItem,Context context) {
+    public CartAdapter(ArrayList<Item> menuItem, Context context) {
         this.menuitem = menuItem;
         sContext = context;
     }
@@ -42,7 +41,7 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.Viewholder> im
 
     @Override
     public void onBindViewHolder(CartAdapter.Viewholder holder, int position) {
-        MenuItemObject current = menuitem.get(position);
+        Item current = menuitem.get(position);
         holder.name.setText(current.getFoodName());
         holder.price.setText("Price : " + current.getPrice());
         holder.itemId.setText(current.getID() + "");
@@ -54,71 +53,71 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.Viewholder> im
         return menuitem.size();
     }
 
-   /* public void refresh() {
+    /* public void refresh() {
 
-        notifyDataSetChanged();
+         notifyDataSetChanged();
 
+     }
+
+     public void animateTo(List<Item> menuitem) {
+         applyAndAnimateRemovals(menuitem);
+         applyAndAnimateAdditions(menuitem);
+         applyAndAnimateMovedItems(menuitem);
+     }
+
+     private void applyAndAnimateRemovals(List<Item> newMicrolocations) {
+         for (int i = menuitem.size() - 1; i >= 0; i--) {
+             final MenuItemObject microlocation = menuitem.get(i);
+             if (!newMicrolocations.contains(microlocation)) {
+                 removeItem(i);
+             }
+         }
+     }
+
+     private void applyAndAnimateAdditions(List<Item> newMicrolocations) {
+         for (int i = 0, count = newMicrolocations.size(); i < count; i++) {
+             final MenuItemObject microlocation = newMicrolocations.get(i);
+             if (!menuitem.contains(microlocation)) {
+                 addItem(i, microlocation);
+             }
+         }
+     }
+
+     private void applyAndAnimateMovedItems(List<Item> newMicrolocations) {
+         for (int toPosition = newMicrolocations.size() - 1; toPosition >= 0; toPosition--) {
+             final MenuItemObject microlocation = newMicrolocations.get(toPosition);
+             final int fromPosition = menuitem.indexOf(microlocation);
+             if (fromPosition >= 0 && fromPosition != toPosition) {
+                 moveItem(fromPosition, toPosition);
+             }
+         }
+     }
+
+
+
+     public void addItem(int position, Item item) {
+         menuitem.add(position, Item);
+         notifyItemInserted(position);
+     }
+
+     public void moveItem(int fromPosition, int toPosition) {
+         final Item location = menuitem.remove(fromPosition);
+         menuitem.add(toPosition, location);
+         notifyItemMoved(fromPosition, toPosition);
+     }
+ */
+    public Item removeItem(int position) {
+        final Item mMenuItemObject = menuitem.remove(position);
+        notifyItemRemoved(position);
+        return mMenuItemObject;
     }
 
-    public void animateTo(List<MenuItemObject> menuitem) {
-        applyAndAnimateRemovals(menuitem);
-        applyAndAnimateAdditions(menuitem);
-        applyAndAnimateMovedItems(menuitem);
-    }
-
-    private void applyAndAnimateRemovals(List<MenuItemObject> newMicrolocations) {
-        for (int i = menuitem.size() - 1; i >= 0; i--) {
-            final MenuItemObject microlocation = menuitem.get(i);
-            if (!newMicrolocations.contains(microlocation)) {
-                removeItem(i);
-            }
-        }
-    }
-
-    private void applyAndAnimateAdditions(List<MenuItemObject> newMicrolocations) {
-        for (int i = 0, count = newMicrolocations.size(); i < count; i++) {
-            final MenuItemObject microlocation = newMicrolocations.get(i);
-            if (!menuitem.contains(microlocation)) {
-                addItem(i, microlocation);
-            }
-        }
-    }
-
-    private void applyAndAnimateMovedItems(List<MenuItemObject> newMicrolocations) {
-        for (int toPosition = newMicrolocations.size() - 1; toPosition >= 0; toPosition--) {
-            final MenuItemObject microlocation = newMicrolocations.get(toPosition);
-            final int fromPosition = menuitem.indexOf(microlocation);
-            if (fromPosition >= 0 && fromPosition != toPosition) {
-                moveItem(fromPosition, toPosition);
-            }
-        }
-    }
-
-
-
-    public void addItem(int position, MenuItemObject MenuItemObject) {
-        menuitem.add(position, MenuItemObject);
-        notifyItemInserted(position);
-    }
-
-    public void moveItem(int fromPosition, int toPosition) {
-        final MenuItemObject location = menuitem.remove(fromPosition);
-        menuitem.add(toPosition, location);
-        notifyItemMoved(fromPosition, toPosition);
-    }
-*/
-   public MenuItemObject removeItem(int position) {
-       final MenuItemObject mMenuItemObject = menuitem.remove(position);
-       notifyItemRemoved(position);
-       return mMenuItemObject;
-   }
     @Override
     public void onClick(View v) {
         ViewGroup parent = (ViewGroup) v.getParent().getParent();
         int pid = Integer.parseInt(((TextView) parent.findViewById(R.id.itemId)).getText().toString());
         int pos = -1;
         Log.d("ABC", "PID : " + pid);
-//        Iterator<MenuItemObject> itr = menuitem.iterator();
         for (int i = 0; i < menuitem.size(); i++)
             if (menuitem.get(i).getID() == pid) {
                 pos = i;

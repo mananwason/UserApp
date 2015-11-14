@@ -14,17 +14,17 @@ import android.widget.TextView;
 import java.util.List;
 
 import waitr.vendorapp.mc.waitruser.R;
-import waitr.vendorapp.mc.waitruser.dataObjects.MenuItemObject;
+import waitr.vendorapp.mc.waitruser.dataObjects.Item;
 
 /**
  * Created by siddharth on 10/23/15.
  */
 
-public class MenuAdapter extends ArrayAdapter<MenuItemObject> implements View.OnClickListener {
+public class MenuAdapter extends ArrayAdapter<Item> implements View.OnClickListener {
 
     private LayoutInflater mInflater;
 
-    public MenuAdapter(Context context, List<MenuItemObject> items) {
+    public MenuAdapter(Context context, List<Item> items) {
         super(context, 0, items);
         mInflater = (LayoutInflater) context
                 .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
@@ -58,7 +58,7 @@ public class MenuAdapter extends ArrayAdapter<MenuItemObject> implements View.On
             holder = (ViewHolder) convertView.getTag();
         }
 
-        MenuItemObject item = getItem(position);
+        Item item = getItem(position);
 //        ImageUtil.displayRoundImage(holder.profileImage, item.getImageURL(),
 //                null);
 //        ImageUtil.displayImage(holder.image, item.getImageURL(), null);

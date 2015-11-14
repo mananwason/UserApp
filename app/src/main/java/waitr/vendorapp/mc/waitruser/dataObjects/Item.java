@@ -4,13 +4,11 @@ package waitr.vendorapp.mc.waitruser.dataObjects;
  * Created by siddharth on 10/24/15.
  */
 
-import android.graphics.Bitmap;
-
 /**
  * Created by siddharth on 10/23/15.
  */
-public class MenuItemObject {
-    private Bitmap foodImage;
+public class Item {
+    private String foodImage;
     private String foodName;
     private String contents;
     private double quantity;
@@ -18,7 +16,7 @@ public class MenuItemObject {
     private double rating;
     private int id;
 
-    public MenuItemObject(Bitmap foodImage, String foodName, String contents, double price, double rating, int id) {
+    public Item(int id, String foodName, String foodImage, String contents, double price, double rating) {
         this.foodImage = foodImage;
         this.foodName = foodName;
         this.contents = contents;
@@ -27,12 +25,20 @@ public class MenuItemObject {
         this.id = id;
     }
 
-    public Bitmap getFoodImage() {
+    public String getFoodImage() {
         return foodImage;
     }
 
-    public void setFoodImage(Bitmap foodImage) {
+    public void setFoodImage(String foodImage) {
         this.foodImage = foodImage;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 
     public String getFoodName() {
@@ -81,7 +87,7 @@ public class MenuItemObject {
 
     public String generateSql() {
         String query_normal = "INSERT INTO %s VALUES ('%d', %s, '%f', '%f', '%d');";
-      //TODO: FORMAT SQL QUERY
+        //TODO: FORMAT SQL QUERY
         return query_normal;
     }
 }

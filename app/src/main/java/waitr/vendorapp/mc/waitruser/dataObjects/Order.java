@@ -1,11 +1,9 @@
 package waitr.vendorapp.mc.waitruser.dataObjects;
 
-import java.util.Date;
-
 /**
  * Created by siddharth on 11/14/15.
  */
-public class OrderObject {
+public class Order {
 
     int orderId;
     int userId;
@@ -13,12 +11,12 @@ public class OrderObject {
     String vendorName;
     String userName;
     String itemIds;
-    Date dateOfOrder;
+    String dateOfOrder;
     double costOfOrder;
-    String isOrderCompleted;
-    String isPaymentMade;
+    Boolean isOrderCompleted;
+    Boolean isPaymentMade;
 
-    public OrderObject(int orderId, int userId, String name, String itemIds, Date dateOfOrder, double costOfOrder, String isOrderCompleted, String isPaymentMade) {
+    public Order(int orderId, int userId, String name, String itemIds, String dateOfOrder, double costOfOrder, Boolean isOrderCompleted, Boolean isPaymentMade) {
         this.orderId = orderId;
         this.userId = userId;
         this.userName = name;
@@ -49,6 +47,10 @@ public class OrderObject {
         return userName;
     }
 
+    public void setUserName(String userName) {
+        this.userName = userName;
+    }
+
     public void setName(String name) {
         this.userName = name;
     }
@@ -77,11 +79,11 @@ public class OrderObject {
         this.itemIds = itemIds;
     }
 
-    public Date getDateOfOrder() {
+    public String getDateOfOrder() {
         return dateOfOrder;
     }
 
-    public void setDateOfOrder(Date dateOfOrder) {
+    public void setDateOfOrder(String dateOfOrder) {
         this.dateOfOrder = dateOfOrder;
     }
 
@@ -93,19 +95,19 @@ public class OrderObject {
         this.costOfOrder = costOfOrder;
     }
 
-    public String isOrderCompleted() {
+    public Boolean getIsOrderCompleted() {
         return isOrderCompleted;
     }
 
-    public void setIsOrderCompleted(String isOrderCompleted) {
+    public void setIsOrderCompleted(Boolean isOrderCompleted) {
         this.isOrderCompleted = isOrderCompleted;
     }
 
-    public String isPaymentMade() {
+    public Boolean getIsPaymentMade() {
         return isPaymentMade;
     }
 
-    public void setIsPaymentMade(String isPaymentMade) {
+    public void setIsPaymentMade(Boolean isPaymentMade) {
         this.isPaymentMade = isPaymentMade;
     }
 

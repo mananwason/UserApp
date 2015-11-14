@@ -9,7 +9,7 @@ import retrofit.RetrofitError;
 import retrofit.client.Response;
 import waitr.vendorapp.mc.waitruser.Helpers.CommonTaskLoop;
 import waitr.vendorapp.mc.waitruser.api.protocol.ItemsResponseList;
-import waitr.vendorapp.mc.waitruser.dataObjects.MenuItemObject;
+import waitr.vendorapp.mc.waitruser.dataObjects.Item;
 
 /**
  * Created by MananWason on 14-11-2015.
@@ -26,15 +26,15 @@ public class ItemsListResponseProcessor implements Callback<ItemsResponseList> {
             public void run() {
                 ArrayList<String> queries = new ArrayList<String>();
 
-                for (MenuItemObject item : itemsResponseList.items) {
+                for (Item item : itemsResponseList.items) {
                     String query = item.generateSql();
-                    Log.d("retro", item.getID()+"");
+                    Log.d("retro", item.getID() + "");
                     queries.add(query);
                     Log.d(TAG, query);
                 }
 
                 //TODO: EXECUTE QUERIES IN THE DB
-            //TODO: ADD SUCCESS EVENT ON THE BUS
+                //TODO: ADD SUCCESS EVENT ON THE BUS
             }
         });
 

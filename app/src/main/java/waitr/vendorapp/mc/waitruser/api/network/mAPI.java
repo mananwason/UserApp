@@ -12,10 +12,10 @@ import waitr.vendorapp.mc.waitruser.api.protocol.OrdersResponseList;
 public interface mAPI {
 
     @GET("/items.json")
-    void getItems( Callback<ItemsResponseList> itemsResponseListCallback);
+    void getItems(Callback<ItemsResponseList> itemsResponseListCallback);
 
     @GET("/orders.json")
-    void getOrders( Callback<OrdersResponseList> ordersResponseListCallback);
+    void getOrders(Callback<OrdersResponseList> ordersResponseListCallback);
 
     //TODO: ADD GET REQUESTS HERE
 }

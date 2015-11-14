@@ -54,7 +54,7 @@ public class Login extends AppCompatActivity implements GoogleApiClient.Connecti
     protected void onStart() {
         super.onStart();
 //        if(isNetworkAvailable())
-             mGoogleApiClient.connect();
+        mGoogleApiClient.connect();
     }
 
     private boolean isNetworkAvailable() {
@@ -168,15 +168,14 @@ public class Login extends AppCompatActivity implements GoogleApiClient.Connecti
     @Override
     public void onClick(View v) {
 
-        if(isNetworkAvailable()) {
+        if (isNetworkAvailable()) {
             if (!mGoogleApiClient.isConnecting()) {
                 mSignInClicked = true;
                 resolveSignInError();
 
             }
-        }
-        else
-            Toast.makeText(this,"Network Not available",Toast.LENGTH_SHORT).show();
+        } else
+            Toast.makeText(this, "Network Not available", Toast.LENGTH_SHORT).show();
     }
 
     @Override

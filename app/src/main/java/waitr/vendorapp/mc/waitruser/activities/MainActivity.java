@@ -188,12 +188,14 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.C
                                 getSupportActionBar().setTitle(R.string.app_name);
                                 break;
 
-                            case R.id.nav_pending_orders : fragmentManager.beginTransaction().replace(
-                                    R.id.content_frame,new PendingOrderFragment()).commit();
+                            case R.id.nav_pending_orders:
+                                fragmentManager.beginTransaction().replace(
+                                        R.id.content_frame, new PendingOrderFragment()).commit();
                                 getSupportActionBar().setTitle(R.string.pending_orders);
                                 break;
-                            case R.id.nav_past_orders : fragmentManager.beginTransaction().replace(
-                                    R.id.content_frame,new CompletedOrderFragment()).commit();
+                            case R.id.nav_past_orders:
+                                fragmentManager.beginTransaction().replace(
+                                        R.id.content_frame, new CompletedOrderFragment()).commit();
                                 getSupportActionBar().setTitle(R.string.past_orders);
                                 break;
                             case R.id.nav_settings:

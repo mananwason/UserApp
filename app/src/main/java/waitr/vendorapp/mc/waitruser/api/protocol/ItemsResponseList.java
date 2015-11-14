@@ -4,12 +4,12 @@ import com.google.gson.annotations.SerializedName;
 
 import java.util.List;
 
-import waitr.vendorapp.mc.waitruser.dataObjects.MenuItemObject;
+import waitr.vendorapp.mc.waitruser.dataObjects.Item;
 
 /**
  * Created by MananWason on 14-11-2015.
  */
 public class ItemsResponseList {
     @SerializedName("items")
-    public List<MenuItemObject> items;
+    public List<Item> items;
 }

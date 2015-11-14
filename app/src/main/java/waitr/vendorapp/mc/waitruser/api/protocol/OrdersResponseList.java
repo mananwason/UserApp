@@ -4,12 +4,12 @@ import com.google.gson.annotations.SerializedName;
 
 import java.util.List;
 
-import waitr.vendorapp.mc.waitruser.dataObjects.OrderObject;
+import waitr.vendorapp.mc.waitruser.dataObjects.Order;
 
 /**
  * Created by Manan Wason on 15/11/15.
  */
 public class OrdersResponseList {
     @SerializedName("orders")
-    public List<OrderObject> orders;
+    public List<Order> orders;
 }

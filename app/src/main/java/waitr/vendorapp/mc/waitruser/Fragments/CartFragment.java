@@ -9,9 +9,6 @@ import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
-import android.view.Menu;
-import android.view.MenuInflater;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.FrameLayout;
@@ -24,23 +21,19 @@ import com.paytm.pgsdk.PaytmPGService;
 import com.paytm.pgsdk.PaytmPaymentTransactionCallback;
 
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 import java.util.Random;
 
 import waitr.vendorapp.mc.waitruser.R;
 import waitr.vendorapp.mc.waitruser.adapters.CartAdapter;
-import waitr.vendorapp.mc.waitruser.adapters.OrderAdapter;
-import waitr.vendorapp.mc.waitruser.dataObjects.MenuItemObject;
-import waitr.vendorapp.mc.waitruser.dataObjects.OrderObject;
+import waitr.vendorapp.mc.waitruser.dataObjects.Item;
 
 public class CartFragment extends Fragment {
 
     private RecyclerView tracksRecyclerView;
     private CartAdapter cartAdapter;
-    private ArrayList<MenuItemObject> list;
+    private ArrayList<Item> list;
     private FrameLayout frameLayout;
     private PaytmPGService Service = null;
 
@@ -51,10 +44,10 @@ public class CartFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_cart, container, false);
         tracksRecyclerView = (RecyclerView) view.findViewById(R.id.list_tracks);
         Bitmap bitmap = BitmapFactory.decodeResource(getResources(), R.drawable.icon_menu);
-        MenuItemObject m1 = new MenuItemObject(bitmap, "Item 1", "contents", 100, 3.5, 1);
-        MenuItemObject m2 = new MenuItemObject(bitmap, "Item 2", "contents", 100.9, 3.5, 2);
-        MenuItemObject m3 = new MenuItemObject(bitmap, "Item 3", "contents", 111, 3.5, 3);
-        MenuItemObject m4 = new MenuItemObject(bitmap, "Item 4", "contents", 1000, 3.5, 4);
+        Item m1 = new Item(bitmap, "Item 1", "contents", 100, 3.5, 1);
+        Item m2 = new Item(bitmap, "Item 2", "contents", 100.9, 3.5, 2);
+        Item m3 = new Item(bitmap, "Item 3", "contents", 111, 3.5, 3);
+        Item m4 = new Item(bitmap, "Item 4", "contents", 1000, 3.5, 4);
         frameLayout = (FrameLayout) view.findViewById(R.id.frame_layout);
         list = new ArrayList<>();
         list.add(m1);

@@ -15,17 +15,15 @@ import java.util.Date;
 
 import waitr.vendorapp.mc.waitruser.R;
 import waitr.vendorapp.mc.waitruser.adapters.OrderAdapter;
-import waitr.vendorapp.mc.waitruser.dataObjects.OrderObject;
-
+import waitr.vendorapp.mc.waitruser.dataObjects.Order;
 
 
 public class PendingOrderFragment extends Fragment {
 
     private RecyclerView tracksRecyclerView;
     private OrderAdapter orderAdapter;
-    private ArrayList<OrderObject> myList;
+    private ArrayList<Order> myList;
     private FrameLayout frameLayout;
-
 
 
     @Override
@@ -36,11 +34,11 @@ public class PendingOrderFragment extends Fragment {
         View rootView = inflater.inflate(R.layout.fragment_pending_order, container, false);
         tracksRecyclerView = (RecyclerView) rootView.findViewById(R.id.list_tracks);
         frameLayout = (FrameLayout) rootView.findViewById(R.id.frame_layout);
-        OrderObject m1 = new OrderObject(1,1,"sid","1,2,3",new Date(2015,10,12),10,"in process","paid");
-        OrderObject m2 = new OrderObject(1,1,"sid","1,2,3",new Date(2015,10,12),10,"in process","paid");
-        OrderObject m3 = new OrderObject(1,1,"sid","1,2,3",new Date(2015,10,12),10,"in process","paid");
-        OrderObject m4 = new OrderObject(1,1,"sid","1,2,3",new Date(2015,10,12),10,"in process","paid");
-        OrderObject m5 = new OrderObject(1,1,"sid","1,2,3",new Date(2015,10,12),10,"in process","paid");
+        Order m1 = new Order(1, 1, "sid", "1,2,3", new Date(2015, 10, 12), 10, "in process", "paid");
+        Order m2 = new Order(1, 1, "sid", "1,2,3", new Date(2015, 10, 12), 10, "in process", "paid");
+        Order m3 = new Order(1, 1, "sid", "1,2,3", new Date(2015, 10, 12), 10, "in process", "paid");
+        Order m4 = new Order(1, 1, "sid", "1,2,3", new Date(2015, 10, 12), 10, "in process", "paid");
+        Order m5 = new Order(1, 1, "sid", "1,2,3", new Date(2015, 10, 12), 10, "in process", "paid");
         myList = new ArrayList<>();
         myList.add(m1);
         myList.add(m2);
@@ -53,8 +51,6 @@ public class PendingOrderFragment extends Fragment {
 
         return rootView;
     }
-
-
 
 
 }
