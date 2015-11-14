@@ -30,7 +30,7 @@
 
         <activity
             android:name=".activities.SignOut"
-            android:label="@string/sign_out_screen"></activity>
+            android:label="@string/sign_out_screen"/>
         <activity
             android:name="com.paytm.pgsdk.PaytmPGActivity"
             android:screenOrientation="portrait"

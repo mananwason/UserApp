@@ -22,6 +22,7 @@ import com.google.android.gms.common.api.Status;
 import com.google.android.gms.plus.Plus;
 import com.squareup.picasso.Picasso;
 
+import waitr.vendorapp.mc.waitruser.DbUtils.DataDownload;
 import waitr.vendorapp.mc.waitruser.Fragments.CartFragment;
 import waitr.vendorapp.mc.waitruser.Fragments.CompletedOrderFragment;
 import waitr.vendorapp.mc.waitruser.Fragments.MenuFragment;
@@ -44,6 +45,9 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.C
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        DataDownload download = new DataDownload();
+        download.downloadItems();
+
         setUpToolbar();
         setUpNavDrawer();
         mainFrame = (FrameLayout) findViewById(R.id.layout_main);

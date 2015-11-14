@@ -79,4 +79,9 @@ public class MenuItemObject {
         return id;
     }
 
+    public String generateSql() {
+        String query_normal = "INSERT INTO %s VALUES ('%d', %s, '%f', '%f', '%d');";
+      //TODO: FORMAT SQL QUERY
+        return query_normal;
+    }
 }
