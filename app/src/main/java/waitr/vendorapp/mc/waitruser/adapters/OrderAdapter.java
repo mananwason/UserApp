@@ -29,6 +29,8 @@ public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.Viewholder> 
         TextView cost;
         TextView dateOfOrder;
         TextView timeOfOrder;
+        TextView orderStatus;
+        TextView paymentStatus;
         ImageButton viewOrderDetailsButton;
 
         public Viewholder(View itemView) {
@@ -40,6 +42,8 @@ public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.Viewholder> 
             dateOfOrder = (TextView) itemView.findViewById(R.id.dateTextView);
             timeOfOrder = (TextView) itemView.findViewById(R.id.timeTextview);
             viewOrderDetailsButton = (ImageButton)itemView.findViewById(R.id.viewOrderDetailsButton);
+            orderStatus = (TextView)itemView.findViewById(R.id.orderStatusTextView);
+            paymentStatus = (TextView)itemView.findViewById(R.id.paymentStatusTextview);
             viewOrderDetailsButton.setOnClickListener(OrderAdapter.this);
 //            removeItem.setClickable(true);
 
@@ -66,6 +70,8 @@ public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.Viewholder> 
 //        holder.dateOfOrder.setText(mOrderObject.getDateOfOrder());
 //        holder.timeOfOrder.setText(mOrderObject.getDateOfOrder().);
         holder.cost.setText(mOrderObject.getCostOfOrder()+"");
+        holder.orderStatus.setText(mOrderObject.isOrderCompleted());
+        holder.paymentStatus.setText(mOrderObject.isPaymentMade());
     }
 
     @Override

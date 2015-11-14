@@ -23,6 +23,7 @@ import com.google.android.gms.plus.Plus;
 import com.squareup.picasso.Picasso;
 
 import waitr.vendorapp.mc.waitruser.Fragments.CartFragment;
+import waitr.vendorapp.mc.waitruser.Fragments.CompletedOrderFragment;
 import waitr.vendorapp.mc.waitruser.Fragments.MenuFragment;
 import waitr.vendorapp.mc.waitruser.Fragments.PendingOrderFragment;
 import waitr.vendorapp.mc.waitruser.Helpers.CircleTransform;
@@ -186,7 +187,10 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.C
                                     R.id.content_frame,new PendingOrderFragment()).commit();
                                 getSupportActionBar().setTitle(R.string.pending_orders);
                                 break;
-
+                            case R.id.nav_past_orders : fragmentManager.beginTransaction().replace(
+                                    R.id.content_frame,new CompletedOrderFragment()).commit();
+                                getSupportActionBar().setTitle(R.string.past_orders);
+                                break;
                             case R.id.nav_settings:
                                 break;
                             case R.id.nav_sign_out:

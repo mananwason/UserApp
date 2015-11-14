@@ -8,6 +8,26 @@ import java.util.Date;
 public class OrderObject {
 
     int orderId;
+    int userId;
+    int vendorId;
+    String vendorName;
+    String userName;
+    String itemIds;
+    Date dateOfOrder;
+    double costOfOrder;
+    String isOrderCompleted;
+    String isPaymentMade;
+
+    public OrderObject(int orderId, int userId, String name, String itemIds, Date dateOfOrder, double costOfOrder, String isOrderCompleted, String isPaymentMade) {
+        this.orderId = orderId;
+        this.userId = userId;
+        this.userName = name;
+        this.itemIds = itemIds;
+        this.dateOfOrder = dateOfOrder;
+        this.costOfOrder = costOfOrder;
+        this.isOrderCompleted = isOrderCompleted;
+        this.isPaymentMade = isPaymentMade;
+    }
 
     public int getVendorId() {
         return vendorId;
@@ -23,27 +43,6 @@ public class OrderObject {
 
     public void setVendorName(String vendorName) {
         this.vendorName = vendorName;
-    }
-
-    int userId;
-    int vendorId;
-    String vendorName;
-    String userName;
-    String itemIds;
-    Date dateOfOrder;
-    double costOfOrder;
-    boolean isOrderCompleted;
-    boolean isPaymentMade;
-
-    public OrderObject(int orderId, int userId, String name, String itemIds, Date dateOfOrder, double costOfOrder, boolean isOrderCompleted, boolean isPaymentMade) {
-        this.orderId = orderId;
-        this.userId = userId;
-        this.userName = name;
-        this.itemIds = itemIds;
-        this.dateOfOrder = dateOfOrder;
-        this.costOfOrder = costOfOrder;
-        this.isOrderCompleted = isOrderCompleted;
-        this.isPaymentMade = isPaymentMade;
     }
 
     public String getUserName() {
@@ -94,19 +93,19 @@ public class OrderObject {
         this.costOfOrder = costOfOrder;
     }
 
-    public boolean isOrderCompleted() {
+    public String isOrderCompleted() {
         return isOrderCompleted;
     }
 
-    public void setIsOrderCompleted(boolean isOrderCompleted) {
+    public void setIsOrderCompleted(String isOrderCompleted) {
         this.isOrderCompleted = isOrderCompleted;
     }
 
-    public boolean isPaymentMade() {
+    public String isPaymentMade() {
         return isPaymentMade;
     }
 
-    public void setIsPaymentMade(boolean isPaymentMade) {
+    public void setIsPaymentMade(String isPaymentMade) {
         this.isPaymentMade = isPaymentMade;
     }
 }

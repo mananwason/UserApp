@@ -19,7 +19,7 @@ import waitr.vendorapp.mc.waitruser.dataObjects.OrderObject;
 
 
 
-public class PendingOrderFragment extends Fragment {
+public class CompletedOrderFragment extends Fragment {
 
     private RecyclerView tracksRecyclerView;
     private OrderAdapter orderAdapter;
@@ -33,14 +33,14 @@ public class PendingOrderFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         setHasOptionsMenu(true);
-        View rootView = inflater.inflate(R.layout.fragment_pending_order, container, false);
+        View rootView = inflater.inflate(R.layout.fragment_completed_order, container, false);
         tracksRecyclerView = (RecyclerView) rootView.findViewById(R.id.list_tracks);
         frameLayout = (FrameLayout) rootView.findViewById(R.id.frame_layout);
-        OrderObject m1 = new OrderObject(1,1,"sid","1,2,3",new Date(2015,10,12),10,"in process","paid");
-        OrderObject m2 = new OrderObject(1,1,"sid","1,2,3",new Date(2015,10,12),10,"in process","paid");
-        OrderObject m3 = new OrderObject(1,1,"sid","1,2,3",new Date(2015,10,12),10,"in process","paid");
-        OrderObject m4 = new OrderObject(1,1,"sid","1,2,3",new Date(2015,10,12),10,"in process","paid");
-        OrderObject m5 = new OrderObject(1,1,"sid","1,2,3",new Date(2015,10,12),10,"in process","paid");
+        OrderObject m1 = new OrderObject(1,1,"sid","1,2,3",new Date(2015,10,12),10,"completed","paid");
+        OrderObject m2 = new OrderObject(1,1,"sid","1,2,3",new Date(2015,10,12),10,"completed","paid");
+        OrderObject m3 = new OrderObject(1,1,"sid","1,2,3",new Date(2015,10,12),10,"completed","paid");
+        OrderObject m4 = new OrderObject(1,1,"sid","1,2,3",new Date(2015,10,12),10,"completed","paid");
+        OrderObject m5 = new OrderObject(1,1,"sid","1,2,3",new Date(2015,10,12),10,"completed","paid");
         myList = new ArrayList<>();
         myList.add(m1);
         myList.add(m2);

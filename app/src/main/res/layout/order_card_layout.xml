@@ -51,7 +51,7 @@
             android:layout_below="@+id/textView"
             android:layout_alignLeft="@+id/textView"
             android:layout_alignStart="@+id/textView"
-            android:layout_marginTop="7dp" />
+            android:layout_marginTop="4dp" />
 
         <ImageButton
             android:id="@+id/viewOrderDetailsButton"
@@ -59,7 +59,7 @@
             android:layout_height="25dp"
             android:background="@drawable/next"
             android:layout_gravity="right"
-            android:layout_below="@+id/textView2"
+            android:layout_below="@+id/dateTextView"
             android:layout_alignParentRight="true"
             android:layout_alignParentEnd="true" />
 
@@ -79,7 +79,7 @@
             android:text="Date Of Order"
             android:id="@+id/textView3"
             android:layout_below="@+id/textView2"
-            android:layout_marginTop="7dp"
+            android:layout_marginTop="4dp"
             android:layout_alignLeft="@+id/textView2"
             android:layout_alignStart="@+id/textView2" />
 
@@ -98,7 +98,7 @@
             android:layout_height="wrap_content"
             android:text="Time"
             android:id="@+id/textView4"
-            android:layout_marginTop="7dp"
+            android:layout_marginTop="4dp"
             android:layout_below="@+id/textView3"
             android:layout_alignLeft="@+id/textView3"
             android:layout_alignStart="@+id/textView3" />
@@ -121,7 +121,7 @@
             android:layout_below="@+id/textView4"
             android:layout_alignLeft="@+id/textView4"
             android:layout_alignStart="@+id/textView4"
-            android:layout_marginTop="7dp" />
+            android:layout_marginTop="4dp" />
 
         <TextView
             android:layout_width="wrap_content"
@@ -131,6 +131,46 @@
             android:layout_alignBottom="@+id/textView6"
             android:layout_alignLeft="@+id/timeTextview"
             android:layout_alignStart="@+id/timeTextview" />
+
+        <TextView
+            style="?android:textAppearanceMedium"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Order Status"
+            android:id="@+id/textView5"
+            android:layout_below="@+id/textView6"
+            android:layout_alignLeft="@+id/textView6"
+            android:layout_alignStart="@+id/textView6"
+            android:layout_marginTop="4dp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:hint="Completed or not"
+            android:id="@+id/orderStatusTextView"
+            android:layout_alignBottom="@+id/textView5"
+            android:layout_alignLeft="@+id/costTextView"
+            android:layout_alignStart="@+id/costTextView" />
+
+        <TextView
+            style="?android:textAppearanceMedium"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Payment Status"
+            android:id="@+id/textView7"
+            android:layout_marginTop="4dp"
+            android:layout_below="@+id/textView5"
+            android:layout_alignLeft="@+id/textView5"
+            android:layout_alignStart="@+id/textView5" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:hint="Paid or not"
+            android:id="@+id/paymentStatusTextview"
+            android:layout_alignBottom="@+id/textView7"
+            android:layout_alignLeft="@+id/orderStatusTextView"
+            android:layout_alignStart="@+id/orderStatusTextView" />
 
 
     </RelativeLayout>
