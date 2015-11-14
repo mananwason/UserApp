@@ -8,17 +8,17 @@ import retrofit.Callback;
 import retrofit.RetrofitError;
 import retrofit.client.Response;
 import waitr.vendorapp.mc.waitruser.Helpers.CommonTaskLoop;
-import waitr.vendorapp.mc.waitruser.api.protocol.ItemsResponseList;
-import waitr.vendorapp.mc.waitruser.dataObjects.MenuItemObject;
+import waitr.vendorapp.mc.waitruser.api.protocol.OrdersResponseList;
+import waitr.vendorapp.mc.waitruser.dataObjects.OrderObject;
 
 /**
- * Created by MananWason on 14-11-2015.
+ * Created by Manan Wason on 15/11/15.
  */
-public class ItemsListResponseProcessor implements Callback<ItemsResponseList> {
-    private static final String TAG = "Items";
+public class OrdersListResponseProcessor implements Callback<waitr.vendorapp.mc.waitruser.api.protocol.OrdersResponseList> {
+    private static final String TAG = "Orders";
 
     @Override
-    public void success(final ItemsResponseList itemsResponseList, Response response) {
+    public void success(final OrdersResponseList ordersResponseList, Response response) {
         Log.d("retro", "success");
 
         CommonTaskLoop.getInstance().post(new Runnable() {
@@ -26,20 +26,19 @@ public class ItemsListResponseProcessor implements Callback<ItemsResponseList> {
             public void run() {
                 ArrayList<String> queries = new ArrayList<String>();
 
-                for (MenuItemObject item : itemsResponseList.items) {
-                    String query = item.generateSql();
-                    Log.d("retro", item.getID()+"");
+                for (OrderObject order : ordersResponseList.orders) {
+                    String query = order.generateSql();
+                    Log.d("retro", order.getOrderId()+"");
                     queries.add(query);
                     Log.d(TAG, query);
                 }
 
                 //TODO: EXECUTE QUERIES IN THE DB
-            //TODO: ADD SUCCESS EVENT ON THE BUS
+                //TODO: ADD SUCCESS EVENT ON THE BUS
             }
         });
 
     }
-
 
     @Override
     public void failure(RetrofitError error) {

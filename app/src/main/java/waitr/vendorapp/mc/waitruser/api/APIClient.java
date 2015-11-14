@@ -25,6 +25,7 @@ public final class APIClient {
 
     static final Gson gson = new Gson();
 
+
     private final mAPI mApi;
 
     public APIClient() {

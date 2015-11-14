@@ -47,6 +47,7 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.C
         setContentView(R.layout.activity_main);
         DataDownload download = new DataDownload();
         download.downloadItems();
+        download.downloadOrders();
 
         setUpToolbar();
         setUpNavDrawer();
