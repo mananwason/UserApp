@@ -1,5 +1,9 @@
 package waitr.vendorapp.mc.waitruser.Fragments;
 
+/**
+ * Created by siddharth on 11/14/15.
+ */
+
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Color;
@@ -44,10 +48,10 @@ public class CartFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_cart, container, false);
         tracksRecyclerView = (RecyclerView) view.findViewById(R.id.list_tracks);
         Bitmap bitmap = BitmapFactory.decodeResource(getResources(), R.drawable.icon_menu);
-        Item m1 = new Item(bitmap, "Item 1", "contents", 100, 3.5, 1);
-        Item m2 = new Item(bitmap, "Item 2", "contents", 100.9, 3.5, 2);
-        Item m3 = new Item(bitmap, "Item 3", "contents", 111, 3.5, 3);
-        Item m4 = new Item(bitmap, "Item 4", "contents", 1000, 3.5, 4);
+        Item m1 = new Item(1, "Item 1", "http://globe-views.com/dcim/dreams/food/food-06.jpg", "contents", 100, 3.5, 2,1);
+        Item m2 = new Item(2, "Item 2", "http://globe-views.com/dcim/dreams/food/food-06.jpg", "contents", 100, 3.5, 2,1);
+        Item m3 = new Item(3, "Item 3", "http://globe-views.com/dcim/dreams/food/food-06.jpg", "contents", 100, 3.5, 2,1);
+        Item m4 = new Item(4, "Item 4", "http://globe-views.com/dcim/dreams/food/food-06.jpg", "contents", 100, 3.5, 2,1);
         frameLayout = (FrameLayout) view.findViewById(R.id.frame_layout);
         list = new ArrayList<>();
         list.add(m1);

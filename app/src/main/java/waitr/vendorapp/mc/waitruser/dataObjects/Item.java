@@ -4,6 +4,8 @@ package waitr.vendorapp.mc.waitruser.dataObjects;
  * Created by siddharth on 10/24/15.
  */
 
+import waitr.vendorapp.mc.waitruser.DbUtils.DbContract;
+
 /**
  * Created by siddharth on 10/23/15.
  */
@@ -11,18 +13,23 @@ public class Item {
     private String foodImage;
     private String foodName;
     private String contents;
-    private double quantity;
+    private double quantityOrdered;
     private double price;
     private double rating;
     private int id;
+    private double qtyAvailable;
 
-    public Item(int id, String foodName, String foodImage, String contents, double price, double rating) {
+
+
+    public Item(int id, String foodName, String foodImage, String contents, double price, double rating,double qtyAvailable,double quantityOrdered) {
         this.foodImage = foodImage;
         this.foodName = foodName;
         this.contents = contents;
         this.price = price;
         this.rating = rating;
         this.id = id;
+        this.qtyAvailable = qtyAvailable;
+        this.quantityOrdered = quantityOrdered;
     }
 
     public String getFoodImage() {
@@ -33,14 +40,6 @@ public class Item {
         this.foodImage = foodImage;
     }
 
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
-    }
-
     public String getFoodName() {
         return foodName;
     }
@@ -49,20 +48,20 @@ public class Item {
         this.foodName = foodName;
     }
 
-    public double getQuantity() {
-        return quantity;
-    }
-
-    public void setQuantity(double qty) {
-        this.quantity = qty;
-    }
-
     public String getContents() {
         return contents;
     }
 
     public void setContents(String contents) {
         this.contents = contents;
+    }
+
+    public double getQuantityOrdered() {
+        return quantityOrdered;
+    }
+
+    public void setQuantityOrdered(double quantityOrdered) {
+        this.quantityOrdered = quantityOrdered;
     }
 
     public double getPrice() {
@@ -81,13 +80,27 @@ public class Item {
         this.rating = rating;
     }
 
-    public int getID() {
+    public int getId() {
         return id;
     }
 
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public double getQtyAvailable() {
+        return qtyAvailable;
+    }
+
+    public void setQtyAvailable(double qtyAvailable) {
+        this.qtyAvailable = qtyAvailable;
+    }
+
     public String generateSql() {
-        String query_normal = "INSERT INTO %s VALUES ('%d', %s, '%f', '%f', '%d');";
+        String query_normal = "INSERT INTO %s VALUES ('%d', %s, '%f', '%s', '%s','%f','%f','%f');";
         //TODO: FORMAT SQL QUERY
-        return query_normal;
+        String query = String.format(query_normal, DbContract.Items.TABLE_NAME,this.id,this.foodName,this.quantityOrdered,this.foodImage,
+                this.contents,this.price,this.rating,this.qtyAvailable);
+        return query;
     }
 }

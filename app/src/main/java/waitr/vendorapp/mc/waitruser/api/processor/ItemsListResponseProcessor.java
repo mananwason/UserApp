@@ -28,7 +28,7 @@ public class ItemsListResponseProcessor implements Callback<ItemsResponseList> {
 
                 for (Item item : itemsResponseList.items) {
                     String query = item.generateSql();
-                    Log.d("retro", item.getID() + "");
+                    Log.d("retro", item.getId() + "");
                     queries.add(query);
                     Log.d(TAG, query);
                 }
@@ -44,6 +44,7 @@ public class ItemsListResponseProcessor implements Callback<ItemsResponseList> {
     @Override
     public void failure(RetrofitError error) {
         //TODO: ADD FAILURE EVENT ON THE BUS
+        //TODO: PREVENT FROM CRASHING
         Log.d("retro", error.getCause().toString());
 
     }

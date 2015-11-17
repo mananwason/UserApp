@@ -153,6 +153,7 @@ public class Login extends AppCompatActivity implements GoogleApiClient.Connecti
         mIntent.putExtra("name", personName);
         mIntent.putExtra("id", id);
         mIntent.putExtra("photo", personPhoto);
+        Log.d("url",personPhoto);
         Toast.makeText(this, "Signed in as " + id + "\n" + personName + " " + personPhoto, Toast.LENGTH_SHORT).show();
         startActivity(mIntent);
 //        }

@@ -47,7 +47,9 @@ public class DatabaseOperations {
                     cur.getString(cur.getColumnIndex(DbContract.Items.IMAGE_URL)),
                     cur.getString(cur.getColumnIndex(DbContract.Items.CONTENTS)),
                     cur.getDouble(cur.getColumnIndex(DbContract.Items.PRICE)),
-                    cur.getDouble(cur.getColumnIndex(DbContract.Items.RATING)));
+                    cur.getDouble(cur.getColumnIndex(DbContract.Items.RATING)),
+                    cur.getDouble(cur.getColumnIndex(DbContract.Items.QUANTITY_AVAILABLE)),
+                    cur.getDouble(cur.getColumnIndex(DbContract.Items.QUANTITY_ORDERED)));
             items.add(temp);
             cur.moveToNext();
         }

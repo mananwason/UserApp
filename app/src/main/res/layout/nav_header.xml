@@ -31,10 +31,10 @@
         android:contentDescription="@string/profile_pic_desc"
         android:src="@drawable/heisenberg" />
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Heisenberg" />
+    <!--<TextView-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:text="Heisenberg" />-->
 
 
 </LinearLayout>

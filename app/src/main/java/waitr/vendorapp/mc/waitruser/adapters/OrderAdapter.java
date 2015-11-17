@@ -36,11 +36,12 @@ public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.Viewholder> 
         Order mOrderObject = orderObjects.get(position);
         holder.vendorName.setText(mOrderObject.getVendorName());
         holder.orderId.setText(mOrderObject.getOrderId() + "");
+        holder.dateOfOrder.setText(mOrderObject.getDateOfOrder());
 //        holder.dateOfOrder.setText(mOrderObject.getDateOfOrder());
 //        holder.timeOfOrder.setText(mOrderObject.getDateOfOrder().);
         holder.cost.setText(mOrderObject.getCostOfOrder() + "");
-        holder.orderStatus.setText(mOrderObject.isOrderCompleted());
-        holder.paymentStatus.setText(mOrderObject.isPaymentMade());
+        holder.orderStatus.setText(mOrderObject.getIsOrderCompleted().toString());
+        holder.paymentStatus.setText(mOrderObject.getIsPaymentMade().toString());
     }
 
     @Override

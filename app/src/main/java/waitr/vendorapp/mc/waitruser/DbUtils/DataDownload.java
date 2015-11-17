@@ -8,6 +8,7 @@ import waitr.vendorapp.mc.waitruser.api.processor.OrdersListResponseProcessor;
  * Created by Manan Wason on 14/11/15.
  */
 public class DataDownload {
+
     APIClient client = new APIClient();
 
     public void downloadItems() {

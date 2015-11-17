@@ -1,6 +1,7 @@
 package waitr.vendorapp.mc.waitruser.adapters;
 
 import android.content.Context;
+import android.net.Uri;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -10,6 +11,8 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.RatingBar;
 import android.widget.TextView;
+
+import com.squareup.picasso.Picasso;
 
 import java.util.List;
 
@@ -62,7 +65,8 @@ public class MenuAdapter extends ArrayAdapter<Item> implements View.OnClickListe
 //        ImageUtil.displayRoundImage(holder.profileImage, item.getImageURL(),
 //                null);
 //        ImageUtil.displayImage(holder.image, item.getImageURL(), null);
-        holder.foodImage.setImageBitmap(item.getFoodImage());
+        Uri itemImage = Uri.parse(item.getFoodImage());
+        Picasso.with(holder.foodImage.getContext()).load(itemImage).into(holder.foodImage);
         holder.foodName.setText(item.getFoodName());
         holder.contents.setText(item.getContents());
         holder.price.setText(item.getPrice() + "");
@@ -85,6 +89,7 @@ public class MenuAdapter extends ArrayAdapter<Item> implements View.OnClickListe
     }
 
     private static class ViewHolder {
+
         public ImageView foodImage;
         public TextView foodName;
         public TextView contents;
@@ -93,4 +98,7 @@ public class MenuAdapter extends ArrayAdapter<Item> implements View.OnClickListe
         public Button addToCartButton;
         public ImageButton openItemButton;
     }
+
+
+
 }

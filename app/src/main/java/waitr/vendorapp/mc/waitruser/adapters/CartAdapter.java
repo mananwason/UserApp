@@ -44,8 +44,8 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.Viewholder> im
         Item current = menuitem.get(position);
         holder.name.setText(current.getFoodName());
         holder.price.setText("Price : " + current.getPrice());
-        holder.itemId.setText(current.getID() + "");
-        holder.quantity.setText("Quantity : " + current.getQuantity());
+        holder.itemId.setText(current.getId() + "");
+        holder.quantity.setText("Quantity : " + current.getQuantityOrdered());
     }
 
     @Override
@@ -119,7 +119,7 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.Viewholder> im
         int pos = -1;
         Log.d("ABC", "PID : " + pid);
         for (int i = 0; i < menuitem.size(); i++)
-            if (menuitem.get(i).getID() == pid) {
+            if (menuitem.get(i).getId() == pid) {
                 pos = i;
                 break;
             }

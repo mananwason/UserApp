@@ -1,6 +1,7 @@
 package waitr.vendorapp.mc.waitruser.activities;
 
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;
 import android.support.v4.app.FragmentManager;
@@ -45,9 +46,9 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.C
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        DataDownload download = new DataDownload();
-        download.downloadItems();
-        download.downloadOrders();
+//        DataDownload download = new DataDownload();
+//        download.downloadItems();
+//        download.downloadOrders();
 
         setUpToolbar();
         setUpNavDrawer();
@@ -63,10 +64,10 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.C
         personName = receivedIntent.getStringExtra("name");
         personId = receivedIntent.getStringExtra("id");
         displayPic = receivedIntent.getStringExtra("photo");    //url for dp
-
-        if (displayPic != null) {
-            Picasso.with(this).load(displayPic).transform(new CircleTransform()).into(header);
-        }
+        Log.d("url in main activity",displayPic);
+//        if (displayPic != null) {
+//            Picasso.with(this).load(displayPic).transform(new CircleTransform()).into(header);
+//        }
 
     }
 

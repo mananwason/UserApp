@@ -4,17 +4,14 @@ import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
-import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ListView;
-
 import java.util.ArrayList;
 import java.util.List;
-
 import waitr.vendorapp.mc.waitruser.R;
 import waitr.vendorapp.mc.waitruser.adapters.MenuAdapter;
 import waitr.vendorapp.mc.waitruser.dataObjects.Item;
@@ -28,17 +25,16 @@ public class MenuFragment extends Fragment {
 
     private MenuAdapter menuAdapter;
 
-    @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.menu_fragment_screen, container, false);
         ListView listView = (ListView) rootView.findViewById(R.id.list_view);
 
         Bitmap bitmap = BitmapFactory.decodeResource(getResources(), R.drawable.icon_menu);
-        Item m1 = new Item(bitmap, "Item 1", "contents", 100, 3.5, 1);
-        Item m2 = new Item(bitmap, "Item 2", "contents", 100.9, 3.5, 2);
-        Item m3 = new Item(bitmap, "Item 3", "contents", 111, 3.5, 3);
-        Item m4 = new Item(bitmap, "Item 4", "contents", 1000, 3.5, 4);
+        Item m1 = new Item(1, "Item 1", "http://globe-views.com/dcim/dreams/food/food-06.jpg", "contents", 100, 3.5, 2,1);
+        Item m2 = new Item(1, "Item 1", "http://globe-views.com/dcim/dreams/food/food-06.jpg", "contents", 100, 3.5, 2,1);
+        Item m3 = new Item(1, "Item 1", "http://globe-views.com/dcim/dreams/food/food-06.jpg", "contents", 100, 3.5, 2,1);
+        Item m4 = new Item(1, "Item 1", "http://globe-views.com/dcim/dreams/food/food-06.jpg", "contents", 100, 3.5, 2,1);
         List<Item> list = new ArrayList<>();
         list.add(m1);
         list.add(m2);
