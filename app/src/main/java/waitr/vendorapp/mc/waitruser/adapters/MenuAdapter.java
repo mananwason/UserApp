@@ -28,32 +28,11 @@ import waitr.vendorapp.mc.waitruser.dataObjects.Item;
 
 public class MenuAdapter extends RecyclerView.Adapter<MenuAdapter.ViewHolder> implements View.OnClickListener {
 
-    private LayoutInflater mInflater;
     ArrayList<Item> menuitem;
 
 
-    @Override
-    public View getView(int position, View convertView, ViewGroup parent) {
-        final ViewHolder holder;
-        if (convertView == null) {
-            convertView = mInflater.inflate(
-                    R.layout.menu_card_layout, parent, false);
-            holder = new ViewHolder();
-
-            convertView.setTag(holder);
-        } else {
-            holder = (ViewHolder) convertView.getTag();
-        }
-
-        Item item = getItem(position);
-//        ImageUtil.displayRoundImage(holder.profileImage, item.getImageURL(),
-//                null);
-//        ImageUtil.displayImage(holder.image, item.getImageURL(), null);
-        Uri itemImage = Uri.parse(item.getFoodImage());
-        Picasso.with(holder.foodImage.getContext()).load(itemImage).into(holder.foodImage);
-
-
-        return convertView;
+    public MenuAdapter(ArrayList<Item> menuItem) {
+        this.menuitem = menuItem;
     }
 
     @Override
