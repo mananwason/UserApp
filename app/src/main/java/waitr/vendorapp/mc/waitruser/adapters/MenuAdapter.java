@@ -2,6 +2,7 @@ package waitr.vendorapp.mc.waitruser.adapters;
 
 import android.content.Context;
 import android.net.Uri;
+import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,8 +15,10 @@ import android.widget.TextView;
 
 import com.squareup.picasso.Picasso;
 
+import java.util.ArrayList;
 import java.util.List;
 
+import waitr.vendorapp.mc.waitruser.Helpers.CircleTransform;
 import waitr.vendorapp.mc.waitruser.R;
 import waitr.vendorapp.mc.waitruser.dataObjects.Item;
 
@@ -23,15 +26,11 @@ import waitr.vendorapp.mc.waitruser.dataObjects.Item;
  * Created by siddharth on 10/23/15.
  */
 
-public class MenuAdapter extends ArrayAdapter<Item> implements View.OnClickListener {
+public class MenuAdapter extends RecyclerView.Adapter<MenuAdapter.ViewHolder> implements View.OnClickListener {
 
     private LayoutInflater mInflater;
+    ArrayList<Item> menuitem;
 
-    public MenuAdapter(Context context, List<Item> items) {
-        super(context, 0, items);
-        mInflater = (LayoutInflater) context
-                .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-    }
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
@@ -40,22 +39,7 @@ public class MenuAdapter extends ArrayAdapter<Item> implements View.OnClickListe
             convertView = mInflater.inflate(
                     R.layout.menu_card_layout, parent, false);
             holder = new ViewHolder();
-            holder.foodImage = (ImageView) convertView
-                    .findViewById(R.id.foodImage);
-            holder.foodName = (TextView) convertView
-                    .findViewById(R.id.foodName);
-            holder.contents = (TextView) convertView
-                    .findViewById(R.id.foodContent);
-            holder.price = (TextView) convertView
-                    .findViewById(R.id.foodPrice);
-            holder.rating = (RatingBar) convertView
-                    .findViewById(R.id.ratingBar);
-            holder.addToCartButton = (Button) convertView
-                    .findViewById(R.id.addToCartButton);
-            holder.openItemButton = (ImageButton) convertView
-                    .findViewById(R.id.openItemButton);
-            holder.addToCartButton.setOnClickListener(this);
-            holder.openItemButton.setOnClickListener(this);
+
             convertView.setTag(holder);
         } else {
             holder = (ViewHolder) convertView.getTag();
@@ -67,12 +51,7 @@ public class MenuAdapter extends ArrayAdapter<Item> implements View.OnClickListe
 //        ImageUtil.displayImage(holder.image, item.getImageURL(), null);
         Uri itemImage = Uri.parse(item.getFoodImage());
         Picasso.with(holder.foodImage.getContext()).load(itemImage).into(holder.foodImage);
-        holder.foodName.setText(item.getFoodName());
-        holder.contents.setText(item.getContents());
-        holder.price.setText(item.getPrice() + "");
-        holder.rating.setRating((float) item.getRating());
-        holder.addToCartButton.setTag(position);
-        holder.openItemButton.setTag(position);
+
 
         return convertView;
     }
@@ -88,7 +67,35 @@ public class MenuAdapter extends ArrayAdapter<Item> implements View.OnClickListe
 
     }
 
-    private static class ViewHolder {
+    @Override
+    public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+        LayoutInflater layoutInflater = LayoutInflater.from(parent.getContext());
+        View view = layoutInflater.inflate(R.layout.menu_card_layout, parent, false);
+        ViewHolder viewholder = new ViewHolder(view);
+        return viewholder;
+    }
+
+    @Override
+    public void onBindViewHolder(ViewHolder holder, int position) {
+
+        Item current = menuitem.get(position);
+        holder.foodName.setText(current.getFoodName());
+        holder.contents.setText(current.getContents());
+        holder.price.setText("Price : " + current.getPrice());
+        holder.rating.setRating((float)current.getRating());
+        Uri uri = Uri.parse(current.getFoodImage());
+        Picasso.with(holder.foodImage.getContext()).load(uri).transform(new CircleTransform()).into(holder.foodImage);
+//        holder.itemId.setText(current.getId() + "");
+//        holder.quantity.setText("Quantity : " + current.getQuantityOrdered());
+
+    }
+
+    @Override
+    public int getItemCount() {
+        return menuitem.size();
+    }
+
+     class ViewHolder extends RecyclerView.ViewHolder{
 
         public ImageView foodImage;
         public TextView foodName;
@@ -97,7 +104,27 @@ public class MenuAdapter extends ArrayAdapter<Item> implements View.OnClickListe
         public RatingBar rating;
         public Button addToCartButton;
         public ImageButton openItemButton;
-    }
+
+         public ViewHolder(View itemView) {
+             super(itemView);
+             foodImage = (ImageView) itemView
+                     .findViewById(R.id.foodImage);
+             foodName = (TextView) itemView
+                     .findViewById(R.id.foodName);
+             contents = (TextView) itemView
+                     .findViewById(R.id.foodContent);
+             price = (TextView) itemView
+                     .findViewById(R.id.foodPrice);
+             rating = (RatingBar) itemView
+                     .findViewById(R.id.ratingBar);
+             addToCartButton = (Button) itemView
+                     .findViewById(R.id.addToCartButton);
+             openItemButton = (ImageButton) itemView
+                     .findViewById(R.id.openItemButton);
+             addToCartButton.setOnClickListener(MenuAdapter.this);
+             openItemButton.setOnClickListener(MenuAdapter.this);
+         }
+     }
 
 
 
