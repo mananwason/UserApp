@@ -5,6 +5,7 @@ package waitr.vendorapp.mc.waitruser.adapters;
  */
 
 import android.content.Context;
+import android.database.DatabaseUtils;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -15,6 +16,9 @@ import android.widget.TextView;
 
 import java.util.ArrayList;
 
+import waitr.vendorapp.mc.waitruser.DbUtils.DbContract;
+import waitr.vendorapp.mc.waitruser.DbUtils.DbSingleton;
+import waitr.vendorapp.mc.waitruser.Fragments.CartFragment;
 import waitr.vendorapp.mc.waitruser.R;
 import waitr.vendorapp.mc.waitruser.dataObjects.Item;
 
@@ -23,12 +27,19 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.Viewholder> im
 
     private static Context sContext;
     ArrayList<Item> menuitem;
-
+    private double totalCost;
 
     public CartAdapter(ArrayList<Item> menuItem, Context context) {
         this.menuitem = menuItem;
         sContext = context;
+        for(Item mItem: menuitem){
+            totalCost += mItem.getPrice();
+        }
     }
+
+   public double getTotalCost(){
+       return totalCost;
+   }
 
     @Override
     public CartAdapter.Viewholder onCreateViewHolder(ViewGroup parent, int viewType) {
@@ -46,6 +57,7 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.Viewholder> im
         holder.price.setText("Price : " + current.getPrice());
         holder.itemId.setText(current.getId() + "");
         holder.quantity.setText("Quantity : " + current.getQuantityOrdered());
+
     }
 
     @Override
@@ -107,7 +119,12 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.Viewholder> im
      }
  */
     public Item removeItem(int position) {
+       // int id = menuitem.get(position).getId();
         final Item mMenuItemObject = menuitem.remove(position);
+        totalCost -= mMenuItemObject.getPrice();
+        //CartFragment.mSnackbar.setText("Total price: " + totalCost);
+        DbSingleton dbSingleton = DbSingleton.getInstance();
+        dbSingleton.deleteRecord(DbContract.Cart.TABLE_NAME,DbContract.Cart.ITEM_ID+" = '"+mMenuItemObject.getId()+"'");
         notifyItemRemoved(position);
         return mMenuItemObject;
     }
@@ -125,6 +142,10 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.Viewholder> im
             }
         removeItem(pos);
     }
+
+
+
+
 
     class Viewholder extends RecyclerView.ViewHolder {
         TextView name;

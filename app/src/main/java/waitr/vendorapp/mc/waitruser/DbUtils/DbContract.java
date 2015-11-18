@@ -18,6 +18,34 @@ public class DbContract {
         //Empty constructor to prevent object creation.
     }
 
+    public static abstract class Cart implements BaseColumns{
+        public static final String TABLE_NAME = "cart";
+        public static final String ITEM_ID = "item_id";
+        public static final String ITEM_NAME = "itemName";
+        public static final String QUANTITY_ORDERED = "quantityOrdered";
+        public static final String PRICE = "price";
+        public static final String IMAGE_URL = "imageUrl";
+
+        public static final String[] FULL_PROJECTION = {
+                ITEM_ID,
+                ITEM_NAME,
+                IMAGE_URL,
+                QUANTITY_ORDERED,
+                PRICE,
+        };
+        public static final String CREATE_TABLE =
+                "CREATE TABLE " + TABLE_NAME
+                        + " ("
+                        + ITEM_ID + INT_TYPE + PRIMARY_KEY + COMMA_SEP
+                        + ITEM_NAME + TEXT_TYPE + COMMA_SEP
+                        + IMAGE_URL + TEXT_TYPE + COMMA_SEP
+                        + QUANTITY_ORDERED + REAL_TYPE + COMMA_SEP
+                        + PRICE + REAL_TYPE
+                        + " );";
+        public static final String DELETE_TABLE = "DROP TABLE IF EXISTS " + TABLE_NAME;
+
+    }
+
     public static abstract class Items implements BaseColumns {
         public static final String TABLE_NAME = "items";
         public static final String ITEM_ID = "itemId";

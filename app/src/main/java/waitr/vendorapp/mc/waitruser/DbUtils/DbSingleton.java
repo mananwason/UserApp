@@ -44,6 +44,11 @@ public class DbSingleton {
         }
     }
 
+    public ArrayList<Item> getCartList() {
+        getReadOnlyDatabase();
+        return databaseOperations.getCartList(mDb);
+    }
+
     public ArrayList<Item> getItemsList() {
         getReadOnlyDatabase();
         return databaseOperations.getItemsList(mDb);
@@ -75,5 +80,9 @@ public class DbSingleton {
 
     public void deleteAllRecords(String tableName) {
         databaseOperations.deleteAllRecords(tableName, mDb);
+    }
+
+    public void deleteRecord(String tableName,String condition){
+        databaseOperations.deleteRecord(tableName,condition,mDb);
     }
 }

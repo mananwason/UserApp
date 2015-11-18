@@ -233,6 +233,8 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.C
                         FragmentManager fragmentManager = getSupportFragmentManager();
                         menuItem.setChecked(true);
                         int id = menuItem.getItemId();
+
+                       // menu.clear();
                         switch (id) {
                             case R.id.nav_menu:
                                 fragmentManager.beginTransaction()

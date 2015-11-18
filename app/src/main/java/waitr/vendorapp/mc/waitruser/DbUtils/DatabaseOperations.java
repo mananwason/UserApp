@@ -58,6 +58,39 @@ public class DatabaseOperations {
         return items;
     }
 
+    public ArrayList<Item> getCartList(SQLiteDatabase mDb){
+        String sortOrder = DbContract.Cart.ITEM_ID + ASCENDING;
+        Cursor cur = mDb.query(
+                DbContract.Cart.TABLE_NAME,
+                DbContract.Cart.FULL_PROJECTION,
+                null,
+                null,
+                null,
+                null,
+                sortOrder
+        );
+        ArrayList<Item> cart = new ArrayList<>();
+        Item temp;
+
+        cur.moveToFirst();
+        while (!cur.isAfterLast()) {
+            temp = new Item(
+                    cur.getInt(cur.getColumnIndex(DbContract.Cart.ITEM_ID)),
+                    cur.getString(cur.getColumnIndex(DbContract.Cart.ITEM_NAME)),
+                    cur.getString(cur.getColumnIndex(DbContract.Cart.IMAGE_URL)),
+                    "null",
+                    cur.getDouble(cur.getColumnIndex(DbContract.Cart.PRICE)),
+                    0,
+                    0,
+                    cur.getDouble(cur.getColumnIndex(DbContract.Cart.QUANTITY_ORDERED)));
+            cart.add(temp);
+            cur.moveToNext();
+        }
+        cur.close();
+        return cart;
+
+    }
+
     public ArrayList<Order> getCompletedOrderList(SQLiteDatabase mDb, int userId) {
         String selection = DbContract.Orders.USER_ID + EQUAL + userId + " and " +
                 DbContract.Orders.IS_ORDER_COMPLETED + EQUAL + " '1'";
@@ -143,6 +176,11 @@ public class DatabaseOperations {
     public void deleteAllRecords(String tableName, SQLiteDatabase db) {
 
         db.execSQL("delete from " + DatabaseUtils.sqlEscapeString(tableName));
+    }
+
+    public void deleteRecord(String tableName,String condition, SQLiteDatabase db){
+
+        db.execSQL("delete from "+ DatabaseUtils.sqlEscapeString(tableName)+ " where "+ condition);
     }
 
 

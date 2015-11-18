@@ -57,19 +57,20 @@
             style="?android:attr/ratingBarStyleSmall"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignBottom="@+id/foodImage"
-            android:layout_marginBottom="10dp"
-            android:layout_toEndOf="@+id/foodImage"
-            android:layout_toRightOf="@+id/foodImage"
             android:numStars="5"
             android:rating="2"
-            android:stepSize=".5" />
+            android:stepSize=".5"
+            android:layout_below="@+id/openItemButton"
+            android:layout_marginTop="5dp"
+            android:layout_alignLeft="@+id/foodContent"
+            android:layout_alignStart="@+id/foodContent" />
 
         <View
             android:id="@+id/sepLine"
             android:layout_width="match_parent"
             android:layout_height="1dp"
             android:layout_below="@id/ratingBar"
+            android:layout_marginTop="15dp"
             android:background="@android:color/background_dark" />
 
         <com.balysv.materialripple.MaterialRippleLayout
@@ -103,6 +104,16 @@
             android:layout_alignParentRight="true"
             android:layout_below="@+id/foodPrice"
             android:background="@drawable/next" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceSmall"
+            android:visibility="invisible"
+            android:id="@+id/cart_item_id"
+            android:layout_alignTop="@+id/foodName"
+            android:layout_toRightOf="@+id/foodContent"
+            android:layout_toEndOf="@+id/foodContent" />
 
 
     </RelativeLayout>

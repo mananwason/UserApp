@@ -29,6 +29,7 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Random;
 
+import waitr.vendorapp.mc.waitruser.DbUtils.DbSingleton;
 import waitr.vendorapp.mc.waitruser.R;
 import waitr.vendorapp.mc.waitruser.adapters.CartAdapter;
 import waitr.vendorapp.mc.waitruser.dataObjects.Item;
@@ -39,7 +40,10 @@ public class CartFragment extends Fragment {
     private CartAdapter cartAdapter;
     private ArrayList<Item> list;
     private FrameLayout frameLayout;
+    public static Snackbar mSnackbar;
+
     private PaytmPGService Service = null;
+
 
 
     @Override
@@ -47,23 +51,30 @@ public class CartFragment extends Fragment {
         setHasOptionsMenu(true);
         View view = inflater.inflate(R.layout.fragment_cart, container, false);
         tracksRecyclerView = (RecyclerView) view.findViewById(R.id.list_tracks);
-        Bitmap bitmap = BitmapFactory.decodeResource(getResources(), R.drawable.icon_menu);
-        Item m1 = new Item(1, "Item 1", "http://globe-views.com/dcim/dreams/food/food-06.jpg", "contents", 100, 3.5, 2,1);
-        Item m2 = new Item(2, "Item 2", "http://globe-views.com/dcim/dreams/food/food-06.jpg", "contents", 100, 3.5, 2,1);
-        Item m3 = new Item(3, "Item 3", "http://globe-views.com/dcim/dreams/food/food-06.jpg", "contents", 100, 3.5, 2,1);
-        Item m4 = new Item(4, "Item 4", "http://globe-views.com/dcim/dreams/food/food-06.jpg", "contents", 100, 3.5, 2,1);
+//        Bitmap bitmap = BitmapFactory.decodeResource(getResources(), R.drawable.icon_menu);
+//        Item m1 = new Item(1, "Item 1", "http://globe-views.com/dcim/dreams/food/food-06.jpg", "contents", 100, 3.5, 2,1);
+//        Item m2 = new Item(2, "Item 2", "http://globe-views.com/dcim/dreams/food/food-06.jpg", "contents", 100, 3.5, 2,1);
+//        Item m3 = new Item(3, "Item 3", "http://globe-views.com/dcim/dreams/food/food-06.jpg", "contents", 100, 3.5, 2,1);
+//        Item m4 = new Item(4, "Item 4", "http://globe-views.com/dcim/dreams/food/food-06.jpg", "contents", 100, 3.5, 2,1);
         frameLayout = (FrameLayout) view.findViewById(R.id.frame_layout);
-        list = new ArrayList<>();
-        list.add(m1);
-        list.add(m2);
-        list.add(m3);
-        list.add(m4);
+//        list = new ArrayList<>();
+//        list.add(m1);
+//        list.add(m2);
+//        list.add(m3);
+//        list.add(m4);
+//        cartAdapter = new CartAdapter(list, getContext());
+//        tracksRecyclerView.setAdapter(cartAdapter);
+        DbSingleton dbSingleton = DbSingleton.getInstance();
+        list =  dbSingleton.getCartList();
         cartAdapter = new CartAdapter(list, getContext());
+//        for(Item mItem: list){
+//            totalCost += mItem.getPrice();
+//        }
+        tracksRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false));
         tracksRecyclerView.setAdapter(cartAdapter);
 
-        tracksRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false));
         Snackbar.make(frameLayout,
-                "Total price: " + 1311.9,
+                "Total price: " + cartAdapter.getTotalCost(),
                 Snackbar.LENGTH_INDEFINITE)
                 .setAction("Proceed to payment", new View.OnClickListener() {
                     @Override
@@ -80,7 +91,7 @@ public class CartFragment extends Fragment {
                         paramMap.put("CHANNEL_ID", "WAP");
                         paramMap.put("INDUSTRY_TYPE_ID", "Retail");
                         paramMap.put("WEBSITE", "shpmteswap");
-                        paramMap.put("TXN_AMOUNT", String.valueOf(1311.9));
+                        paramMap.put("TXN_AMOUNT", String.valueOf(cartAdapter.getTotalCost()));
                         paramMap.put("THEME", "merchant");
                         PaytmOrder Order = new PaytmOrder(paramMap);
                         PaytmMerchant Merchant = new PaytmMerchant("http://www.theshopmates.com/paytm/generate_checksum", "http://www.theshopmates.com/paytm/verify_checksum");

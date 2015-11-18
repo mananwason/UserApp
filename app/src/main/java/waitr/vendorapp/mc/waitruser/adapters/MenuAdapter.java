@@ -1,7 +1,13 @@
 package waitr.vendorapp.mc.waitruser.adapters;
 
+import android.content.ContentValues;
+import android.database.DatabaseUtils;
+import android.database.SQLException;
+import android.database.sqlite.SQLiteConstraintException;
+import android.database.sqlite.SQLiteDatabase;
 import android.net.Uri;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -10,13 +16,17 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.RatingBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 
+import waitr.vendorapp.mc.waitruser.DbUtils.DbContract;
+import waitr.vendorapp.mc.waitruser.DbUtils.DbHelper;
 import waitr.vendorapp.mc.waitruser.DbUtils.DbSingleton;
 import waitr.vendorapp.mc.waitruser.Helpers.CircleTransform;
+import waitr.vendorapp.mc.waitruser.Helpers.CommonTaskLoop;
 import waitr.vendorapp.mc.waitruser.R;
 import waitr.vendorapp.mc.waitruser.dataObjects.Item;
 
@@ -36,13 +46,68 @@ public class MenuAdapter extends RecyclerView.Adapter<MenuAdapter.ViewHolder> im
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
-            case R.id.addToCartButton:
+            case R.id.addToCartButton: addToCart(v);
                 break;
             case R.id.openItemButton:
                 break;
         }
 
     }
+
+    private void addToCart(View v){
+        ViewGroup parent = (ViewGroup) v.getParent().getParent();
+        int item_id = Integer.parseInt(((TextView) parent.findViewById(R.id.cart_item_id)).getText().toString());
+        int pos = -1;
+        Log.d("Menu Adapter", "item id : " + item_id);
+        for (int i = 0; i < menuitem.size(); i++)
+            if (menuitem.get(i).getId() == item_id) {
+                generateSql(menuitem.get(i),parent);
+                break;
+            }
+    }
+
+    public void generateSql(final Item selected, final ViewGroup parent) {
+        CommonTaskLoop.getInstance().post(new Runnable() {
+            @Override
+            public void run() {
+               // String query_normal = "INSERT INTO %s VALUES ('%d', %s, '%s', '%f', '%f');";
+                String Image = "http://globe-views.com/dcim/dreams/food/food-06.jpg";
+                DbHelper  mDbHelper = new DbHelper(parent.getContext());
+                SQLiteDatabase mSqLiteDatabase = mDbHelper.getWritableDatabase();
+                ContentValues insertVals = new ContentValues();
+                insertVals.put(DbContract.Cart.ITEM_ID, selected.getId());
+                insertVals.put(DbContract.Cart.ITEM_NAME,selected.getFoodName());
+                insertVals.put(DbContract.Cart.IMAGE_URL,selected.getFoodImage());
+                insertVals.put(DbContract.Cart.QUANTITY_ORDERED,selected.getQuantityOrdered());
+                insertVals.put(DbContract.Cart.PRICE,selected.getPrice());
+
+                try {
+                    mSqLiteDatabase.insertOrThrow(DbContract.Cart.TABLE_NAME, null, insertVals);
+                } catch (SQLiteConstraintException ex) {
+                    // do something with ex or nothing
+                    Toast.makeText(parent.getContext(),"Item already in cart",Toast.LENGTH_SHORT).show();
+                }
+
+            }
+
+        });
+
+
+        //TODO: Change image, contains in query
+
+
+        //  String contents = "Abc";
+//        String query = String.format(
+//                query_normal,
+//                DbContract.Cart.TABLE_NAME,
+//                selected.getId(),
+//                DatabaseUtils.sqlEscapeString(selected.getFoodName()),
+//                Image,
+//                selected.getQuantityOrdered(),
+//                selected.getPrice());
+
+    }
+
 
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
@@ -62,7 +127,7 @@ public class MenuAdapter extends RecyclerView.Adapter<MenuAdapter.ViewHolder> im
         holder.rating.setRating((float)current.getRating());
         Uri uri = Uri.parse(current.getFoodImage());
         Picasso.with(holder.foodImage.getContext()).load(uri).transform(new CircleTransform()).into(holder.foodImage);
-//        holder.itemId.setText(current.getId() + "");
+        holder.foodItemId.setText(current.getId() + "");
 //        holder.quantity.setText("Quantity : " + current.getQuantityOrdered());
 
     }
@@ -82,6 +147,8 @@ public class MenuAdapter extends RecyclerView.Adapter<MenuAdapter.ViewHolder> im
      class ViewHolder extends RecyclerView.ViewHolder{
 
         public ImageView foodImage;
+
+         public TextView foodItemId;
         public TextView foodName;
         public TextView contents;
         public TextView price;
@@ -93,6 +160,7 @@ public class MenuAdapter extends RecyclerView.Adapter<MenuAdapter.ViewHolder> im
              super(itemView);
              foodImage = (ImageView) itemView
                      .findViewById(R.id.foodImage);
+             foodItemId = (TextView)itemView.findViewById(R.id.cart_item_id);
              foodName = (TextView) itemView
                      .findViewById(R.id.foodName);
              contents = (TextView) itemView
