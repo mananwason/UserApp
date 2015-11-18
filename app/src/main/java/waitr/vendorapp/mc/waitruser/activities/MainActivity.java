@@ -237,7 +237,7 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.C
                             case R.id.nav_menu:
                                 fragmentManager.beginTransaction()
                                         .replace(R.id.content_frame, new MenuFragment()).commit();
-                                getSupportActionBar().setTitle(R.string.app_name);
+                                getSupportActionBar().setTitle(R.string.menu_items);
 
                                 break;
 
@@ -269,9 +269,8 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.C
         if (mGoogleApiClient1.isConnected()) {
             Plus.AccountApi.clearDefaultAccount(mGoogleApiClient1);
             mGoogleApiClient1.disconnect();
-//            mGoogleApiClient.connect();
-            Toast.makeText(this, "Signed out", Toast.LENGTH_SHORT).show();
-            Intent mIntent = new Intent(this, SignOut.class);
+            Toast.makeText(this, "You have been signed out successfully", Toast.LENGTH_SHORT).show();
+            Intent mIntent = new Intent(this, Login.class);
             startActivity(mIntent);
 
         }

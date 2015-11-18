@@ -30,12 +30,26 @@ public class SignOut extends AppCompatActivity {
     }
 
     @Override
+    protected void onPause() {
+        super.onPause();
+//        onBackPressed();
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        onBackPressed();
+    }
+
+    @Override
     public void onBackPressed() {
-        Intent intent = new Intent(Intent.ACTION_MAIN);
-        intent.addCategory(Intent.CATEGORY_HOME);
-        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        Intent intent = new Intent(this,Login.class);
         startActivity(intent);
-        finish();
+//        Intent intent = new Intent(Intent.ACTION_MAIN);
+//        intent.addCategory(Intent.CATEGORY_HOME);
+//        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+//        startActivity(intent);
+//        finish();
     }
 
 
