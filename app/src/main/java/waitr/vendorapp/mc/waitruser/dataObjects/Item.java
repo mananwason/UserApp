@@ -4,6 +4,9 @@ package waitr.vendorapp.mc.waitruser.dataObjects;
  * Created by siddharth on 10/24/15.
  */
 
+import android.database.DatabaseUtils;
+import android.util.Log;
+
 import com.google.gson.annotations.SerializedName;
 
 import waitr.vendorapp.mc.waitruser.DbUtils.DbContract;
@@ -109,9 +112,22 @@ public class Item {
 
     public String generateSql() {
         String query_normal = "INSERT INTO %s VALUES ('%d', %s, '%f', '%s', '%s','%f','%f','%f');";
-        //TODO: FORMAT SQL QUERY
-        String query = String.format(query_normal, DbContract.Items.TABLE_NAME,id,foodName,quantityOrdered,foodImage,
-                contents,price,rating,qtyAvailable);
+        //TODO: Change image, contains in query
+
+        String Image = "http://globe-views.com/dcim/dreams/food/food-06.jpg";
+        String contents = "Abc";
+        String query = String.format(
+                query_normal,
+                DbContract.Items.TABLE_NAME,
+                id,
+                DatabaseUtils.sqlEscapeString(foodName),
+                quantityOrdered,
+                Image,
+                contents,
+                price,
+                rating,
+                qtyAvailable);
+        Log.d("query", query);
         return query;
     }
 }

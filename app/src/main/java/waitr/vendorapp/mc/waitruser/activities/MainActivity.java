@@ -1,8 +1,10 @@
 package waitr.vendorapp.mc.waitruser.activities;
 
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;
+import android.support.design.widget.Snackbar;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
@@ -11,8 +13,10 @@ import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import com.google.android.gms.common.ConnectionResult;
@@ -20,13 +24,19 @@ import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.common.api.ResultCallback;
 import com.google.android.gms.common.api.Status;
 import com.google.android.gms.plus.Plus;
+import com.squareup.otto.Bus;
+import com.squareup.otto.Subscribe;
+import com.squareup.picasso.Picasso;
 
 import waitr.vendorapp.mc.waitruser.DbUtils.DataDownload;
+import waitr.vendorapp.mc.waitruser.Events.ItemDownloadDoneEvent;
+import waitr.vendorapp.mc.waitruser.Events.RefreshUiEvent;
 import waitr.vendorapp.mc.waitruser.Fragments.CartFragment;
 import waitr.vendorapp.mc.waitruser.Fragments.CompletedOrderFragment;
 import waitr.vendorapp.mc.waitruser.Fragments.MenuFragment;
 import waitr.vendorapp.mc.waitruser.Fragments.PendingOrderFragment;
 import waitr.vendorapp.mc.waitruser.R;
+import waitr.vendorapp.mc.waitruser.UserApp;
 
 public class MainActivity extends AppCompatActivity implements GoogleApiClient.ConnectionCallbacks,
         GoogleApiClient.OnConnectionFailedListener {
@@ -35,19 +45,23 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.C
     private Toolbar mToolbar;
     private NavigationView navigationView;
     private FrameLayout mainFrame;
+    private ProgressBar downloadProgress;
     private String personName, personId, displayPic;
     private GoogleApiClient mGoogleApiClient1;
     private int counter;
     private int eventsDone;
 
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        counter = 0;
+        counter = 1;
         eventsDone = 0;
+        downloadProgress = (ProgressBar) findViewById(R.id.progress);
+        downloadProgress.setVisibility(View.VISIBLE);
+        downloadProgress.setIndeterminate(true);
+
         DataDownload download = new DataDownload();
         download.downloadItems();
         download.downloadOrders();
@@ -70,6 +84,19 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.C
 //        if (displayPic != null) {
 //            Picasso.with(this).load(displayPic).transform(new CircleTransform()).into(header);
 //        }
+
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        UserApp.getEventBus().unregister(this);
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        UserApp.getEventBus().register(this);
 
     }
 
@@ -152,6 +179,30 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.C
         return super.onOptionsItemSelected(item);
     }
 
+    private void syncComplete() {
+        downloadProgress.setVisibility(View.GONE);
+        Bus bus = UserApp.getEventBus();
+        bus.post(new RefreshUiEvent());
+        ImageView header_drawer = (ImageView) findViewById(R.id.headerDrawer);
+        try {
+
+
+            if (!(displayPic.isEmpty())) {
+                Picasso.with(getApplicationContext()).load(Uri.parse(displayPic)).into(header_drawer);
+            }
+        } catch (NullPointerException e) {
+            e.printStackTrace();
+        }
+
+        Snackbar.make(mainFrame, getString(R.string.download_complete), Snackbar.LENGTH_SHORT).show();
+
+    }
+
+    private void downloadFailed() {
+        downloadProgress.setVisibility(View.GONE);
+        Snackbar.make(mainFrame, getString(R.string.download_failed), Snackbar.LENGTH_LONG).show();
+
+    }
 
     private void setUpToolbar() {
         mToolbar = (Toolbar) findViewById(R.id.toolbar);
@@ -242,5 +293,23 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.C
     @Override
     public void onConnectionFailed(ConnectionResult connectionResult) {
         mGoogleApiClient1.connect();
+    }
+
+    @Subscribe
+    public void ItemsDownloadDone(ItemDownloadDoneEvent event) {
+        Log.d("retro event", eventsDone + " " + counter);
+
+        if (event.isState()) {
+            eventsDone++;
+            Log.d("retro event", eventsDone + " " + counter);
+
+            if (counter == eventsDone) {
+                syncComplete();
+            }
+
+        } else {
+            downloadFailed();
+        }
+
     }
 }

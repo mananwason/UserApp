@@ -1,12 +1,10 @@
 package waitr.vendorapp.mc.waitruser.adapters;
 
-import android.content.Context;
 import android.net.Uri;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
@@ -16,8 +14,8 @@ import android.widget.TextView;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
-import java.util.List;
 
+import waitr.vendorapp.mc.waitruser.DbUtils.DbSingleton;
 import waitr.vendorapp.mc.waitruser.Helpers.CircleTransform;
 import waitr.vendorapp.mc.waitruser.R;
 import waitr.vendorapp.mc.waitruser.dataObjects.Item;
@@ -68,7 +66,14 @@ public class MenuAdapter extends RecyclerView.Adapter<MenuAdapter.ViewHolder> im
 //        holder.quantity.setText("Quantity : " + current.getQuantityOrdered());
 
     }
+    public void refresh() {
 
+        DbSingleton dbSingleton = DbSingleton.getInstance();
+        menuitem.clear();
+        menuitem = dbSingleton.getItemsList();
+        notifyDataSetChanged();
+
+    }
     @Override
     public int getItemCount() {
         return menuitem.size();

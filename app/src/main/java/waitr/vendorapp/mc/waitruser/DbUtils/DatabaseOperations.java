@@ -110,13 +110,16 @@ public class DatabaseOperations {
 
 
     public void insertQueries(ArrayList<String> queries, DbHelper mDbHelper) {
+        Log.d("retro query", "insert");
 
         SQLiteDatabase db = mDbHelper.getWritableDatabase();
         db.beginTransaction();
         for (String query : queries) {
+            Log.d("retro query", query);
+
             db.execSQL(query);
-            Log.d("query", query);
-        }
+        }        Log.d("retro query", "end");
+
         db.setTransactionSuccessful();
         db.endTransaction();
     }

@@ -44,12 +44,12 @@ public class DbContract {
                         + " ("
                         + ITEM_ID + INT_TYPE + PRIMARY_KEY + COMMA_SEP
                         + ITEM_NAME + TEXT_TYPE + COMMA_SEP
-                        + QUANTITY_ORDERED + INT_TYPE + COMMA_SEP
+                        + QUANTITY_ORDERED + REAL_TYPE + COMMA_SEP
                         + IMAGE_URL + TEXT_TYPE + COMMA_SEP
                         + CONTENTS + TEXT_TYPE + COMMA_SEP
-                        + PRICE + INT_TYPE + COMMA_SEP
-                        + RATING + INT_TYPE + COMMA_SEP
-                        + QUANTITY_AVAILABLE + TEXT_TYPE
+                        + PRICE + REAL_TYPE + COMMA_SEP
+                        + RATING + REAL_TYPE + COMMA_SEP
+                        + QUANTITY_AVAILABLE + REAL_TYPE
                         + " );";
         public static final String DELETE_TABLE = "DROP TABLE IF EXISTS " + TABLE_NAME;
 
@@ -85,7 +85,7 @@ public class DbContract {
                         + ITEMS + TEXT_TYPE + COMMA_SEP
                         + TIME + TEXT_TYPE + COMMA_SEP
                         + COST + INT_TYPE + COMMA_SEP
-                        + IS_PAYMENT_DONE + " BOOLEAN NOT NULL CHECK (" + IS_PAYMENT_DONE + " IN (0,1))"
+                        + IS_PAYMENT_DONE + " BOOLEAN NOT NULL CHECK (" + IS_PAYMENT_DONE + " IN (0,1))"+COMMA_SEP
                         + IS_ORDER_COMPLETED + " BOOLEAN NOT NULL CHECK (" + IS_ORDER_COMPLETED + " IN (0,1))"
                         + " );";
         public static final String DELETE_TABLE = "DROP TABLE IF EXISTS " + TABLE_NAME;
