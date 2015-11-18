@@ -1,11 +1,15 @@
 package waitr.vendorapp.mc.waitruser.activities;
 
+import android.Manifest;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentSender;
+import android.content.pm.PackageManager;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Bundle;
+import android.support.design.widget.Snackbar;
+import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.Menu;
@@ -29,15 +33,21 @@ public class Login extends AppCompatActivity implements GoogleApiClient.Connecti
         GoogleApiClient.OnConnectionFailedListener, View.OnClickListener {
 
     private static final int RC_SIGN_IN = 0;
+    private static final int REQUEST_ACCOUNTS = 1;
+    private static String[] PERMISSIONS_ACCOUNTS = {Manifest.permission.GET_ACCOUNTS};
+
+    private static final String TAG = "Login activity";
     public static GoogleApiClient mGoogleApiClient;
     private boolean mIntentInProgress;
     private boolean mSignInClicked;
+    private View mLayout;
     private ConnectionResult mConnectionResult;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
+        mLayout = findViewById(R.id.relative_layout);
         mGoogleApiClient = new GoogleApiClient.Builder(this)
                 .addConnectionCallbacks(this)
                 .addOnConnectionFailedListener(this)
@@ -143,6 +153,20 @@ public class Login extends AppCompatActivity implements GoogleApiClient.Connecti
 //            Toast.makeText(Login.this, "Invalid account", Toast.LENGTH_SHORT).show();
 //        }
 //        else {
+//        APIClient apiClient = new APIClient();
+//        User user = new User(4, "Manan", "manan.wason@gmail.com", "2015-11-10T04:30:56.691Z", "2015-11-10T04:30:56.691Z");
+//        apiClient.getmApi().createUser(new Callback<String>() {
+//            @Override
+//            public void success(String s, Response response) {
+//                Log.d("retro user post", s);
+//            }
+//
+//            @Override
+//            public void failure(RetrofitError error) {
+//                Log.d("retro user post error", error.getCause().toString());
+//
+//            }
+//        });
         Person currentPerson = Plus.PeopleApi.getCurrentPerson(mGoogleApiClient);
         String personName = null, personPhoto = null;
         if (currentPerson != null) {
@@ -170,6 +194,9 @@ public class Login extends AppCompatActivity implements GoogleApiClient.Connecti
     @Override
     public void onClick(View v) {
 
+        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.GET_ACCOUNTS) != PackageManager.PERMISSION_GRANTED) {
+            requestAccountPermissions();
+        }
         if (isNetworkAvailable()) {
             if (!mGoogleApiClient.isConnecting()) {
                 mSignInClicked = true;
@@ -179,6 +206,31 @@ public class Login extends AppCompatActivity implements GoogleApiClient.Connecti
         } else
             Toast.makeText(this, "Network Not available", Toast.LENGTH_SHORT).show();
     }
+
+    private void requestAccountPermissions() {
+        if (ActivityCompat.shouldShowRequestPermissionRationale(this,
+                Manifest.permission.GET_ACCOUNTS)) {
+            Log.i(TAG,
+                    "Displaying contacts permission rationale to provide additional context.");
+
+            Snackbar.make(mLayout, R.string.permission_account_rationale,
+                    Snackbar.LENGTH_INDEFINITE)
+                    .setAction(R.string.ok, new View.OnClickListener() {
+                        @Override
+                        public void onClick(View view) {
+                            ActivityCompat
+                                    .requestPermissions(Login.this, PERMISSIONS_ACCOUNTS,
+                                            REQUEST_ACCOUNTS);
+                        }
+                    })
+                    .show();
+        } else {
+            // Contact permissions have not been granted yet. Request them directly.
+            ActivityCompat.requestPermissions(this, PERMISSIONS_ACCOUNTS, REQUEST_ACCOUNTS);
+        }
+
+    }
+
 
     @Override
     protected void onActivityResult(int requestCode, int responseCode,

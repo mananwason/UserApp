@@ -2,6 +2,7 @@ package waitr.vendorapp.mc.waitruser.api.network;
 
 import retrofit.Callback;
 import retrofit.http.GET;
+import retrofit.http.POST;
 import waitr.vendorapp.mc.waitruser.api.protocol.ItemsResponseList;
 import waitr.vendorapp.mc.waitruser.api.protocol.OrdersResponseList;
 
@@ -18,4 +19,7 @@ public interface mAPI {
     void getOrders(Callback<OrdersResponseList> ordersResponseListCallback);
 
     //TODO: ADD GET REQUESTS HERE
+
+    @POST("/users")
+    void createUser(Callback<String> callback);
 }
