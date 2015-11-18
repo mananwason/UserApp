@@ -4,19 +4,30 @@ package waitr.vendorapp.mc.waitruser.dataObjects;
  * Created by siddharth on 10/24/15.
  */
 
+import com.google.gson.annotations.SerializedName;
+
 import waitr.vendorapp.mc.waitruser.DbUtils.DbContract;
 
 /**
  * Created by siddharth on 10/23/15.
  */
 public class Item {
+    @SerializedName("")
     private String foodImage;
+
+    @SerializedName("name")
     private String foodName;
     private String contents;
     private double quantityOrdered;
+
+    @SerializedName("price")
     private double price;
     private double rating;
+
+    @SerializedName("id")
     private int id;
+
+    @SerializedName("quantity")
     private double qtyAvailable;
 
 
@@ -99,8 +110,8 @@ public class Item {
     public String generateSql() {
         String query_normal = "INSERT INTO %s VALUES ('%d', %s, '%f', '%s', '%s','%f','%f','%f');";
         //TODO: FORMAT SQL QUERY
-        String query = String.format(query_normal, DbContract.Items.TABLE_NAME,this.id,this.foodName,this.quantityOrdered,this.foodImage,
-                this.contents,this.price,this.rating,this.qtyAvailable);
+        String query = String.format(query_normal, DbContract.Items.TABLE_NAME,id,foodName,quantityOrdered,foodImage,
+                contents,price,rating,qtyAvailable);
         return query;
     }
 }

@@ -3,6 +3,7 @@ package waitr.vendorapp.mc.waitruser.DbUtils;
 import android.database.Cursor;
 import android.database.DatabaseUtils;
 import android.database.sqlite.SQLiteDatabase;
+import android.util.Log;
 
 import java.util.ArrayList;
 
@@ -114,6 +115,7 @@ public class DatabaseOperations {
         db.beginTransaction();
         for (String query : queries) {
             db.execSQL(query);
+            Log.d("query", query);
         }
         db.setTransactionSuccessful();
         db.endTransaction();

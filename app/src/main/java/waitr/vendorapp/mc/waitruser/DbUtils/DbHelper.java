@@ -3,6 +3,7 @@ package waitr.vendorapp.mc.waitruser.DbUtils;
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.util.Log;
 
 /**
  * Created by Manan Wason on 15/11/15.
@@ -15,6 +16,7 @@ public class DbHelper extends SQLiteOpenHelper {
 
     @Override
     public void onCreate(SQLiteDatabase db) {
+        Log.d("DB", "CReated");
         db.execSQL(DbContract.Items.CREATE_TABLE);
         db.execSQL(DbContract.Orders.CREATE_TABLE);
     }

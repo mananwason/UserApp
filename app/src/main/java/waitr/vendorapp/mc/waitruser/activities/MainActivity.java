@@ -1,7 +1,6 @@
 package waitr.vendorapp.mc.waitruser.activities;
 
 import android.content.Intent;
-import android.net.Uri;
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;
 import android.support.v4.app.FragmentManager;
@@ -21,14 +20,12 @@ import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.common.api.ResultCallback;
 import com.google.android.gms.common.api.Status;
 import com.google.android.gms.plus.Plus;
-import com.squareup.picasso.Picasso;
 
 import waitr.vendorapp.mc.waitruser.DbUtils.DataDownload;
 import waitr.vendorapp.mc.waitruser.Fragments.CartFragment;
 import waitr.vendorapp.mc.waitruser.Fragments.CompletedOrderFragment;
 import waitr.vendorapp.mc.waitruser.Fragments.MenuFragment;
 import waitr.vendorapp.mc.waitruser.Fragments.PendingOrderFragment;
-import waitr.vendorapp.mc.waitruser.Helpers.CircleTransform;
 import waitr.vendorapp.mc.waitruser.R;
 
 public class MainActivity extends AppCompatActivity implements GoogleApiClient.ConnectionCallbacks,
@@ -40,15 +37,20 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.C
     private FrameLayout mainFrame;
     private String personName, personId, displayPic;
     private GoogleApiClient mGoogleApiClient1;
+    private int counter;
+    private int eventsDone;
+
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-//        DataDownload download = new DataDownload();
-//        download.downloadItems();
-//        download.downloadOrders();
+        counter = 0;
+        eventsDone = 0;
+        DataDownload download = new DataDownload();
+        download.downloadItems();
+        download.downloadOrders();
 
         setUpToolbar();
         setUpNavDrawer();
@@ -64,7 +66,7 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.C
         personName = receivedIntent.getStringExtra("name");
         personId = receivedIntent.getStringExtra("id");
         displayPic = receivedIntent.getStringExtra("photo");    //url for dp
-        Log.d("url in main activity",displayPic);
+//        Log.d("url in main activity",displayPic);
 //        if (displayPic != null) {
 //            Picasso.with(this).load(displayPic).transform(new CircleTransform()).into(header);
 //        }
@@ -130,6 +132,7 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.C
         getMenuInflater().inflate(R.menu.menu_main, menu);
         return true;
     }
+
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {

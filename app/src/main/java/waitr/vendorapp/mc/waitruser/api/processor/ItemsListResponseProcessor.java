@@ -7,6 +7,7 @@ import java.util.ArrayList;
 import retrofit.Callback;
 import retrofit.RetrofitError;
 import retrofit.client.Response;
+import waitr.vendorapp.mc.waitruser.DbUtils.DbSingleton;
 import waitr.vendorapp.mc.waitruser.Helpers.CommonTaskLoop;
 import waitr.vendorapp.mc.waitruser.api.protocol.ItemsResponseList;
 import waitr.vendorapp.mc.waitruser.dataObjects.Item;
@@ -34,6 +35,8 @@ public class ItemsListResponseProcessor implements Callback<ItemsResponseList> {
                 }
 
                 //TODO: EXECUTE QUERIES IN THE DB
+                DbSingleton dbSingleton = DbSingleton.getInstance();
+                dbSingleton.insertQueries(queries);
                 //TODO: ADD SUCCESS EVENT ON THE BUS
             }
         });
