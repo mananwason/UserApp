@@ -6,6 +6,7 @@ import android.database.sqlite.SQLiteDatabase;
 import java.util.ArrayList;
 
 import waitr.vendorapp.mc.waitruser.dataObjects.Item;
+import waitr.vendorapp.mc.waitruser.dataObjects.Order;
 
 /**
  * Created by Manan Wason on 15/11/15.
@@ -47,6 +48,16 @@ public class DbSingleton {
         getReadOnlyDatabase();
         return databaseOperations.getItemsList(mDb);
 
+    }
+
+    public ArrayList<Order> getCompletedOrdersList(){
+        getReadOnlyDatabase();
+        return databaseOperations.getCompletedOrderList(mDb, 1); // revisit user id
+    }
+
+    public ArrayList<Order> getPendingOrdersList(){
+        getReadOnlyDatabase();
+        return databaseOperations.getPendingOrderList(mDb,1);   //revisit user id
     }
 
 

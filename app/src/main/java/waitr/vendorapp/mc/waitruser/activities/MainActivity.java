@@ -185,8 +185,6 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.C
         bus.post(new RefreshUiEvent());
         ImageView header_drawer = (ImageView) findViewById(R.id.headerDrawer);
         try {
-
-
             if (!(displayPic.isEmpty())) {
                 Picasso.with(getApplicationContext()).load(Uri.parse(displayPic)).into(header_drawer);
             }

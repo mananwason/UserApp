@@ -9,6 +9,7 @@ import android.widget.TextView;
 
 import java.util.ArrayList;
 
+import waitr.vendorapp.mc.waitruser.DbUtils.DbSingleton;
 import waitr.vendorapp.mc.waitruser.R;
 import waitr.vendorapp.mc.waitruser.dataObjects.Order;
 
@@ -40,8 +41,8 @@ public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.Viewholder> 
 //        holder.dateOfOrder.setText(mOrderObject.getDateOfOrder());
 //        holder.timeOfOrder.setText(mOrderObject.getDateOfOrder().);
         holder.cost.setText(mOrderObject.getCostOfOrder() + "");
-        holder.orderStatus.setText(mOrderObject.getIsOrderCompleted().toString());
-        holder.paymentStatus.setText(mOrderObject.getIsPaymentMade().toString());
+        holder.orderStatus.setText(mOrderObject.getIsOrderCompleted()+"");
+        holder.paymentStatus.setText(mOrderObject.getIsPaymentMade()+"");
     }
 
     @Override
@@ -49,10 +50,14 @@ public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.Viewholder> 
         return orderObjects.size();
     }
 
-    public void refresh() {
-
+    public void refresh(int source) {
+        DbSingleton dbSingleton = DbSingleton.getInstance();
+        orderObjects.clear();
+        if(source==1)
+            orderObjects = dbSingleton.getCompletedOrdersList();
+        else
+            orderObjects = dbSingleton.getPendingOrdersList();
         notifyDataSetChanged();
-
     }
 
     @Override

@@ -1,5 +1,10 @@
 package waitr.vendorapp.mc.waitruser.dataObjects;
 
+import android.database.DatabaseUtils;
+import android.util.Log;
+
+import waitr.vendorapp.mc.waitruser.DbUtils.DbContract;
+
 /**
  * Created by siddharth on 11/14/15.
  */
@@ -112,9 +117,24 @@ public class Order {
     }
 
     public String generateSql() {
-        String query_normal = "INSERT INTO %s VALUES ('%d', %s, '%f', '%f', '%d');";
-        //TODO: FORMAT SQL QUERY
-        return query_normal;
+        String query_normal = "INSERT INTO %s VALUES ('%d', '%d', %s, %s , %s , '%d', '%d' , '%d');";
+        String query = String.format(
+                query_normal,
+                DbContract.Orders.TABLE_NAME,
+                orderId,
+                userId,
+                "Order Demo",
+                "df",        //TODO: fill in actual items names instead of ids, would be easy if we get names not ids from server.
+                "dsds",
+                (int)costOfOrder,
+                1,
+                1);
+
+                /*isOrderCompleted?"completed":"not completed",
+                isPaymentMade?"paid":"not paid");*/
+
+        Log.d("query order", query);
+        return query;
     }
 
 }

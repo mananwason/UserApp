@@ -7,9 +7,14 @@ import java.util.ArrayList;
 import retrofit.Callback;
 import retrofit.RetrofitError;
 import retrofit.client.Response;
+import waitr.vendorapp.mc.waitruser.DbUtils.DbContract;
 import waitr.vendorapp.mc.waitruser.DbUtils.DbSingleton;
+import waitr.vendorapp.mc.waitruser.Events.ItemDownloadDoneEvent;
+import waitr.vendorapp.mc.waitruser.Events.OrderDownloadDoneEvent;
 import waitr.vendorapp.mc.waitruser.Helpers.CommonTaskLoop;
+import waitr.vendorapp.mc.waitruser.UserApp;
 import waitr.vendorapp.mc.waitruser.api.protocol.OrdersResponseList;
+import waitr.vendorapp.mc.waitruser.dataObjects.Item;
 import waitr.vendorapp.mc.waitruser.dataObjects.Order;
 
 /**
@@ -21,31 +26,29 @@ public class OrdersListResponseProcessor implements Callback<waitr.vendorapp.mc.
     @Override
     public void success(final OrdersResponseList ordersResponseList, Response response) {
         Log.d("retro", "success");
+        ArrayList<String> queries = new ArrayList<String>();
 
-        CommonTaskLoop.getInstance().post(new Runnable() {
-            @Override
-            public void run() {
-                ArrayList<String> queries = new ArrayList<String>();
+        for (Order order : ordersResponseList.orders) {
+            String query = order.generateSql();
+            Log.d("retro order", order.getOrderId() + "");
+            queries.add(query);
+            Log.d(TAG, query);
+        }
 
-                for (Order order : ordersResponseList.orders) {
-                    String query = order.generateSql();
-                    Log.d("retro order", query);
-                    queries.add(query);
-                    Log.d(TAG, query);
-                }
+        DbSingleton dbSingleton = DbSingleton.getInstance();
+        dbSingleton.clearDatabase(DbContract.Orders.TABLE_NAME);
+        dbSingleton.insertQueries(queries);
 
-                //TODO: EXECUTE QUERIES IN THE DB
-                DbSingleton dbSingleton = DbSingleton.getInstance();
-                dbSingleton.insertQueries(queries);
-                //TODO: ADD SUCCESS EVENT ON THE BUS
-            }
-        });
+        UserApp.postEventOnUIThread(new OrderDownloadDoneEvent(true));
 
+        Log.d("retro", "success");
     }
 
     @Override
     public void failure(RetrofitError error) {
-        //TODO: ADD FAILURE EVENT ON THE BUS
+        UserApp.postEventOnUIThread(new OrderDownloadDoneEvent(false));
+
+        //TODO: PREVENT FROM CRASHING
         Log.d("retro", error.getCause().toString());
 
     }

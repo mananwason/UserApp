@@ -17,11 +17,12 @@ import waitr.vendorapp.mc.waitruser.R;
 import waitr.vendorapp.mc.waitruser.UserApp;
 import waitr.vendorapp.mc.waitruser.adapters.MenuAdapter;
 
-
 /**
  * Created by siddharth on 23/10/15.
  */
+
 public class MenuFragment extends Fragment {
+
     private static final int INITIAL_DELAY_MILLIS = 300;
 
     private MenuAdapter menuAdapter;

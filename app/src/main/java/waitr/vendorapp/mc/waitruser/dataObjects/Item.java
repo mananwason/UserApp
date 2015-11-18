@@ -127,7 +127,7 @@ public class Item {
                 price,
                 rating,
                 qtyAvailable);
-        Log.d("query", query);
+        Log.d("query item", query);
         return query;
     }
 }

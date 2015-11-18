@@ -1,12 +1,12 @@
 package waitr.vendorapp.mc.waitruser.Events;
 
 /**
- * Created by Manan Wason on 18/11/15.
+ * Created by siddharth on 11/18/15.
  */
-public class ItemDownloadDoneEvent {
+public class OrderDownloadDoneEvent {
     boolean state;
 
-    public ItemDownloadDoneEvent(boolean state) {
+    public OrderDownloadDoneEvent(boolean state) {
         this.state = state;
     }
 
@@ -17,4 +17,5 @@ public class ItemDownloadDoneEvent {
     public void setState(boolean state) {
         this.state = state;
     }
+
 }
