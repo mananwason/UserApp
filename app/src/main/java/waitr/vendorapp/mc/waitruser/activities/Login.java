@@ -145,14 +145,12 @@ public class Login extends AppCompatActivity implements GoogleApiClient.Connecti
     @Override
     public void onConnected(Bundle bundle) {
         mSignInClicked = false;
-        String id = Plus.AccountApi.getAccountName(mGoogleApiClient);
-//        String[] email = id.split("@");
-//        if(!email[email.length-1].equals("iiitd.ac.in")){
-//            Plus.AccountApi.clearDefaultAccount(mGoogleApiClient);
-//            mGoogleApiClient.disconnect();
-//            Toast.makeText(Login.this, "Invalid account", Toast.LENGTH_SHORT).show();
-//        }
-//        else {
+        String id ="";
+        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.GET_ACCOUNTS) != PackageManager.PERMISSION_GRANTED) {
+            requestAccountPermissions();
+        } else {
+             id = Plus.AccountApi.getAccountName(mGoogleApiClient);
+        }
 //        APIClient apiClient = new APIClient();
 //        User user = new User(4, "Manan", "manan.wason@gmail.com", "2015-11-10T04:30:56.691Z", "2015-11-10T04:30:56.691Z");
 //        apiClient.getmApi().createUser(new Callback<String>() {
@@ -177,8 +175,7 @@ public class Login extends AppCompatActivity implements GoogleApiClient.Connecti
         mIntent.putExtra("name", personName);
         mIntent.putExtra("id", id);
         mIntent.putExtra("photo", personPhoto);
-//
-//        Log.d("url",personPhoto);
+
         Toast.makeText(this, "Signed in as " + id + "\n" + personName + " " + personPhoto, Toast.LENGTH_SHORT).show();
         startActivity(mIntent);
 //        }

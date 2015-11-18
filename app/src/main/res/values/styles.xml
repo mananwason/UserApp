@@ -39,4 +39,8 @@
         <item name="android:dividerHeight">0dp</item>
     </style>
 
+    <style name="CustomProgressBar" parent="android:Widget.DeviceDefault.ProgressBar.Horizontal">
+        <item name="android:color">@color/button_color</item>
+    </style>
+
 </resources>
