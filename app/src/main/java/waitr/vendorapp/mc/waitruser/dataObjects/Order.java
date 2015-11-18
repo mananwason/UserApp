@@ -3,6 +3,8 @@ package waitr.vendorapp.mc.waitruser.dataObjects;
 import android.database.DatabaseUtils;
 import android.util.Log;
 
+import com.google.gson.annotations.SerializedName;
+
 import waitr.vendorapp.mc.waitruser.DbUtils.DbContract;
 
 /**
@@ -10,8 +12,11 @@ import waitr.vendorapp.mc.waitruser.DbUtils.DbContract;
  */
 public class Order {
 
+    @SerializedName("id")
     int orderId;
+    @SerializedName("user_id")
     int userId;
+
     int vendorId;
     String vendorName;
     String userName;
@@ -117,13 +122,14 @@ public class Order {
     }
 
     public String generateSql() {
-        String query_normal = "INSERT INTO %s VALUES ('%d', '%d', %s, %s , %s , '%d', '%d' , '%d');";
+        String query_normal = "INSERT INTO %s VALUES ('%d', '%d', %s, '%s' , '%s' , '%d', '%d' , '%d');";
+        String order_name = "Order demo";
         String query = String.format(
                 query_normal,
                 DbContract.Orders.TABLE_NAME,
                 orderId,
                 userId,
-                "Order Demo",
+                DatabaseUtils.sqlEscapeString(order_name),
                 "df",        //TODO: fill in actual items names instead of ids, would be easy if we get names not ids from server.
                 "dsds",
                 (int)costOfOrder,
