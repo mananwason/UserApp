@@ -129,6 +129,7 @@ public class Order {
                 DbContract.Orders.TABLE_NAME,
                 orderId,
                 userId,
+                //TODO: CHANGE TO SQLESCAPESTRING
                 DatabaseUtils.sqlEscapeString(order_name),
                 "df",        //TODO: fill in actual items names instead of ids, would be easy if we get names not ids from server.
                 "dsds",
