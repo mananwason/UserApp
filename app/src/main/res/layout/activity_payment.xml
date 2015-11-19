@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/toolbar"
+        style="@style/ToolbarTheme"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:title="@string/payment" />
+
+        <Button
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/place_order_string"
+            android:layout_alignParentBottom="true"
+            android:layout_margin="5dp"
+            android:id="@+id/finalPayment"
+            android:gravity="center"
+            android:layout_centerHorizontal="true" />
+
+    <RadioGroup
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:layout_centerHorizontal="true">
+
+        <RadioButton
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Cash On PickUp"
+            android:checked="true"
+            android:id="@+id/cashOnPickupRadioButton"
+            android:layout_marginBottom="5dp"
+            />
+        <RadioButton
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="PayTm"
+            android:layout_centerHorizontal="true"
+            android:gravity="center"
+            android:id="@+id/paytmRadioButton"
+             />
+
+
+    </RadioGroup>
+
+
+</RelativeLayout>

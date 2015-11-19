@@ -23,5 +23,8 @@
     <string name="download_failed">Download Failed, Check Internet Connection</string>
     <string name="permission_account_rationale">Account information is needed to login to the google plus account</string>
     <string name="ok">OK</string>
+    <string name="title_activity_payment">PaymentActivity</string>
+    <string name="place_order_string">Place Order</string>
+    <string name="payment">Payment</string>
 
 </resources>

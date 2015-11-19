@@ -122,7 +122,7 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.Viewholder> im
        // int id = menuitem.get(position).getId();
         final Item mMenuItemObject = menuitem.remove(position);
         totalCost -= mMenuItemObject.getPrice();
-        //CartFragment.mSnackbar.setText("Total price: " + totalCost);
+        CartFragment.displayCost.setText("Total price: " + totalCost);
         DbSingleton dbSingleton = DbSingleton.getInstance();
         dbSingleton.deleteRecord(DbContract.Cart.TABLE_NAME,DbContract.Cart.ITEM_ID+" = '"+mMenuItemObject.getId()+"'");
         notifyItemRemoved(position);
