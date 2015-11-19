@@ -27,7 +27,12 @@ import com.google.android.gms.common.api.Status;
 import com.google.android.gms.plus.Plus;
 import com.google.android.gms.plus.model.people.Person;
 
+import retrofit.Callback;
+import retrofit.RetrofitError;
+import retrofit.client.Response;
 import waitr.vendorapp.mc.waitruser.R;
+import waitr.vendorapp.mc.waitruser.api.APIClient;
+import waitr.vendorapp.mc.waitruser.api.protocol.UserResponse;
 
 public class Login extends AppCompatActivity implements GoogleApiClient.ConnectionCallbacks,
         GoogleApiClient.OnConnectionFailedListener, View.OnClickListener {
@@ -145,15 +150,28 @@ public class Login extends AppCompatActivity implements GoogleApiClient.Connecti
     @Override
     public void onConnected(Bundle bundle) {
         mSignInClicked = false;
-        String id ="";
+        String id = "";
         if (ActivityCompat.checkSelfPermission(this, Manifest.permission.GET_ACCOUNTS) != PackageManager.PERMISSION_GRANTED) {
             requestAccountPermissions();
         } else {
-             id = Plus.AccountApi.getAccountName(mGoogleApiClient);
+            id = Plus.AccountApi.getAccountName(mGoogleApiClient);
         }
-//        APIClient apiClient = new APIClient();
-//        User user = new User(4, "Manan", "manan.wason@gmail.com", "2015-11-10T04:30:56.691Z", "2015-11-10T04:30:56.691Z");
-//        apiClient.getmApi().createUser(new Callback<String>() {
+        APIClient apiClient = new APIClient();
+
+        apiClient.getmApi().getUserId("manan", "manan1@gmail.com", new Callback<UserResponse>() {
+            @Override
+            public void success(UserResponse userResponse, Response response) {
+                Log.d("get user id", userResponse.toString());
+            }
+
+            @Override
+            public void failure(RetrofitError error) {
+//               Log.d("get user id fail", error.getCause().toString());
+            }
+        });
+
+//        Order order = new Order(7, 1, "manan", "1+2", "2015-11-10T04:30:56.691Z", 30.0, true, false);
+//        apiClient.getmApi().createOrder(order, new Callback<String>() {
 //            @Override
 //            public void success(String s, Response response) {
 //                Log.d("retro user post", s);
@@ -161,10 +179,11 @@ public class Login extends AppCompatActivity implements GoogleApiClient.Connecti
 //
 //            @Override
 //            public void failure(RetrofitError error) {
-//                Log.d("retro user post error", error.getCause().toString());
+////                Log.d("retro user post error", error.getCause().toString());
 //
 //            }
 //        });
+
         Person currentPerson = Plus.PeopleApi.getCurrentPerson(mGoogleApiClient);
         String personName = null, personPhoto = null;
         if (currentPerson != null) {
@@ -183,7 +202,6 @@ public class Login extends AppCompatActivity implements GoogleApiClient.Connecti
 
     @Override
     public void onConnectionSuspended(int i) {
-
         Toast.makeText(this, "Connection Suspended", Toast.LENGTH_SHORT).show();
         mGoogleApiClient.connect();
     }

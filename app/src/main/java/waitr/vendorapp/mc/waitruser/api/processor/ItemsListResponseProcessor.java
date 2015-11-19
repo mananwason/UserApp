@@ -53,7 +53,7 @@ public class ItemsListResponseProcessor implements Callback<ItemsResponseList> {
         UserApp.postEventOnUIThread(new ItemDownloadDoneEvent(false));
 
         //TODO: PREVENT FROM CRASHING
-        Log.d("retro", error.getCause().toString());
+//        Log.d("retro", error.getCause().toString());
 
     }
 }

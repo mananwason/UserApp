@@ -9,12 +9,9 @@ import retrofit.RetrofitError;
 import retrofit.client.Response;
 import waitr.vendorapp.mc.waitruser.DbUtils.DbContract;
 import waitr.vendorapp.mc.waitruser.DbUtils.DbSingleton;
-import waitr.vendorapp.mc.waitruser.Events.ItemDownloadDoneEvent;
 import waitr.vendorapp.mc.waitruser.Events.OrderDownloadDoneEvent;
-import waitr.vendorapp.mc.waitruser.Helpers.CommonTaskLoop;
 import waitr.vendorapp.mc.waitruser.UserApp;
 import waitr.vendorapp.mc.waitruser.api.protocol.OrdersResponseList;
-import waitr.vendorapp.mc.waitruser.dataObjects.Item;
 import waitr.vendorapp.mc.waitruser.dataObjects.Order;
 
 /**
@@ -49,7 +46,7 @@ public class OrdersListResponseProcessor implements Callback<waitr.vendorapp.mc.
         UserApp.postEventOnUIThread(new OrderDownloadDoneEvent(false));
 
         //TODO: PREVENT FROM CRASHING
-        Log.d("retro", error.getCause().toString());
+//        Log.d("retro", error.getCause().toString());
 
     }
 }
