@@ -16,7 +16,7 @@ public class DataDownload {
     }
 
     public void downloadOrders() {
-        client.getmApi().getOrders(new OrdersListResponseProcessor());
+        client.getmApi().getOrders(2 , new OrdersListResponseProcessor());
     }
 
 }
