@@ -26,5 +26,6 @@
     <string name="title_activity_payment">PaymentActivity</string>
     <string name="place_order_string">Place Order</string>
     <string name="payment">Payment</string>
+    <string name="gcm_defaultSenderId">1053716497536</string>
 
 </resources>

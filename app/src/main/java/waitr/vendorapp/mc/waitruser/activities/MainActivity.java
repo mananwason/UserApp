@@ -1,11 +1,17 @@
 package waitr.vendorapp.mc.waitruser.activities;
 
+import android.content.BroadcastReceiver;
+import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
+import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.support.design.widget.NavigationView;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.FragmentManager;
+import android.support.v4.content.LocalBroadcastManager;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
@@ -36,6 +42,8 @@ import waitr.vendorapp.mc.waitruser.Fragments.CompletedOrderFragment;
 import waitr.vendorapp.mc.waitruser.Fragments.MenuFragment;
 import waitr.vendorapp.mc.waitruser.Fragments.PendingOrderFragment;
 import waitr.vendorapp.mc.waitruser.R;
+import waitr.vendorapp.mc.waitruser.Services.QuickstartPreferences;
+import waitr.vendorapp.mc.waitruser.Services.RegistrationIntentService;
 import waitr.vendorapp.mc.waitruser.UserApp;
 
 public class MainActivity extends AppCompatActivity implements GoogleApiClient.ConnectionCallbacks,
@@ -50,6 +58,10 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.C
     private GoogleApiClient mGoogleApiClient1;
     private int counter;
     private int eventsDone;
+    private static final int PLAY_SERVICES_RESOLUTION_REQUEST = 9000;
+    private static final String TAG = "MainActivity";
+
+    private BroadcastReceiver mRegistrationBroadcastReceiver;
 
 
     @Override
@@ -85,18 +97,41 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.C
 //            Picasso.with(this).load(displayPic).transform(new CircleTransform()).into(header);
 //        }
 
+        mRegistrationBroadcastReceiver = new BroadcastReceiver() {
+            @Override
+            public void onReceive(Context context, Intent intent) {
+                SharedPreferences sharedPreferences =
+                        PreferenceManager.getDefaultSharedPreferences(context);
+                boolean sentToken = sharedPreferences
+                        .getBoolean(QuickstartPreferences.SENT_TOKEN_TO_SERVER, false);
+                if (sentToken) {
+                    //TODO: registration token sent to server, now?
+                } else {
+                    //TODO: registration token not sent to server, now?
+                }
+            }
+        };
+
+        Intent intent = new Intent(this, RegistrationIntentService.class);
+        startService(intent);
+
+
     }
 
     @Override
     protected void onPause() {
+        LocalBroadcastManager.getInstance(this).unregisterReceiver(mRegistrationBroadcastReceiver);
         super.onPause();
         UserApp.getEventBus().unregister(this);
+
     }
 
     @Override
     protected void onResume() {
         super.onResume();
         UserApp.getEventBus().register(this);
+        LocalBroadcastManager.getInstance(this).registerReceiver(mRegistrationBroadcastReceiver,
+                new IntentFilter(QuickstartPreferences.REGISTRATION_COMPLETE));
 
     }
 

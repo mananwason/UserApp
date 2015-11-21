@@ -167,7 +167,7 @@ public class CartFragment extends Fragment {
         }
         tracksRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false));
         tracksRecyclerView.setAdapter(cartAdapter);
-        Snackbar.make(frameLayout,
+        /*Snackbar.make(frameLayout,
                 "Total price: " + totalCost,
                 Snackbar.LENGTH_INDEFINITE)
                 .setAction("Proceed to payment", new View.OnClickListener() {
@@ -225,7 +225,7 @@ public class CartFragment extends Fragment {
                     }
                 })
                 .setActionTextColor(Color.RED)
-                .show();
+                .show();*/
 
         return view;
     }
