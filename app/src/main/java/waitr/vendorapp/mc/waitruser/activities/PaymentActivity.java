@@ -19,6 +19,7 @@ import com.paytm.pgsdk.PaytmPaymentTransactionCallback;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
@@ -33,6 +34,7 @@ import waitr.vendorapp.mc.waitruser.DbUtils.DbSingleton;
 import waitr.vendorapp.mc.waitruser.R;
 import waitr.vendorapp.mc.waitruser.api.APIClient;
 import waitr.vendorapp.mc.waitruser.api.protocol.newOrderResponse;
+import waitr.vendorapp.mc.waitruser.dataObjects.Item;
 import waitr.vendorapp.mc.waitruser.dataObjects.Order;
 
 public class PaymentActivity extends AppCompatActivity {
@@ -62,7 +64,14 @@ public class PaymentActivity extends AppCompatActivity {
             public void onClick(View v) {
                 if (cashOnPickUp.isChecked()) {
                     //TODO:: POST REQUEST OF ORDER. RETRIEVE ITEMS FROM CART DB, AND CLEAR CART.
-                    Order order = new Order(1, 2, "1,2,3", getCurrentDate(), 280.0, false, false);
+                    DbSingleton dbSingleton = DbSingleton.getInstance();
+                    dbSingleton.getItemsList();
+                    ArrayList<Item> items= new ArrayList<Item>();
+                    for(Item item: dbSingleton.getCartList()){
+                        items.add(item);
+                    }
+
+                    Order order = new Order(1, 2,items, getCurrentDate(), 280.0, false, false);
                     APIClient apiClient = new APIClient();
                     apiClient.getmApi().createOrder(order, new Callback<newOrderResponse>() {
                         @Override

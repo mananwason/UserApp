@@ -111,16 +111,16 @@ public class DatabaseOperations {
 
         cur.moveToFirst();
         while (!cur.isAfterLast()) {
-            temp = new Order(
-                    cur.getInt(cur.getColumnIndex(DbContract.Orders.ORDER_ID)),
-                    cur.getInt(cur.getColumnIndex(DbContract.Orders.USER_ID)),
-                    cur.getString(cur.getColumnIndex(DbContract.Orders.ITEMS)),
-                    cur.getString(cur.getColumnIndex(DbContract.Orders.TIME)),
-                    cur.getInt(cur.getColumnIndex(DbContract.Orders.COST)),
-                    cur.getInt(cur.getColumnIndex(DbContract.Orders.IS_ORDER_COMPLETED))>0 ,
-                    cur.getInt(cur.getColumnIndex(DbContract.Orders.IS_PAYMENT_DONE)) >0);
-            orders.add(temp);
-            cur.moveToNext();
+//            temp = new Order(
+//                    cur.getInt(cur.getColumnIndex(DbContract.Orders.ORDER_ID)),
+//                    cur.getInt(cur.getColumnIndex(DbContract.Orders.USER_ID)),
+//                    cur.getString(cur.getColumnIndex(DbContract.Orders.ITEMS)),
+//                    cur.getString(cur.getColumnIndex(DbContract.Orders.TIME)),
+//                    cur.getInt(cur.getColumnIndex(DbContract.Orders.COST)),
+//                    cur.getInt(cur.getColumnIndex(DbContract.Orders.IS_ORDER_COMPLETED))>0 ,
+//                    cur.getInt(cur.getColumnIndex(DbContract.Orders.IS_PAYMENT_DONE)) >0);
+//            orders.add(temp);
+//            cur.moveToNext();
         }
         cur.close();
         return orders;
@@ -146,15 +146,15 @@ public class DatabaseOperations {
 
         cur.moveToFirst();
         while (!cur.isAfterLast()) {
-            temp = new Order(
-                    cur.getInt(cur.getColumnIndex(DbContract.Orders.ORDER_ID)),
-                    cur.getInt(cur.getColumnIndex(DbContract.Orders.USER_ID)),
-                    cur.getString(cur.getColumnIndex(DbContract.Orders.ITEMS)),
-                    cur.getString(cur.getColumnIndex(DbContract.Orders.TIME)),
-                    cur.getInt(cur.getColumnIndex(DbContract.Orders.COST)),
-                    cur.getInt(cur.getColumnIndex(DbContract.Orders.IS_ORDER_COMPLETED))>0,
-                    cur.getInt(cur.getColumnIndex(DbContract.Orders.IS_PAYMENT_DONE))>0);
-            orders.add(temp);
+//            temp = new Order(
+//                    cur.getInt(cur.getColumnIndex(DbContract.Orders.ORDER_ID)),
+//                    cur.getInt(cur.getColumnIndex(DbContract.Orders.USER_ID)),
+//                    cur.getString(cur.getColumnIndex(DbContract.Orders.ITEMS)),
+//                    cur.getString(cur.getColumnIndex(DbContract.Orders.TIME)),
+//                    cur.getInt(cur.getColumnIndex(DbContract.Orders.COST)),
+//                    cur.getInt(cur.getColumnIndex(DbContract.Orders.IS_ORDER_COMPLETED))>0,
+//                    cur.getInt(cur.getColumnIndex(DbContract.Orders.IS_PAYMENT_DONE))>0);
+//            orders.add(temp);
             cur.moveToNext();
         }
         cur.close();

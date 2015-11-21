@@ -5,6 +5,8 @@ import android.util.Log;
 
 import com.google.gson.annotations.SerializedName;
 
+import java.util.ArrayList;
+
 import waitr.vendorapp.mc.waitruser.DbUtils.DbContract;
 
 /**
@@ -19,13 +21,13 @@ public class Order {
 
     int vendorId;
     String vendorName;
-    String itemIds;
+    ArrayList<Item> itemIds;
     String dateOfOrder;
     double costOfOrder;
     Boolean isOrderCompleted;
     Boolean isPaymentMade;
 
-    public Order(int orderId, int userId, String itemIds, String dateOfOrder, double costOfOrder, Boolean isOrderCompleted, Boolean isPaymentMade) {
+    public Order(int orderId, int userId, ArrayList<Item> itemIds, String dateOfOrder, double costOfOrder, Boolean isOrderCompleted, Boolean isPaymentMade) {
         this.orderId = orderId;
         this.userId = userId;
         this.itemIds = itemIds;
@@ -67,11 +69,11 @@ public class Order {
         this.userId = userId;
     }
 
-    public String getItemIds() {
+    public ArrayList<Item> getItemIds() {
         return itemIds;
     }
 
-    public void setItemIds(String itemIds) {
+    public void setItemIds(ArrayList<Item> itemIds) {
         this.itemIds = itemIds;
     }
 
