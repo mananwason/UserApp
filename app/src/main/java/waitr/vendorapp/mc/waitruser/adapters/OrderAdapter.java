@@ -35,14 +35,12 @@ public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.Viewholder> 
     @Override
     public void onBindViewHolder(OrderAdapter.Viewholder holder, int position) {
         Order mOrderObject = orderObjects.get(position);
-        holder.orderId.setText(mOrderObject.getOrderId() + "");
-        holder.dateOfOrder.setText(mOrderObject.getDateOfOrder());
-//        holder.dateOfOrder.setText(mOrderObject.getDateOfOrder());
-//        holder.timeOfOrder.setText(mOrderObject.getDateOfOrder().);
-        holder.cost.setText(mOrderObject.getCostOfOrder() + "");
-        holder.orderStatus.setText(mOrderObject.getIsOrderCompleted()+"");
-        holder.paymentStatus.setText(mOrderObject.getIsPaymentMade()+"");
-    }
+    holder.orderId.setText(mOrderObject.getOrderId() + "");
+    holder.dateOfOrder.setText(mOrderObject.getDateOfOrder());
+    holder.cost.setText(mOrderObject.getCostOfOrder() + "");
+    holder.orderStatus.setText(mOrderObject.getIsOrderCompleted()+"");
+    holder.paymentStatus.setText(mOrderObject.getIsPaymentMade()+"");
+}
 
     @Override
     public int getItemCount() {
@@ -76,7 +74,6 @@ public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.Viewholder> 
 
         public Viewholder(View itemView) {
             super(itemView);
-//            itemView.setClickable(true);
             vendorName = (TextView) itemView.findViewById(R.id.vendorNameTextview);
             orderId = (TextView) itemView.findViewById(R.id.orderIdTextview);
             cost = (TextView) itemView.findViewById(R.id.costTextView);
@@ -86,7 +83,6 @@ public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.Viewholder> 
             orderStatus = (TextView) itemView.findViewById(R.id.orderStatusTextView);
             paymentStatus = (TextView) itemView.findViewById(R.id.paymentStatusTextview);
             viewOrderDetailsButton.setOnClickListener(OrderAdapter.this);
-//            removeItem.setClickable(true);
 
         }
 

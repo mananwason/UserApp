@@ -4,8 +4,6 @@ package waitr.vendorapp.mc.waitruser.adapters;
  * Created by siddharth on 10/26/15.
  */
 
-import android.content.Context;
-import android.database.DatabaseUtils;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -13,6 +11,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
 import android.widget.TextView;
+
+import com.appyvet.rangebar.RangeBar;
 
 import java.util.ArrayList;
 
@@ -25,39 +25,51 @@ import waitr.vendorapp.mc.waitruser.dataObjects.Item;
 
 public class CartAdapter extends RecyclerView.Adapter<CartAdapter.Viewholder> implements View.OnClickListener {
 
-    private static Context sContext;
     ArrayList<Item> menuitem;
     private double totalCost;
+    public static TextView displayQuantity;
+    RangeBar mRangebar;
 
-    public CartAdapter(ArrayList<Item> menuItem, Context context) {
+    public CartAdapter(ArrayList<Item> menuItem) {
         this.menuitem = menuItem;
-        sContext = context;
-        for(Item mItem: menuitem){
+        for (Item mItem : menuitem) {
             totalCost += mItem.getPrice();
         }
     }
 
-   public double getTotalCost(){
-       return totalCost;
-   }
+    public double getTotalCost() {
+        return totalCost;
+    }
 
     @Override
     public CartAdapter.Viewholder onCreateViewHolder(ViewGroup parent, int viewType) {
         LayoutInflater layoutInflater = LayoutInflater.from(parent.getContext());
         View view = layoutInflater.inflate(R.layout.cart_card_layout, parent, false);
         Viewholder viewholder = new Viewholder(view);
+        displayQuantity = (TextView) view.findViewById(R.id.foodQuantity);
+        mRangebar = (RangeBar) view.findViewById(R.id.rangebar);
+
         return viewholder;
     }
 
 
     @Override
-    public void onBindViewHolder(CartAdapter.Viewholder holder, int position) {
+    public void onBindViewHolder(final CartAdapter.Viewholder holder, int position) {
+
         Item current = menuitem.get(position);
         holder.name.setText(current.getFoodName());
         holder.price.setText("Price : " + current.getPrice());
         holder.itemId.setText(current.getId() + "");
-        holder.quantity.setText("Quantity : " + current.getQuantityOrdered());
+        holder.quantity.setText("Quantity : " + 1);
+        mRangebar.setTickStart(1);
 
+
+        mRangebar.setOnRangeBarChangeListener(new RangeBar.OnRangeBarChangeListener() {
+            @Override
+            public void onRangeChangeListener(RangeBar rangeBar, int leftPinIndex, int rightPinIndex, String leftPinValue, String rightPinValue) {
+                holder.quantity.setText("Quantity : " + rightPinValue);
+            }
+        });
     }
 
     @Override
@@ -119,12 +131,12 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.Viewholder> im
      }
  */
     public Item removeItem(int position) {
-       // int id = menuitem.get(position).getId();
+        // int id = menuitem.get(position).getId();
         final Item mMenuItemObject = menuitem.remove(position);
         totalCost -= mMenuItemObject.getPrice();
         CartFragment.displayCost.setText("Total price: " + totalCost);
         DbSingleton dbSingleton = DbSingleton.getInstance();
-        dbSingleton.deleteRecord(DbContract.Cart.TABLE_NAME,DbContract.Cart.ITEM_ID+" = '"+mMenuItemObject.getId()+"'");
+        dbSingleton.deleteRecord(DbContract.Cart.TABLE_NAME, DbContract.Cart.ITEM_ID + " = '" + mMenuItemObject.getId() + "'");
         notifyItemRemoved(position);
         return mMenuItemObject;
     }
@@ -142,9 +154,6 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.Viewholder> im
             }
         removeItem(pos);
     }
-
-
-
 
 
     class Viewholder extends RecyclerView.ViewHolder {

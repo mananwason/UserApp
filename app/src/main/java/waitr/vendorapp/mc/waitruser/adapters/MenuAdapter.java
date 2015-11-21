@@ -4,8 +4,6 @@ package waitr.vendorapp.mc.waitruser.adapters;
 import android.content.ContentValues;
 import android.database.sqlite.SQLiteConstraintException;
 import android.database.sqlite.SQLiteDatabase;
-
-import android.database.DatabaseUtils;
 import android.net.Uri;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -24,7 +22,6 @@ import com.squareup.picasso.Picasso;
 import java.util.ArrayList;
 
 import waitr.vendorapp.mc.waitruser.DbUtils.DbContract;
-
 import waitr.vendorapp.mc.waitruser.DbUtils.DbHelper;
 import waitr.vendorapp.mc.waitruser.DbUtils.DbSingleton;
 import waitr.vendorapp.mc.waitruser.Helpers.CircleTransform;
@@ -59,7 +56,6 @@ public class MenuAdapter extends RecyclerView.Adapter<MenuAdapter.ViewHolder> im
     private void addToCart(View v){
         ViewGroup parent = (ViewGroup) v.getParent().getParent();
         int item_id = Integer.parseInt(((TextView) parent.findViewById(R.id.cart_item_id)).getText().toString());
-        int pos = -1;
         Log.d("Menu Adapter", "item id : " + item_id);
         for (int i = 0; i < menuitem.size(); i++)
             if (menuitem.get(i).getId() == item_id) {
@@ -74,7 +70,6 @@ public class MenuAdapter extends RecyclerView.Adapter<MenuAdapter.ViewHolder> im
             @Override
             public void run() {
                // String query_normal = "INSERT INTO %s VALUES ('%d', %s, '%s', '%f', '%f');";
-                String Image = "http://globe-views.com/dcim/dreams/food/food-06.jpg";
                 DbHelper  mDbHelper = new DbHelper(parent.getContext());
                 SQLiteDatabase mSqLiteDatabase = mDbHelper.getWritableDatabase();
                 ContentValues insertVals = new ContentValues();

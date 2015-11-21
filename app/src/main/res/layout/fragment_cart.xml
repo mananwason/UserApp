@@ -33,8 +33,7 @@
             android:id="@+id/displayCostTextView"
             android:textSize="20dp"
             android:gravity="center"
-            android:layout_weight="2"
-            />
+            android:layout_weight="2" />
         <Button
             android:id="@+id/payNowButton"
             android:layout_width="wrap_content"

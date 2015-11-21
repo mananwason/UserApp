@@ -17,8 +17,6 @@ import android.widget.FrameLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.paytm.pgsdk.PaytmPGService;
-
 import java.util.ArrayList;
 
 import waitr.vendorapp.mc.waitruser.DbUtils.DbSingleton;
@@ -37,7 +35,6 @@ public class CartFragment extends Fragment {
     public static TextView displayCost;
 
     double totalCost;
-    private PaytmPGService Service = null;
 
 
     @Override
@@ -48,25 +45,10 @@ public class CartFragment extends Fragment {
 
         totalCost = 0;
 
-//        Bitmap bitmap = BitmapFactory.decodeResource(getResources(), R.drawable.icon_menu);
-//        Item m1 = new Item(1, "Item 1", "http://globe-views.com/dcim/dreams/food/food-06.jpg", "contents", 100, 3.5, 2,1);
-//        Item m2 = new Item(2, "Item 2", "http://globe-views.com/dcim/dreams/food/food-06.jpg", "contents", 100, 3.5, 2,1);
-//        Item m3 = new Item(3, "Item 3", "http://globe-views.com/dcim/dreams/food/food-06.jpg", "contents", 100, 3.5, 2,1);
-//        Item m4 = new Item(4, "Item 4", "http://globe-views.com/dcim/dreams/food/food-06.jpg", "contents", 100, 3.5, 2,1);
         frameLayout = (FrameLayout) view.findViewById(R.id.frame_layout);
-//        list = new ArrayList<>();
-//        list.add(m1);
-//        list.add(m2);
-//        list.add(m3);
-//        list.add(m4);
-//        cartAdapter = new CartAdapter(list, getContext());
-//        tracksRecyclerView.setAdapter(cartAdapter);
         DbSingleton dbSingleton = DbSingleton.getInstance();
         list = dbSingleton.getCartList();
-        cartAdapter = new CartAdapter(list, getContext());
-//        for(Item mItem: list){
-//            totalCost += mItem.getPrice();
-//        }
+        cartAdapter = new CartAdapter(list);
         tracksRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false));
         tracksRecyclerView.setAdapter(cartAdapter);
         displayCost = (TextView) view.findViewById(R.id.displayCostTextView);
@@ -75,7 +57,6 @@ public class CartFragment extends Fragment {
         payNowButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                // displayCost.setText("Total price: " + cartAdapter.getTotalCost());
                 if (list.size() > 0) {
                     Intent payNow = new Intent(view.getContext(), PaymentActivity.class);
                     payNow.putExtra("cost", displayCost.getText());
@@ -148,7 +129,7 @@ public class CartFragment extends Fragment {
         });
 
         list =  dbSingleton.getCartList();
-        cartAdapter = new CartAdapter(list, getContext());
+        cartAdapter = new CartAdapter(list);
         for(Item mItem: list){
             totalCost += mItem.getPrice();
         }
