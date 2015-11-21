@@ -32,6 +32,7 @@ import waitr.vendorapp.mc.waitruser.DbUtils.DbContract;
 import waitr.vendorapp.mc.waitruser.DbUtils.DbSingleton;
 import waitr.vendorapp.mc.waitruser.R;
 import waitr.vendorapp.mc.waitruser.api.APIClient;
+import waitr.vendorapp.mc.waitruser.api.protocol.newOrderResponse;
 import waitr.vendorapp.mc.waitruser.dataObjects.Order;
 
 public class PaymentActivity extends AppCompatActivity {
@@ -63,9 +64,9 @@ public class PaymentActivity extends AppCompatActivity {
                     //TODO:: POST REQUEST OF ORDER. RETRIEVE ITEMS FROM CART DB, AND CLEAR CART.
                     Order order = new Order(1, 2, "1,2,3", getCurrentDate(), 280.0, false, false);
                     APIClient apiClient = new APIClient();
-                    apiClient.getmApi().createOrder(order, new Callback<String>() {
+                    apiClient.getmApi().createOrder(order, new Callback<newOrderResponse>() {
                         @Override
-                        public void success(String s, Response response) {
+                        public void success(newOrderResponse s, Response response) {
                             Log.d("new order", "success");
                             DbSingleton mDbSingleton = DbSingleton.getInstance();
                             mDbSingleton.deleteAllRecords(DbContract.Cart.TABLE_NAME);
@@ -79,7 +80,7 @@ public class PaymentActivity extends AppCompatActivity {
 
                         @Override
                         public void failure(RetrofitError error) {
-                            Log.d("new order", "failure");
+                            Log.d("new order", error.getCause().toString());
 
                         }
                     });

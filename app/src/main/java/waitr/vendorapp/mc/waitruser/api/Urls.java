@@ -6,6 +6,6 @@ package waitr.vendorapp.mc.waitruser.api;
 
 public abstract class Urls {
 
-    public static final String BASE_URL = "https://zxejfclaon.localtunnel.me/";
+    public static final String BASE_URL = "http://104.236.66.109:4000/";
 
 }
