@@ -1,8 +1,10 @@
 package waitr.vendorapp.mc.waitruser.activities;
 
-import android.support.v7.app.AppCompatActivity;
+import android.content.Intent;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -10,29 +12,37 @@ import android.widget.Button;
 import android.widget.RadioButton;
 import android.widget.Toast;
 
-import com.paytm.pgsdk.PaytmClientCertificate;
 import com.paytm.pgsdk.PaytmMerchant;
 import com.paytm.pgsdk.PaytmOrder;
 import com.paytm.pgsdk.PaytmPGService;
 import com.paytm.pgsdk.PaytmPaymentTransactionCallback;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Random;
+import java.util.TimeZone;
 
+import retrofit.Callback;
+import retrofit.RetrofitError;
+import retrofit.client.Response;
 import waitr.vendorapp.mc.waitruser.DbUtils.DbContract;
 import waitr.vendorapp.mc.waitruser.DbUtils.DbSingleton;
 import waitr.vendorapp.mc.waitruser.R;
+import waitr.vendorapp.mc.waitruser.api.APIClient;
+import waitr.vendorapp.mc.waitruser.dataObjects.Order;
 
 public class PaymentActivity extends AppCompatActivity {
 
     private PaytmPGService Service = null;
     String totalCost;
     Button payNowButton;
-    RadioButton cashOnPickUp,paytm;
+    RadioButton cashOnPickUp, paytm;
     Map<String, String> paramMap;
     String randomInt;
-    PaytmOrder Order;
+    PaytmOrder paytmOrder;
     PaytmMerchant Merchant;
     private Toolbar mToolbar;
 
@@ -41,20 +51,39 @@ public class PaymentActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_payment);
         totalCost = getIntent().getStringExtra("cost");
-        payNowButton = (Button)findViewById(R.id.finalPayment);
-        cashOnPickUp = (RadioButton)findViewById(R.id.cashOnPickupRadioButton);
-        paytm = (RadioButton)findViewById(R.id.paytmRadioButton);
+        payNowButton = (Button) findViewById(R.id.finalPayment);
+        cashOnPickUp = (RadioButton) findViewById(R.id.cashOnPickupRadioButton);
+        paytm = (RadioButton) findViewById(R.id.paytmRadioButton);
         setUpToolbar();
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         payNowButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(cashOnPickUp.isChecked()){
+                if (cashOnPickUp.isChecked()) {
                     //TODO:: POST REQUEST OF ORDER. RETRIEVE ITEMS FROM CART DB, AND CLEAR CART.
-                    //DbSingleton mDbSingleton = DbSingleton.getInstance();
-                    //mDbSingleton.deleteAllRecords(DbContract.Cart.TABLE_NAME);
-                }
-                else{
+                    Order order = new Order(1, 2, "1,2,3", getCurrentDate(), 280.0, false, false);
+                    APIClient apiClient = new APIClient();
+                    apiClient.getmApi().createOrder(order, new Callback<String>() {
+                        @Override
+                        public void success(String s, Response response) {
+                            Log.d("new order", "success");
+                            DbSingleton mDbSingleton = DbSingleton.getInstance();
+                            mDbSingleton.deleteAllRecords(DbContract.Cart.TABLE_NAME);
+
+                            Toast.makeText(PaymentActivity.this, "Order Received",Toast.LENGTH_LONG).show();
+
+                            Intent intent = new Intent(PaymentActivity.this, MainActivity.class);
+                            startActivity(intent);
+
+                        }
+
+                        @Override
+                        public void failure(RetrofitError error) {
+                            Log.d("new order", "failure");
+
+                        }
+                    });
+                } else {
                     Service = PaytmPGService.getStagingService(); //for testing environment
                     paramMap = new HashMap<>();
                     Random randomGenerator = new Random();
@@ -69,9 +98,9 @@ public class PaymentActivity extends AppCompatActivity {
                     paramMap.put("WEBSITE", "shpmteswap");
                     paramMap.put("TXN_AMOUNT", totalCost);
                     paramMap.put("THEME", "merchant");
-                    Order = new PaytmOrder(paramMap);
+                    paytmOrder = new PaytmOrder(paramMap);
                     Merchant = new PaytmMerchant("http://www.theshopmates.com/paytm/generate_checksum", "http://www.theshopmates.com/paytm/verify_checksum");
-                    Service.initialize(Order, Merchant, null);
+                    Service.initialize(paytmOrder, Merchant, null);
                     Service.startPaymentTransaction(PaymentActivity.this, true, true, new PaytmPaymentTransactionCallback() {
                         @Override
                         public void onTransactionSuccess(Bundle bundle) {
@@ -113,7 +142,7 @@ public class PaymentActivity extends AppCompatActivity {
     }
 
     @Override
-    protected void onStart(){
+    protected void onStart() {
         super.onStart();
 
     }
@@ -146,5 +175,13 @@ public class PaymentActivity extends AppCompatActivity {
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    public String getCurrentDate() {
+        TimeZone tz = TimeZone.getTimeZone("UTC");
+        DateFormat df = new SimpleDateFormat("yyyy-MM-dd'T'HH:mmZ");
+        df.setTimeZone(tz);
+        String nowAsISO = df.format(new Date());
+        return nowAsISO;
     }
 }

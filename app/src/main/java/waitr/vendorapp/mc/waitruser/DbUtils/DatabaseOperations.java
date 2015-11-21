@@ -114,7 +114,6 @@ public class DatabaseOperations {
             temp = new Order(
                     cur.getInt(cur.getColumnIndex(DbContract.Orders.ORDER_ID)),
                     cur.getInt(cur.getColumnIndex(DbContract.Orders.USER_ID)),
-                    cur.getString(cur.getColumnIndex(DbContract.Orders.ORDER_NAME)),
                     cur.getString(cur.getColumnIndex(DbContract.Orders.ITEMS)),
                     cur.getString(cur.getColumnIndex(DbContract.Orders.TIME)),
                     cur.getInt(cur.getColumnIndex(DbContract.Orders.COST)),
@@ -150,7 +149,6 @@ public class DatabaseOperations {
             temp = new Order(
                     cur.getInt(cur.getColumnIndex(DbContract.Orders.ORDER_ID)),
                     cur.getInt(cur.getColumnIndex(DbContract.Orders.USER_ID)),
-                    cur.getString(cur.getColumnIndex(DbContract.Orders.ORDER_NAME)),
                     cur.getString(cur.getColumnIndex(DbContract.Orders.ITEMS)),
                     cur.getString(cur.getColumnIndex(DbContract.Orders.TIME)),
                     cur.getInt(cur.getColumnIndex(DbContract.Orders.COST)),

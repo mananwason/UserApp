@@ -19,17 +19,15 @@ public class Order {
 
     int vendorId;
     String vendorName;
-    String userName;
     String itemIds;
     String dateOfOrder;
     double costOfOrder;
     Boolean isOrderCompleted;
     Boolean isPaymentMade;
 
-    public Order(int orderId, int userId, String name, String itemIds, String dateOfOrder, double costOfOrder, Boolean isOrderCompleted, Boolean isPaymentMade) {
+    public Order(int orderId, int userId, String itemIds, String dateOfOrder, double costOfOrder, Boolean isOrderCompleted, Boolean isPaymentMade) {
         this.orderId = orderId;
         this.userId = userId;
-        this.userName = name;
         this.itemIds = itemIds;
         this.dateOfOrder = dateOfOrder;
         this.costOfOrder = costOfOrder;
@@ -51,18 +49,6 @@ public class Order {
 
     public void setVendorName(String vendorName) {
         this.vendorName = vendorName;
-    }
-
-    public String getUserName() {
-        return userName;
-    }
-
-    public void setUserName(String userName) {
-        this.userName = userName;
-    }
-
-    public void setName(String name) {
-        this.userName = name;
     }
 
     public int getOrderId() {

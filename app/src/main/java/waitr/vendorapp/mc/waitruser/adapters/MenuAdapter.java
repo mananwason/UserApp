@@ -1,8 +1,6 @@
 package waitr.vendorapp.mc.waitruser.adapters;
 
 import android.content.ContentValues;
-import android.database.DatabaseUtils;
-import android.database.SQLException;
 import android.database.sqlite.SQLiteConstraintException;
 import android.database.sqlite.SQLiteDatabase;
 import android.net.Uri;
@@ -96,15 +94,6 @@ public class MenuAdapter extends RecyclerView.Adapter<MenuAdapter.ViewHolder> im
         //TODO: Change image, contains in query
 
 
-        //  String contents = "Abc";
-//        String query = String.format(
-//                query_normal,
-//                DbContract.Cart.TABLE_NAME,
-//                selected.getId(),
-//                DatabaseUtils.sqlEscapeString(selected.getFoodName()),
-//                Image,
-//                selected.getQuantityOrdered(),
-//                selected.getPrice());
 
     }
 
@@ -128,7 +117,6 @@ public class MenuAdapter extends RecyclerView.Adapter<MenuAdapter.ViewHolder> im
         Uri uri = Uri.parse(current.getFoodImage());
         Picasso.with(holder.foodImage.getContext()).load(uri).transform(new CircleTransform()).into(holder.foodImage);
         holder.foodItemId.setText(current.getId() + "");
-//        holder.quantity.setText("Quantity : " + current.getQuantityOrdered());
 
     }
     public void refresh() {
