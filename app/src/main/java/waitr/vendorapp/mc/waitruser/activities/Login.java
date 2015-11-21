@@ -31,9 +31,11 @@ import com.google.android.gms.plus.model.people.Person;
 import retrofit.Callback;
 import retrofit.RetrofitError;
 import retrofit.client.Response;
+import waitr.vendorapp.mc.waitruser.Helpers.Constants;
 import waitr.vendorapp.mc.waitruser.R;
 import waitr.vendorapp.mc.waitruser.api.APIClient;
 import waitr.vendorapp.mc.waitruser.api.protocol.UserResponse;
+import waitr.vendorapp.mc.waitruser.dataObjects.User;
 
 public class Login extends AppCompatActivity implements GoogleApiClient.ConnectionCallbacks,
         GoogleApiClient.OnConnectionFailedListener, View.OnClickListener {
@@ -48,8 +50,6 @@ public class Login extends AppCompatActivity implements GoogleApiClient.Connecti
     private boolean mSignInClicked;
     private View mLayout;
     private ConnectionResult mConnectionResult;
-    public static final String Email = "emailKey";
-    SharedPreferences sharedpreferences;
 
 
     @Override
@@ -166,6 +166,26 @@ public class Login extends AppCompatActivity implements GoogleApiClient.Connecti
             @Override
             public void success(UserResponse userResponse, Response response) {
                 Log.d("get user id", userResponse.toString());
+                for (User user : userResponse.user) {
+                    SharedPreferences pref = getSharedPreferences(Constants.Prefs, Context.MODE_PRIVATE);
+                    SharedPreferences.Editor editor = pref.edit();
+                    editor.putInt(Constants.UserIdKey, user.getId());
+                    editor.apply();
+                }
+
+                Person currentPerson = Plus.PeopleApi.getCurrentPerson(mGoogleApiClient);
+                String personName = null, personPhoto = null;
+                if (currentPerson != null) {
+                    personName = currentPerson.getDisplayName();
+                    personPhoto = currentPerson.getImage().getUrl();
+                }
+                Intent mIntent = new Intent(Login.this, MainActivity.class);
+                mIntent.putExtra("name", personName);
+                mIntent.putExtra("photo", personPhoto);
+
+                Toast.makeText(Login.this, "Signed in as " + "\n" + personName + " " + personPhoto, Toast.LENGTH_SHORT).show();
+                startActivity(mIntent);
+
             }
 
             @Override
@@ -174,33 +194,7 @@ public class Login extends AppCompatActivity implements GoogleApiClient.Connecti
             }
         });
 
-//        Order order = new Order(7, 1, "manan", "1+2", "2015-11-10T04:30:56.691Z", 30.0, true, false);
-//        apiClient.getmApi().createOrder(order, new Callback<String>() {
-//            @Override
-//            public void success(String s, Response response) {
-//                Log.d("retro user post", s);
-//            }
-//
-//            @Override
-//            public void failure(RetrofitError error) {
-////                Log.d("retro user post error", error.getCause().toString());
-//
-//            }
-//        });
 
-        Person currentPerson = Plus.PeopleApi.getCurrentPerson(mGoogleApiClient);
-        String personName = null, personPhoto = null;
-        if (currentPerson != null) {
-            personName = currentPerson.getDisplayName();
-            personPhoto = currentPerson.getImage().getUrl();
-        }
-        Intent mIntent = new Intent(Login.this, MainActivity.class);
-        mIntent.putExtra("name", personName);
-        mIntent.putExtra("id", id);
-        mIntent.putExtra("photo", personPhoto);
-
-        Toast.makeText(this, "Signed in as " + id + "\n" + personName + " " + personPhoto, Toast.LENGTH_SHORT).show();
-        startActivity(mIntent);
 //        }
     }
 

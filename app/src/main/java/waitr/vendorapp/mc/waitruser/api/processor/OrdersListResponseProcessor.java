@@ -46,7 +46,7 @@ public class OrdersListResponseProcessor implements Callback<waitr.vendorapp.mc.
         UserApp.postEventOnUIThread(new OrderDownloadDoneEvent(false));
 
         //TODO: PREVENT FROM CRASHING
-        Log.d("retro", error.getCause().toString());
+//        Log.d("retro", error.getCause().toString());
 
     }
 }

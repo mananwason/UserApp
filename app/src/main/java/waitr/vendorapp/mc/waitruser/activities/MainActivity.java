@@ -41,6 +41,7 @@ import waitr.vendorapp.mc.waitruser.Fragments.CartFragment;
 import waitr.vendorapp.mc.waitruser.Fragments.CompletedOrderFragment;
 import waitr.vendorapp.mc.waitruser.Fragments.MenuFragment;
 import waitr.vendorapp.mc.waitruser.Fragments.PendingOrderFragment;
+import waitr.vendorapp.mc.waitruser.Helpers.Constants;
 import waitr.vendorapp.mc.waitruser.R;
 import waitr.vendorapp.mc.waitruser.Services.QuickstartPreferences;
 import waitr.vendorapp.mc.waitruser.Services.RegistrationIntentService;
@@ -76,7 +77,8 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.C
 
         DataDownload download = new DataDownload();
         download.downloadItems();
-        download.downloadOrders();
+        SharedPreferences sharedPreferences = getSharedPreferences(Constants.Prefs, MODE_PRIVATE);
+        download.downloadOrders(sharedPreferences.getInt(Constants.UserIdKey, -1));
 
         setUpToolbar();
         setUpNavDrawer();
