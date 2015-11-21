@@ -1,8 +1,11 @@
 package waitr.vendorapp.mc.waitruser.adapters;
 
+
 import android.content.ContentValues;
 import android.database.sqlite.SQLiteConstraintException;
 import android.database.sqlite.SQLiteDatabase;
+
+import android.database.DatabaseUtils;
 import android.net.Uri;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -21,6 +24,7 @@ import com.squareup.picasso.Picasso;
 import java.util.ArrayList;
 
 import waitr.vendorapp.mc.waitruser.DbUtils.DbContract;
+
 import waitr.vendorapp.mc.waitruser.DbUtils.DbHelper;
 import waitr.vendorapp.mc.waitruser.DbUtils.DbSingleton;
 import waitr.vendorapp.mc.waitruser.Helpers.CircleTransform;
@@ -60,6 +64,7 @@ public class MenuAdapter extends RecyclerView.Adapter<MenuAdapter.ViewHolder> im
         for (int i = 0; i < menuitem.size(); i++)
             if (menuitem.get(i).getId() == item_id) {
                 generateSql(menuitem.get(i),parent);
+
                 break;
             }
     }
@@ -94,7 +99,6 @@ public class MenuAdapter extends RecyclerView.Adapter<MenuAdapter.ViewHolder> im
         //TODO: Change image, contains in query
 
 
-
     }
 
 
@@ -117,6 +121,7 @@ public class MenuAdapter extends RecyclerView.Adapter<MenuAdapter.ViewHolder> im
         Uri uri = Uri.parse(current.getFoodImage());
         Picasso.with(holder.foodImage.getContext()).load(uri).transform(new CircleTransform()).into(holder.foodImage);
         holder.foodItemId.setText(current.getId() + "");
+
 
     }
     public void refresh() {
