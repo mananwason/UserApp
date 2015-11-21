@@ -5,8 +5,6 @@ import android.util.Log;
 
 import com.google.gson.annotations.SerializedName;
 
-import java.util.ArrayList;
-
 import waitr.vendorapp.mc.waitruser.DbUtils.DbContract;
 
 /**
@@ -18,39 +16,25 @@ public class Order {
     int orderId;
     @SerializedName("user_id")
     int userId;
-
-    int vendorId;
-    String vendorName;
-    ArrayList<Item> itemIds;
+    @SerializedName("items")
+    String items;
+    @SerializedName("created_at")
     String dateOfOrder;
+    @SerializedName("cost")
     double costOfOrder;
+    @SerializedName("status")
     Boolean isOrderCompleted;
+    @SerializedName("payment_status")
     Boolean isPaymentMade;
 
-    public Order(int orderId, int userId, ArrayList<Item> itemIds, String dateOfOrder, double costOfOrder, Boolean isOrderCompleted, Boolean isPaymentMade) {
+    public Order(int orderId, int userId, String items, String dateOfOrder, double costOfOrder, Boolean isOrderCompleted, Boolean isPaymentMade) {
         this.orderId = orderId;
         this.userId = userId;
-        this.itemIds = itemIds;
+        this.items = items;
         this.dateOfOrder = dateOfOrder;
         this.costOfOrder = costOfOrder;
         this.isOrderCompleted = isOrderCompleted;
         this.isPaymentMade = isPaymentMade;
-    }
-
-    public int getVendorId() {
-        return vendorId;
-    }
-
-    public void setVendorId(int vendorId) {
-        this.vendorId = vendorId;
-    }
-
-    public String getVendorName() {
-        return vendorName;
-    }
-
-    public void setVendorName(String vendorName) {
-        this.vendorName = vendorName;
     }
 
     public int getOrderId() {
@@ -69,12 +53,12 @@ public class Order {
         this.userId = userId;
     }
 
-    public ArrayList<Item> getItemIds() {
-        return itemIds;
+    public String getItems() {
+        return items;
     }
 
-    public void setItemIds(ArrayList<Item> itemIds) {
-        this.itemIds = itemIds;
+    public void setItems(String items) {
+        this.items = items;
     }
 
     public String getDateOfOrder() {

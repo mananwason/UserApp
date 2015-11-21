@@ -19,7 +19,6 @@ import com.paytm.pgsdk.PaytmPaymentTransactionCallback;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
@@ -47,6 +46,7 @@ public class PaymentActivity extends AppCompatActivity {
     String randomInt;
     PaytmOrder paytmOrder;
     PaytmMerchant Merchant;
+    StringBuilder builder;
     private Toolbar mToolbar;
 
     @Override
@@ -66,12 +66,13 @@ public class PaymentActivity extends AppCompatActivity {
                     //TODO:: POST REQUEST OF ORDER. RETRIEVE ITEMS FROM CART DB, AND CLEAR CART.
                     DbSingleton dbSingleton = DbSingleton.getInstance();
                     dbSingleton.getItemsList();
-                    ArrayList<Item> items= new ArrayList<Item>();
+                    builder = new StringBuilder();
                     for(Item item: dbSingleton.getCartList()){
-                        items.add(item);
+                        builder.append(item.getId()).append(" ,");
                     }
+                    Log.d("builder", builder.toString());
 
-                    Order order = new Order(1, 2,items, getCurrentDate(), 280.0, false, false);
+                    Order order = new Order(1, 2, builder.toString(), getCurrentDate(), 280.0, false, false);
                     APIClient apiClient = new APIClient();
                     apiClient.getmApi().createOrder(order, new Callback<newOrderResponse>() {
                         @Override

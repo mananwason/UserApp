@@ -5,11 +5,7 @@ package waitr.vendorapp.mc.waitruser.Fragments;
  */
 
 import android.content.Intent;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
-import android.graphics.Color;
 import android.os.Bundle;
-import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -21,16 +17,9 @@ import android.widget.FrameLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.paytm.pgsdk.PaytmClientCertificate;
-import com.paytm.pgsdk.PaytmMerchant;
-import com.paytm.pgsdk.PaytmOrder;
 import com.paytm.pgsdk.PaytmPGService;
-import com.paytm.pgsdk.PaytmPaymentTransactionCallback;
 
 import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Random;
 
 import waitr.vendorapp.mc.waitruser.DbUtils.DbSingleton;
 import waitr.vendorapp.mc.waitruser.R;
@@ -49,7 +38,6 @@ public class CartFragment extends Fragment {
 
     double totalCost;
     private PaytmPGService Service = null;
-
 
 
     @Override
@@ -82,19 +70,18 @@ public class CartFragment extends Fragment {
         tracksRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false));
         tracksRecyclerView.setAdapter(cartAdapter);
         displayCost = (TextView) view.findViewById(R.id.displayCostTextView);
-        displayCost.setText("Total Cost: "+ cartAdapter.getTotalCost());
+        displayCost.setText("Total Cost: " + cartAdapter.getTotalCost());
         payNowButton = (Button) view.findViewById(R.id.payNowButton);
         payNowButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-               // displayCost.setText("Total price: " + cartAdapter.getTotalCost());
-                if(list.size()>0) {
+                // displayCost.setText("Total price: " + cartAdapter.getTotalCost());
+                if (list.size() > 0) {
                     Intent payNow = new Intent(view.getContext(), PaymentActivity.class);
                     payNow.putExtra("cost", displayCost.getText());
                     startActivity(payNow);
-                }
-                else
-                    Toast.makeText(view.getContext(),"No item in cart!",Toast.LENGTH_SHORT).show();
+                } else
+                    Toast.makeText(view.getContext(), "No item in cart!", Toast.LENGTH_SHORT).show();
 
             }
 
@@ -167,66 +154,6 @@ public class CartFragment extends Fragment {
         }
         tracksRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false));
         tracksRecyclerView.setAdapter(cartAdapter);
-        /*Snackbar.make(frameLayout,
-                "Total price: " + totalCost,
-                Snackbar.LENGTH_INDEFINITE)
-                .setAction("Proceed to payment", new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        Service = PaytmPGService.getStagingService(); //for testing environment
-                        Map<String, String> paramMap = new HashMap<>();
-                        Random randomGenerator = new Random();
-                        String randomInt = String.valueOf(randomGenerator.nextInt(10000));
-                        //these are mandatory parameters
-                        paramMap.put("REQUEST_TYPE", "DEFAULT");
-                        paramMap.put("ORDER_ID", randomInt);
-                        paramMap.put("MID", "shopma19998593390567");
-                        paramMap.put("CUST_ID", "sid0893");
-                        paramMap.put("CHANNEL_ID", "WAP");
-                        paramMap.put("INDUSTRY_TYPE_ID", "Retail");
-                        paramMap.put("WEBSITE", "shpmteswap");
-                        paramMap.put("TXN_AMOUNT", String.valueOf(totalCost));
-                        paramMap.put("THEME", "merchant");
-                        PaytmOrder Order = new PaytmOrder(paramMap);
-                        PaytmMerchant Merchant = new PaytmMerchant("http://www.theshopmates.com/paytm/generate_checksum", "http://www.theshopmates.com/paytm/verify_checksum");
-                        PaytmClientCertificate Certificate = null;
-                        Service.initialize(Order, Merchant, Certificate);
-                        Service.startPaymentTransaction(getContext(), true, true, new PaytmPaymentTransactionCallback() {
-                            @Override
-                            public void onTransactionSuccess(Bundle bundle) {
-                                Toast.makeText(getContext(), "Success", Toast.LENGTH_SHORT).show();
-                            }
-
-                            @Override
-                            public void onTransactionFailure(String s, Bundle bundle) {
-                                Toast.makeText(getContext(), "Failure", Toast.LENGTH_SHORT).show();
-                            }
-
-                            @Override
-                            public void networkNotAvailable() {
-                                Toast.makeText(getContext(), "Nw unavailable", Toast.LENGTH_SHORT).show();
-                            }
-
-                            @Override
-                            public void clientAuthenticationFailed(String s) {
-                                Toast.makeText(getContext(), "Client auth failed", Toast.LENGTH_SHORT).show();
-                            }
-
-                            @Override
-                            public void someUIErrorOccurred(String s) {
-
-                            }
-
-                            @Override
-                            public void onErrorLoadingWebPage(int i, String s, String s2) {
-
-                            }
-                        });
-                    }
-                })
-                .setActionTextColor(Color.RED)
-                .show();*/
-
         return view;
     }
 }

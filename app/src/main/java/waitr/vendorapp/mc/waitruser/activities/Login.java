@@ -4,6 +4,7 @@ import android.Manifest;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentSender;
+import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
@@ -47,6 +48,9 @@ public class Login extends AppCompatActivity implements GoogleApiClient.Connecti
     private boolean mSignInClicked;
     private View mLayout;
     private ConnectionResult mConnectionResult;
+    public static final String Email = "emailKey";
+    SharedPreferences sharedpreferences;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

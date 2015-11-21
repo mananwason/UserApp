@@ -35,7 +35,6 @@ public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.Viewholder> 
     @Override
     public void onBindViewHolder(OrderAdapter.Viewholder holder, int position) {
         Order mOrderObject = orderObjects.get(position);
-        holder.vendorName.setText(mOrderObject.getVendorName());
         holder.orderId.setText(mOrderObject.getOrderId() + "");
         holder.dateOfOrder.setText(mOrderObject.getDateOfOrder());
 //        holder.dateOfOrder.setText(mOrderObject.getDateOfOrder());
