@@ -20,6 +20,7 @@ import waitr.vendorapp.mc.waitruser.activities.MainActivity;
 /**
  * Created by siddharth on 11/21/15.
  */
+
 public class MyGcmListenerService extends GcmListenerService {
 
     private static final String TAG = "MyGcmListenerService";
@@ -42,38 +43,28 @@ public class MyGcmListenerService extends GcmListenerService {
         for (String s : mStringSet)
             keys += ", " + s;
         Log.d("keys", keys);
-        Log.d("keys1", data.getString("item"));
-        if (data.getString("collapse_key").contains("item") && !data.getString("collapse_key").isEmpty()) {
-            // message received from some topic.
-            Log.d("noti", "item");
-        } else if (data.getString("collapse_key").contains("order") && !data.getString("collapse_key").isEmpty()) {
-            // normal downstream message.
-            Log.d("noti", "order");
+//        Log.d("keys1", data.getString("item"));
+        String messageType = data.getString("collapse_key");
+        if(messageType==null)
+            Log.d("collapse","null");
+        else{
+            Log.d("collapse",messageType);
+            if(messageType.equals("Item")){
+
+            }
+            else if(messageType.equals("")){
+
+            }
+            else{
+
+            }
 
         }
 
-        // [START_EXCLUDE]
-        /**
-         * Production applications would usually process the message here.
-         * Eg: - Syncing with server.
-         *     - Store message in local database.
-         *     - Update UI.
-         */
-
-        /**
-         * In some cases it may be useful to show a notification indicating to the user
-         * that a message was received.
-         */
         sendNotification(message);
-        // [END_EXCLUDE]
-    }
-    // [END receive_message]
 
-    /**
-     * Create and show a simple notification containing the received GCM message.
-     *
-     * @param message GCM message received.
-     */
+    }
+
     private void sendNotification(String message) {
         Intent intent = new Intent(this, MainActivity.class);
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
