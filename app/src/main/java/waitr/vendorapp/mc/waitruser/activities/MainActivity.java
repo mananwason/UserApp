@@ -33,8 +33,8 @@ import com.squareup.otto.Bus;
 import com.squareup.otto.Subscribe;
 import com.squareup.picasso.Picasso;
 
+import waitr.vendorapp.mc.waitruser.Fragments.SettingsFragment;
 import waitr.vendorapp.mc.waitruser.Helpers.DataDownload;
-
 import waitr.vendorapp.mc.waitruser.Events.ItemDownloadDoneEvent;
 import waitr.vendorapp.mc.waitruser.Events.RefreshUiEvent;
 import waitr.vendorapp.mc.waitruser.Fragments.CartFragment;
@@ -97,8 +97,8 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.C
 //        if (displayPic != null) {
 //            Picasso.with(this).load(displayPic).transform(new CircleTransform()).into(header);
 //        }
-        if(sharedPreferences.getString(QuickstartPreferences.REGISTRATION_TOKEN,"").equals("")) {
-
+        String gcmToken = sharedPreferences.getString(QuickstartPreferences.REGISTRATION_TOKEN,"");
+        if(gcmToken.equals("")) {
             mRegistrationBroadcastReceiver = new BroadcastReceiver() {
                 @Override
                 public void onReceive(Context context, Intent intent) {
@@ -117,6 +117,8 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.C
             Intent intent = new Intent(this, RegistrationIntentService.class);
             startService(intent);
         }
+        else
+            Log.d("gcm token",gcmToken);
 
 
 
@@ -232,7 +234,6 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.C
         }
 
         Snackbar.make(mainFrame, getString(R.string.download_complete), Snackbar.LENGTH_SHORT).show();
-
     }
 
     private void downloadFailed() {
@@ -292,7 +293,9 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.C
                                         R.id.content_frame, new CompletedOrderFragment()).commit();
                                 getSupportActionBar().setTitle(R.string.past_orders);
                                 break;
-                            case R.id.nav_settings:
+                            case R.id.nav_settings:fragmentManager.beginTransaction().replace(
+                                    R.id.content_frame, new SettingsFragment()).commit();
+                                getSupportActionBar().setTitle("Notificaton Settings");
                                 break;
                             case R.id.nav_sign_out:
                                 logOut();
@@ -313,7 +316,6 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.C
             Toast.makeText(this, "You have been signed out successfully", Toast.LENGTH_SHORT).show();
             Intent mIntent = new Intent(this, Login.class);
             startActivity(mIntent);
-
         }
     }
 
@@ -324,7 +326,6 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.C
 
     @Override
     public void onConnectionSuspended(int i) {
-
         mGoogleApiClient1.connect();
     }
 
@@ -336,11 +337,9 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.C
     @Subscribe
     public void ItemsDownloadDone(ItemDownloadDoneEvent event) {
         Log.d("retro event", eventsDone + " " + counter);
-
         if (event.isState()) {
             eventsDone++;
             Log.d("retro event", eventsDone + " " + counter);
-
             if (counter == eventsDone) {
                 syncComplete();
             }

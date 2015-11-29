@@ -7,4 +7,6 @@ public class Constants {
 
     public static String UserIdKey = "UserId";
     public static String Prefs = "MyPrefs";
+    public static String RECEIVE_NOTIFICATIONS_ORDER = "receiveNotificationsOrder";
+    public static String RECEIVE_NOTIFICATIONS_NEW_ITEM = "receiveNotificationsNewItem";
 }

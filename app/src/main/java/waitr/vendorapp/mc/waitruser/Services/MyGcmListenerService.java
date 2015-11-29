@@ -14,6 +14,8 @@ import android.util.Log;
 
 import com.google.android.gms.gcm.GcmListenerService;
 
+import java.util.Set;
+
 import waitr.vendorapp.mc.waitruser.R;
 import waitr.vendorapp.mc.waitruser.activities.MainActivity;
 
@@ -34,10 +36,16 @@ public class MyGcmListenerService extends GcmListenerService {
     // [START receive_message]
     @Override
     public void onMessageReceived(String from, Bundle data) {
-        String message = data.getString("message");
-        Log.d(TAG, "From: " + from);
-        Log.d(TAG, "Message: " + message);
 
+//          Set<String> mStringSet = data.keySet();
+//        String keys = "";
+//        for(String s:mStringSet)
+//            keys += ", " + s;
+//          Log.d("keys",keys);
+        String message = data.getString("score");
+//        Log.d(TAG, "From: " + from);
+//        Log.d(TAG, "Message: " + message);
+        Log.d("score",message);
         if (from.startsWith("/topics/")) {
             // message received from some topic.
         } else {
