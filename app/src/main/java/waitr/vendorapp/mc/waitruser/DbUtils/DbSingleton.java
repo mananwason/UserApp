@@ -1,10 +1,13 @@
 package waitr.vendorapp.mc.waitruser.DbUtils;
 
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.database.sqlite.SQLiteDatabase;
+import android.preference.PreferenceManager;
 
 import java.util.ArrayList;
 
+import waitr.vendorapp.mc.waitruser.Helpers.Constants;
 import waitr.vendorapp.mc.waitruser.dataObjects.Item;
 import waitr.vendorapp.mc.waitruser.dataObjects.Order;
 
@@ -55,14 +58,16 @@ public class DbSingleton {
 
     }
 
-    public ArrayList<Order> getCompletedOrdersList(){
+    public ArrayList<Order> getCompletedOrdersList() {
         getReadOnlyDatabase();
-        return databaseOperations.getCompletedOrderList(mDb, 1); // revisit user id
+        SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(mContext);
+        return databaseOperations.getCompletedOrderList(mDb, sharedPreferences.getInt(Constants.UserIdKey, -1)); // revisit user id
     }
 
-    public ArrayList<Order> getPendingOrdersList(){
+    public ArrayList<Order> getPendingOrdersList() {
         getReadOnlyDatabase();
-        return databaseOperations.getPendingOrderList(mDb,1);   //revisit user id
+        SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(mContext);
+        return databaseOperations.getPendingOrderList(mDb, sharedPreferences.getInt(Constants.UserIdKey, -1)); // revisit user id
     }
 
 
@@ -82,7 +87,7 @@ public class DbSingleton {
         databaseOperations.deleteAllRecords(tableName, mDb);
     }
 
-    public void deleteRecord(String tableName,String condition){
-        databaseOperations.deleteRecord(tableName,condition,mDb);
+    public void deleteRecord(String tableName, String condition) {
+        databaseOperations.deleteRecord(tableName, condition, mDb);
     }
 }

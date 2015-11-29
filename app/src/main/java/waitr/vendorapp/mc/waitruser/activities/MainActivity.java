@@ -22,7 +22,6 @@ import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.animation.AlphaAnimation;
 import android.view.animation.Animation;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
@@ -42,15 +41,15 @@ import tourguide.tourguide.Overlay;
 import tourguide.tourguide.Sequence;
 import tourguide.tourguide.ToolTip;
 import tourguide.tourguide.TourGuide;
-import waitr.vendorapp.mc.waitruser.Fragments.SettingsFragment;
-import waitr.vendorapp.mc.waitruser.Helpers.DataDownload;
 import waitr.vendorapp.mc.waitruser.Events.ItemDownloadDoneEvent;
 import waitr.vendorapp.mc.waitruser.Events.RefreshUiEvent;
 import waitr.vendorapp.mc.waitruser.Fragments.CartFragment;
 import waitr.vendorapp.mc.waitruser.Fragments.CompletedOrderFragment;
 import waitr.vendorapp.mc.waitruser.Fragments.MenuFragment;
 import waitr.vendorapp.mc.waitruser.Fragments.PendingOrderFragment;
+import waitr.vendorapp.mc.waitruser.Fragments.SettingsFragment;
 import waitr.vendorapp.mc.waitruser.Helpers.Constants;
+import waitr.vendorapp.mc.waitruser.Helpers.DataDownload;
 import waitr.vendorapp.mc.waitruser.R;
 import waitr.vendorapp.mc.waitruser.Services.QuickstartPreferences;
 import waitr.vendorapp.mc.waitruser.Services.RegistrationIntentService;
@@ -73,7 +72,7 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.C
     private BroadcastReceiver mRegistrationBroadcastReceiver;
     public TourGuide mTutorialHandler;
     private Animation mEnterAnimation, mExitAnimation;
-    View cart,navDrawerHamburgerIcon;
+    View cart, navDrawerHamburgerIcon;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -104,14 +103,14 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.C
         personName = receivedIntent.getStringExtra("name");
         personId = receivedIntent.getStringExtra("id");
         displayPic = receivedIntent.getStringExtra("photo");    //url for dp
-        cart = (View)findViewById(R.id.action_settings);
-        navDrawerHamburgerIcon = (View)findViewById(android.R.id.home);
+        cart = (View) findViewById(R.id.action_settings);
+        navDrawerHamburgerIcon = (View) findViewById(android.R.id.home);
 //        Log.d("url in main activity",displayPic);
 //        if (displayPic != null) {
 //            Picasso.with(this).load(displayPic).transform(new CircleTransform()).into(header);
 //        }
-        String gcmToken = sharedPreferences.getString(QuickstartPreferences.REGISTRATION_TOKEN,"");
-        if(gcmToken.equals("")) {
+        String gcmToken = sharedPreferences.getString(QuickstartPreferences.REGISTRATION_TOKEN, "");
+        if (gcmToken.equals("")) {
             mRegistrationBroadcastReceiver = new BroadcastReceiver() {
                 @Override
                 public void onReceive(Context context, Intent intent) {
@@ -129,69 +128,10 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.C
 
             Intent intent = new Intent(this, RegistrationIntentService.class);
             startService(intent);
+        } else {
+            Log.d("gcm token", gcmToken);
         }
-        else
-            Log.d("gcm token",gcmToken);
-        mEnterAnimation = new AlphaAnimation(0f, 1f);
-        mEnterAnimation.setDuration(600);
-        mEnterAnimation.setFillAfter(true);
 
-        mExitAnimation = new AlphaAnimation(1f, 0f);
-        mExitAnimation.setDuration(600);
-        mExitAnimation.setFillAfter(true);
-        runOverlay_ContinueMethod();
-
-    }
-    private void runOverlay_ContinueMethod(){
-        // the return handler is used to manipulate the cleanup of all the tutorial elements
-        TourGuide tourGuide1 = TourGuide.init(this)
-                .setToolTip(new ToolTip()
-                                .setTitle("ContinueMethod.Overlay")
-                                .setDescription("When using this ContinueMethod, you can't specify the additional action before going to next TourGuide.")
-                                .setGravity(Gravity.BOTTOM)
-                ).setOverlay(new Overlay()
-                                .setBackgroundColor(Color.parseColor("#EE2c3e50"))
-                                .setEnterAnimation(mEnterAnimation)
-                                .setExitAnimation(mExitAnimation)
-                )
-                        // note that there is not Overlay here, so the default one will be used
-                .playLater(cart);
-
-//        TourGuide tourGuide2 = TourGuide.init(this)
-//                .setToolTip(new ToolTip()
-//                                .setTitle("Tip")
-//                                .setDescription("Individual Overlay will be used when it's supplied.")
-//                                .setGravity(Gravity.BOTTOM | Gravity.LEFT)
-//                                .setBackgroundColor(Color.parseColor("#c0392b"))
-//                )
-//                .setOverlay(new Overlay()
-//                                .setBackgroundColor(Color.parseColor("#EE2c3e50"))
-//                                .setEnterAnimation(mEnterAnimation)
-//                                .setExitAnimation(mExitAnimation)
-//                )
-//                .playLater(navDrawerHamburgerIcon);
-
-//        TourGuide tourGuide3 = TourGuide.init(this)
-//                .setToolTip(new ToolTip()
-//                                .setTitle("ContinueMethod.Overlay")
-//                                .setDescription("When using this ContinueMethod, you don't need to call tourGuide.next() explicitly, TourGuide will do it for you.")
-//                                .setGravity(Gravity.TOP)
-//                )
-//                        // note that there is not Overlay here, so the default one will be used
-//                .playLater(mButton3);
-
-        Sequence sequence = new Sequence.SequenceBuilder()
-                .add(tourGuide1, tourGuide1,tourGuide1)
-                .setDefaultOverlay(new Overlay()
-                                .setEnterAnimation(mEnterAnimation)
-                                .setExitAnimation(mExitAnimation)
-                )
-                .setDefaultPointer(null)
-                .setContinueMethod(Sequence.ContinueMethod.Overlay)
-                .build();
-
-
-        TourGuide.init(this).playInSequence(sequence);
     }
 
 
@@ -345,7 +285,7 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.C
                         menuItem.setChecked(true);
                         int id = menuItem.getItemId();
 
-                       // menu.clear();
+                        // menu.clear();
                         switch (id) {
                             case R.id.nav_menu:
                                 fragmentManager.beginTransaction()
@@ -364,8 +304,9 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.C
                                         R.id.content_frame, new CompletedOrderFragment()).commit();
                                 getSupportActionBar().setTitle(R.string.past_orders);
                                 break;
-                            case R.id.nav_settings:fragmentManager.beginTransaction().replace(
-                                    R.id.content_frame, new SettingsFragment()).commit();
+                            case R.id.nav_settings:
+                                fragmentManager.beginTransaction().replace(
+                                        R.id.content_frame, new SettingsFragment()).commit();
                                 getSupportActionBar().setTitle("Notificaton Settings");
                                 break;
                             case R.id.nav_sign_out:
