@@ -22,6 +22,7 @@ public class OrdersListResponseProcessor implements Callback<waitr.vendorapp.mc.
 
     @Override
     public void success(final OrdersResponseList ordersResponseList, Response response) {
+
         Log.d("retro", "success");
         ArrayList<String> queries = new ArrayList<String>();
 

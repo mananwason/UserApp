@@ -9,6 +9,7 @@ import waitr.vendorapp.mc.waitruser.api.protocol.ItemsResponseList;
 import waitr.vendorapp.mc.waitruser.api.protocol.OrdersResponseList;
 import waitr.vendorapp.mc.waitruser.api.protocol.UserResponse;
 import waitr.vendorapp.mc.waitruser.api.protocol.newOrderResponse;
+import waitr.vendorapp.mc.waitruser.dataObjects.GcmToken;
 import waitr.vendorapp.mc.waitruser.dataObjects.Order;
 
 /**
@@ -30,5 +31,8 @@ public interface mAPI {
 
     @GET("/get_id")
     void getUserId(@Query("name") String name, @Query("email") String email, Callback<UserResponse> userResponseCallback);
+
+    @POST("/set_gcm")
+    void setGcm(@Body GcmToken newToken, Callback<String> callback);
 
 }

@@ -7,8 +7,6 @@ import android.content.Intent;
 import android.media.RingtoneManager;
 import android.net.Uri;
 import android.os.Bundle;
-
-
 import android.support.v4.app.NotificationCompat;
 import android.util.Log;
 
@@ -36,20 +34,22 @@ public class MyGcmListenerService extends GcmListenerService {
     // [START receive_message]
     @Override
     public void onMessageReceived(String from, Bundle data) {
-
-//          Set<String> mStringSet = data.keySet();
-//        String keys = "";
-//        for(String s:mStringSet)
-//            keys += ", " + s;
-//          Log.d("keys",keys);
-        String message = data.getString("score");
+        String message = data.getString("item");
 //        Log.d(TAG, "From: " + from);
 //        Log.d(TAG, "Message: " + message);
-        Log.d("score",message);
-        if (from.startsWith("/topics/")) {
+        Set<String> mStringSet = data.keySet();
+        String keys = "";
+        for (String s : mStringSet)
+            keys += ", " + s;
+        Log.d("keys", keys);
+        Log.d("keys1", data.getString("item"));
+        if (data.getString("collapse_key").contains("item") && !data.getString("collapse_key").isEmpty()) {
             // message received from some topic.
-        } else {
+            Log.d("noti", "item");
+        } else if (data.getString("collapse_key").contains("order") && !data.getString("collapse_key").isEmpty()) {
             // normal downstream message.
+            Log.d("noti", "order");
+
         }
 
         // [START_EXCLUDE]
@@ -88,7 +88,6 @@ public class MyGcmListenerService extends GcmListenerService {
                 .setAutoCancel(true)
                 .setSound(defaultSoundUri)
                 .setContentIntent(pendingIntent);
-
 
 
         NotificationManager notificationManager =

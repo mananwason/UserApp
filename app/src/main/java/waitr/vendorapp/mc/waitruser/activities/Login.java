@@ -10,6 +10,7 @@ import android.content.pm.PackageManager;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.provider.Settings;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.ActivityCompat;
@@ -57,7 +58,6 @@ public class Login extends AppCompatActivity implements GoogleApiClient.Connecti
     private ConnectionResult mConnectionResult;
 
     public static final String Email = "emailKey";
-//    SharedPreferences sharedpreferences;
     TextView wecomeTextview;
 
 
@@ -66,7 +66,7 @@ public class Login extends AppCompatActivity implements GoogleApiClient.Connecti
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
         mLayout = findViewById(R.id.relative_layout);
-        wecomeTextview = (TextView)findViewById(R.id.welcome_textView);
+        wecomeTextview = (TextView) findViewById(R.id.welcome_textView);
         mGoogleApiClient = new GoogleApiClient.Builder(this)
                 .addConnectionCallbacks(this)
                 .addOnConnectionFailedListener(this)
@@ -173,12 +173,8 @@ public class Login extends AppCompatActivity implements GoogleApiClient.Connecti
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
 
-        //noinspection SimplifiableIfStatement
         if (id == R.id.action_settings) {
             return true;
         }
@@ -207,7 +203,7 @@ public class Login extends AppCompatActivity implements GoogleApiClient.Connecti
                 @Override
                 public void success(UserResponse userResponse, Response response) {
                     for (User user : userResponse.user) {
-                        SharedPreferences pref = getSharedPreferences(Constants.Prefs, Context.MODE_PRIVATE);
+                        SharedPreferences pref = PreferenceManager.getDefaultSharedPreferences(Login.this);
                         SharedPreferences.Editor editor = pref.edit();
                         editor.putInt(Constants.UserIdKey, user.getId());
                         editor.apply();
@@ -232,9 +228,6 @@ public class Login extends AppCompatActivity implements GoogleApiClient.Connecti
                 }
             });
         }
-
-
-//        }
     }
 
     @Override
@@ -328,7 +321,6 @@ public class Login extends AppCompatActivity implements GoogleApiClient.Connecti
         Animation anim = AnimationUtils.loadAnimation(this, R.anim.translate_top_to_center);
         wecomeTextview.startAnimation(anim);
     }
-
 
 
 }

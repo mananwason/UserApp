@@ -13,7 +13,13 @@ import com.google.android.gms.iid.InstanceID;
 
 import java.io.IOException;
 
+import retrofit.Callback;
+import retrofit.RetrofitError;
+import retrofit.client.Response;
+import waitr.vendorapp.mc.waitruser.Helpers.Constants;
 import waitr.vendorapp.mc.waitruser.R;
+import waitr.vendorapp.mc.waitruser.api.APIClient;
+import waitr.vendorapp.mc.waitruser.dataObjects.GcmToken;
 
 /**
  * Created by siddharth on 11/21/15.
@@ -78,6 +84,22 @@ public class RegistrationIntentService extends IntentService {
      */
     private void sendRegistrationToServer(String token) {
         // TODO:: Add custom implementation, as needed.
+        APIClient apiClient = new APIClient();
+        SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
+
+        GcmToken gcmToken = new GcmToken(sharedPreferences.getInt(Constants.UserIdKey, -1),token);
+        apiClient.getmApi().setGcm(gcmToken, new Callback<String>() {
+            @Override
+            public void success(String s, Response response) {
+                Log.d("set_gcm", s);
+            }
+
+            @Override
+            public void failure(RetrofitError error) {
+                Log.d("set_gcm fail", error.getCause().toString());
+
+            }
+        });
     }
 
     /**
