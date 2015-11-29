@@ -17,12 +17,13 @@
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
             android:title="@string/abc_search_hint" />
+
         <ProgressBar
             android:id="@+id/progress"
+            style="@style/CustomProgressBar"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="top"
-            style="@style/CustomProgressBar"
             android:layout_marginTop="-7dp"
             android:max="100"
             android:visibility="gone" />

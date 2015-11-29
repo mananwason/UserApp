@@ -38,7 +38,6 @@ import waitr.vendorapp.mc.waitruser.dataObjects.Order;
 
 public class PaymentActivity extends AppCompatActivity {
 
-    private PaytmPGService Service = null;
     String totalCost;
     Button payNowButton;
     RadioButton cashOnPickUp, paytm;
@@ -47,6 +46,7 @@ public class PaymentActivity extends AppCompatActivity {
     PaytmOrder paytmOrder;
     PaytmMerchant Merchant;
     StringBuilder builder;
+    private PaytmPGService Service = null;
     private Toolbar mToolbar;
 
     @Override

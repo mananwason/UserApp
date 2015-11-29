@@ -55,13 +55,13 @@
             style="?android:attr/ratingBarStyleSmall"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:numStars="5"
-            android:rating="2"
-            android:stepSize=".5"
+            android:layout_alignLeft="@+id/foodContent"
+            android:layout_alignStart="@+id/foodContent"
             android:layout_below="@+id/openItemButton"
             android:layout_marginTop="5dp"
-            android:layout_alignLeft="@+id/foodContent"
-            android:layout_alignStart="@+id/foodContent" />
+            android:numStars="5"
+            android:rating="2"
+            android:stepSize=".5" />
 
         <View
             android:id="@+id/sepLine"
@@ -104,14 +104,14 @@
             android:background="@drawable/next" />
 
         <TextView
+            android:id="@+id/cart_item_id"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textAppearance="?android:attr/textAppearanceSmall"
-            android:visibility="invisible"
-            android:id="@+id/cart_item_id"
             android:layout_alignTop="@+id/foodName"
+            android:layout_toEndOf="@+id/foodContent"
             android:layout_toRightOf="@+id/foodContent"
-            android:layout_toEndOf="@+id/foodContent" />
+            android:textAppearance="?android:attr/textAppearanceSmall"
+            android:visibility="invisible" />
 
 
     </RelativeLayout>

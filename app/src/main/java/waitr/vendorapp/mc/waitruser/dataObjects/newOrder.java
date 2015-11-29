@@ -6,16 +6,16 @@ package waitr.vendorapp.mc.waitruser.dataObjects;
 public class newOrder {
     private int id;
 
+    public newOrder(int id) {
+
+        this.id = id;
+    }
+
     public int getId() {
         return id;
     }
 
     public void setId(int id) {
-        this.id = id;
-    }
-
-    public newOrder(int id) {
-
         this.id = id;
     }
 

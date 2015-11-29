@@ -32,9 +32,9 @@
         android:src="@drawable/heisenberg" />
 
     <!--<TextView-->
-        <!--android:layout_width="wrap_content"-->
-        <!--android:layout_height="wrap_content"-->
-        <!--android:text="Heisenberg" />-->
+    <!--android:layout_width="wrap_content"-->
+    <!--android:layout_height="wrap_content"-->
+    <!--android:text="Heisenberg" />-->
 
 
 </LinearLayout>

@@ -19,7 +19,7 @@
     <string name="past_orders">Past Orders</string>
     <string name="about_us">About us</string>
     <string name="profile_pic_desc">Profile Pic</string>
-    <string name="download_complete" >Download Complete</string>
+    <string name="download_complete">Download Complete</string>
     <string name="download_failed">Download Failed, Check Internet Connection</string>
     <string name="permission_account_rationale">Account information is needed to login to the google plus account</string>
     <string name="ok">OK</string>

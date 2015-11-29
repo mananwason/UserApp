@@ -27,15 +27,13 @@ import waitr.vendorapp.mc.waitruser.dataObjects.Item;
 
 public class CartFragment extends Fragment {
 
+    public static TextView displayCost;
+    Button payNowButton;
+    double totalCost;
     private RecyclerView tracksRecyclerView;
     private CartAdapter cartAdapter;
     private ArrayList<Item> list;
     private FrameLayout frameLayout;
-    Button payNowButton;
-    public static TextView displayCost;
-
-    double totalCost;
-
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {

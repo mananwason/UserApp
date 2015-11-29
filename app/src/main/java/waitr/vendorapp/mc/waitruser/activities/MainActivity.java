@@ -34,7 +34,7 @@ import com.squareup.otto.Bus;
 import com.squareup.otto.Subscribe;
 import com.squareup.picasso.Picasso;
 
-import waitr.vendorapp.mc.waitruser.DbUtils.DataDownload;
+import waitr.vendorapp.mc.waitruser.Helpers.DataDownload;
 import waitr.vendorapp.mc.waitruser.Events.ItemDownloadDoneEvent;
 import waitr.vendorapp.mc.waitruser.Events.RefreshUiEvent;
 import waitr.vendorapp.mc.waitruser.Fragments.CartFragment;
@@ -50,6 +50,8 @@ import waitr.vendorapp.mc.waitruser.UserApp;
 public class MainActivity extends AppCompatActivity implements GoogleApiClient.ConnectionCallbacks,
         GoogleApiClient.OnConnectionFailedListener {
 
+    private static final int PLAY_SERVICES_RESOLUTION_REQUEST = 9000;
+    private static final String TAG = "MainActivity";
     private DrawerLayout mDrawerLayout;
     private Toolbar mToolbar;
     private NavigationView navigationView;
@@ -59,9 +61,6 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.C
     private GoogleApiClient mGoogleApiClient1;
     private int counter;
     private int eventsDone;
-    private static final int PLAY_SERVICES_RESOLUTION_REQUEST = 9000;
-    private static final String TAG = "MainActivity";
-
     private BroadcastReceiver mRegistrationBroadcastReceiver;
 
 

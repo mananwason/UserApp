@@ -42,10 +42,9 @@ public class Login extends AppCompatActivity implements GoogleApiClient.Connecti
 
     private static final int RC_SIGN_IN = 0;
     private static final int REQUEST_ACCOUNTS = 1;
-    private static String[] PERMISSIONS_ACCOUNTS = {Manifest.permission.GET_ACCOUNTS};
-
     private static final String TAG = "Login activity";
     public static GoogleApiClient mGoogleApiClient;
+    private static String[] PERMISSIONS_ACCOUNTS = {Manifest.permission.GET_ACCOUNTS};
     private boolean mIntentInProgress;
     private boolean mSignInClicked;
     private View mLayout;
@@ -159,40 +158,41 @@ public class Login extends AppCompatActivity implements GoogleApiClient.Connecti
             requestAccountPermissions();
         } else {
             id = Plus.AccountApi.getAccountName(mGoogleApiClient);
-        }
-        APIClient apiClient = new APIClient();
+            APIClient apiClient = new APIClient();
 
-        apiClient.getmApi().getUserId("manan", "manan1@gmail.com", new Callback<UserResponse>() {
-            @Override
-            public void success(UserResponse userResponse, Response response) {
-                Log.d("get user id", userResponse.toString());
-                for (User user : userResponse.user) {
-                    SharedPreferences pref = getSharedPreferences(Constants.Prefs, Context.MODE_PRIVATE);
-                    SharedPreferences.Editor editor = pref.edit();
-                    editor.putInt(Constants.UserIdKey, user.getId());
-                    editor.apply();
+            apiClient.getmApi().getUserId("manan", "manan1@gmail.com", new Callback<UserResponse>() {
+                @Override
+                public void success(UserResponse userResponse, Response response) {
+                    for (User user : userResponse.user) {
+                        Log.d("get user id", user.getId()+"");
+                        SharedPreferences pref = getSharedPreferences(Constants.Prefs, Context.MODE_PRIVATE);
+                        SharedPreferences.Editor editor = pref.edit();
+                        editor.putInt(Constants.UserIdKey, user.getId());
+                        editor.apply();
+                    }
+
+                    Person currentPerson = Plus.PeopleApi.getCurrentPerson(mGoogleApiClient);
+                    String personName = null, personPhoto = null;
+                    if (currentPerson != null) {
+                        personName = currentPerson.getDisplayName();
+                        personPhoto = currentPerson.getImage().getUrl();
+                    }
+                    Intent mIntent = new Intent(Login.this, MainActivity.class);
+                    mIntent.putExtra("name", personName);
+                    mIntent.putExtra("photo", personPhoto);
+
+                    Toast.makeText(Login.this, "Signed in as " + "\n" + personName + " " + personPhoto, Toast.LENGTH_SHORT).show();
+                    startActivity(mIntent);
+
                 }
 
-                Person currentPerson = Plus.PeopleApi.getCurrentPerson(mGoogleApiClient);
-                String personName = null, personPhoto = null;
-                if (currentPerson != null) {
-                    personName = currentPerson.getDisplayName();
-                    personPhoto = currentPerson.getImage().getUrl();
-                }
-                Intent mIntent = new Intent(Login.this, MainActivity.class);
-                mIntent.putExtra("name", personName);
-                mIntent.putExtra("photo", personPhoto);
-
-                Toast.makeText(Login.this, "Signed in as " + "\n" + personName + " " + personPhoto, Toast.LENGTH_SHORT).show();
-                startActivity(mIntent);
-
-            }
-
-            @Override
-            public void failure(RetrofitError error) {
+                @Override
+                public void failure(RetrofitError error) {
 //               Log.d("get user id fail", error.getCause().toString());
-            }
-        });
+                }
+            });
+        }
+
 
 
 //        }

@@ -1,4 +1,4 @@
-package waitr.vendorapp.mc.waitruser.DbUtils;
+package waitr.vendorapp.mc.waitruser.Helpers;
 
 import android.util.Log;
 

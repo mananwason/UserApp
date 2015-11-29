@@ -25,10 +25,10 @@ import waitr.vendorapp.mc.waitruser.dataObjects.Item;
 
 public class CartAdapter extends RecyclerView.Adapter<CartAdapter.Viewholder> implements View.OnClickListener {
 
-    ArrayList<Item> menuitem;
-    private double totalCost;
     public static TextView displayQuantity;
+    ArrayList<Item> menuitem;
     RangeBar mRangebar;
+    private double totalCost;
 
     public CartAdapter(ArrayList<Item> menuItem) {
         this.menuitem = menuItem;

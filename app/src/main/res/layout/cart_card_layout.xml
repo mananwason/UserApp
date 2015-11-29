@@ -72,7 +72,7 @@
             android:layout_marginLeft="16dp"
             android:layout_marginRight="16dp"
             custom:rangeBar="false"
-            custom:tickEnd="10"/>
+            custom:tickEnd="10" />
 
     </RelativeLayout>
 
