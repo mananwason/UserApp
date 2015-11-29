@@ -4,6 +4,7 @@ import android.Manifest;
 import android.animation.AnimatorSet;
 import android.animation.ObjectAnimator;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.IntentSender;
 import android.content.SharedPreferences;
@@ -11,8 +12,10 @@ import android.content.pm.PackageManager;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Bundle;
+import android.provider.Settings;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.ActivityCompat;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.Menu;
@@ -86,8 +89,32 @@ public class Login extends AppCompatActivity implements GoogleApiClient.Connecti
     @Override
     protected void onStart() {
         super.onStart();
-//        if(isNetworkAvailable())
-        mGoogleApiClient.connect();
+        if (isNetworkAvailable()) {
+            mGoogleApiClient.connect();
+        } else {
+            AlertDialog.Builder builder = new AlertDialog.Builder(Login.this)
+                    .setTitle(getString(R.string.no_internet)).setMessage(getString(R.string.internet_required))
+                    .setPositiveButton(getString(R.string.open_wifi_settings), new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            startActivity(new Intent(Settings.ACTION_WIFI_SETTINGS));
+
+                        }
+                    })
+                    .setNegativeButton("Use Mobile Data", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            startActivity(new Intent(Settings.ACTION_DATA_ROAMING_SETTINGS));
+                        }
+                    })
+                    .setNeutralButton("None available", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+
+                        }
+                    });
+            builder.show();
+        }
     }
 
     private boolean isNetworkAvailable() {
@@ -168,25 +195,34 @@ public class Login extends AppCompatActivity implements GoogleApiClient.Connecti
     @Override
     public void onConnected(Bundle bundle) {
         mSignInClicked = false;
-        String id = "";
+        String personName = "";
+        String personEmail = "";
+
+        final Person currentPerson = Plus.PeopleApi.getCurrentPerson(mGoogleApiClient);
         if (ActivityCompat.checkSelfPermission(this, Manifest.permission.GET_ACCOUNTS) != PackageManager.PERMISSION_GRANTED) {
             requestAccountPermissions();
         } else {
-            id = Plus.AccountApi.getAccountName(mGoogleApiClient);
+            if (currentPerson != null) {
+
+                personName = currentPerson.getDisplayName();
+                personEmail = Plus.AccountApi.getAccountName(mGoogleApiClient);
+            }
             APIClient apiClient = new APIClient();
 
+<<<<<<< 321a5a22f860c614941c39ba05764f51622b2763
             apiClient.getmApi().getUserId("siddharth", "siddharth13161@iiitd.ac.in", new Callback<UserResponse>() {
+=======
+            apiClient.getmApi().getUserId(personName, personEmail, new Callback<UserResponse>() {
+>>>>>>> random commit. Dunno what I did
                 @Override
                 public void success(UserResponse userResponse, Response response) {
                     for (User user : userResponse.user) {
-                        Log.d("get user id", user.getId()+"");
                         SharedPreferences pref = getSharedPreferences(Constants.Prefs, Context.MODE_PRIVATE);
                         SharedPreferences.Editor editor = pref.edit();
                         editor.putInt(Constants.UserIdKey, user.getId());
                         editor.apply();
                     }
 
-                    Person currentPerson = Plus.PeopleApi.getCurrentPerson(mGoogleApiClient);
                     String personName = null, personPhoto = null;
                     if (currentPerson != null) {
                         personName = currentPerson.getDisplayName();
@@ -195,8 +231,7 @@ public class Login extends AppCompatActivity implements GoogleApiClient.Connecti
                     Intent mIntent = new Intent(Login.this, MainActivity.class);
                     mIntent.putExtra("name", personName);
                     mIntent.putExtra("photo", personPhoto);
-
-                    Toast.makeText(Login.this, "Signed in as " + "\n" + personName + " " + personPhoto, Toast.LENGTH_SHORT).show();
+                    Toast.makeText(Login.this, "Signed in as " + "\n" + personName, Toast.LENGTH_SHORT).show();
                     startActivity(mIntent);
 
                 }
@@ -207,7 +242,6 @@ public class Login extends AppCompatActivity implements GoogleApiClient.Connecti
                 }
             });
         }
-
 
 
 //        }

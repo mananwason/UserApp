@@ -20,7 +20,7 @@ public class DataDownload {
     public void downloadOrders(int userId) {
         Log.d("user_id", userId + "");
         if (userId == -1) {
-            Log.d("user_id", "userId is -1");
+            Log.d("user_id", "userId not Formed");
         } else {
             client.getmApi().getOrders(userId, new OrdersListResponseProcessor());
         }
