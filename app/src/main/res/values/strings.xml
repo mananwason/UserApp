@@ -27,12 +27,9 @@
     <string name="place_order_string">Place Order</string>
     <string name="payment">Payment</string>
     <string name="gcm_defaultSenderId">1053716497536</string>
-<<<<<<< 321a5a22f860c614941c39ba05764f51622b2763
     <string name="welcome_string">Welcome!</string>
-=======
     <string name="no_internet">No Internet</string>
     <string name="internet_required">Internet Connection required to proceed</string>
     <string name="open_wifi_settings">Use Wifi</string>
->>>>>>> random commit. Dunno what I did
 
 </resources>

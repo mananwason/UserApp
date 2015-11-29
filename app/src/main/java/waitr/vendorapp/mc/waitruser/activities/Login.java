@@ -1,8 +1,6 @@
 package waitr.vendorapp.mc.waitruser.activities;
 
 import android.Manifest;
-import android.animation.AnimatorSet;
-import android.animation.ObjectAnimator;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -21,7 +19,6 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.animation.AccelerateDecelerateInterpolator;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.TextView;
@@ -37,13 +34,10 @@ import com.google.android.gms.common.api.Status;
 import com.google.android.gms.plus.Plus;
 import com.google.android.gms.plus.model.people.Person;
 
-import org.w3c.dom.Text;
-
 import retrofit.Callback;
 import retrofit.RetrofitError;
 import retrofit.client.Response;
 import waitr.vendorapp.mc.waitruser.Helpers.Constants;
-
 import waitr.vendorapp.mc.waitruser.R;
 import waitr.vendorapp.mc.waitruser.api.APIClient;
 import waitr.vendorapp.mc.waitruser.api.protocol.UserResponse;
@@ -209,11 +203,7 @@ public class Login extends AppCompatActivity implements GoogleApiClient.Connecti
             }
             APIClient apiClient = new APIClient();
 
-<<<<<<< 321a5a22f860c614941c39ba05764f51622b2763
-            apiClient.getmApi().getUserId("siddharth", "siddharth13161@iiitd.ac.in", new Callback<UserResponse>() {
-=======
             apiClient.getmApi().getUserId(personName, personEmail, new Callback<UserResponse>() {
->>>>>>> random commit. Dunno what I did
                 @Override
                 public void success(UserResponse userResponse, Response response) {
                     for (User user : userResponse.user) {
