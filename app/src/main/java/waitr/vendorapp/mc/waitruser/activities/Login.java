@@ -98,7 +98,7 @@ public class Login extends AppCompatActivity implements GoogleApiClient.Connecti
                     .setNegativeButton("Use Mobile Data", new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialog, int which) {
-                            startActivity(new Intent(Settings.ACTION_DATA_ROAMING_SETTINGS));
+                            startActivity(new Intent(Settings.ACTION_NETWORK_OPERATOR_SETTINGS));
                         }
                     })
                     .setNeutralButton("None available", new DialogInterface.OnClickListener() {
@@ -152,13 +152,15 @@ public class Login extends AppCompatActivity implements GoogleApiClient.Connecti
     }
 
     private void resolveSignInError() {
-        if (mConnectionResult.hasResolution()) {
-            try {
-                mIntentInProgress = true;
-                mConnectionResult.startResolutionForResult(this, RC_SIGN_IN);
-            } catch (IntentSender.SendIntentException e) {
-                mIntentInProgress = false;
-                mGoogleApiClient.connect();
+        if(mConnectionResult!=null) {
+            if (mConnectionResult.hasResolution()) {
+                try {
+                    mIntentInProgress = true;
+                    mConnectionResult.startResolutionForResult(this, RC_SIGN_IN);
+                } catch (IntentSender.SendIntentException e) {
+                    mIntentInProgress = false;
+                    mGoogleApiClient.connect();
+                }
             }
         }
     }

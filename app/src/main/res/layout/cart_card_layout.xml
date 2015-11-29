@@ -68,11 +68,11 @@
             android:id="@+id/rangebar"
             android:layout_width="match_parent"
             android:layout_height="72dp"
-            android:layout_below="@id/foodPrice"
-            android:layout_marginLeft="16dp"
-            android:layout_marginRight="16dp"
             custom:rangeBar="false"
-            custom:tickEnd="10" />
+            custom:tickEnd="10"
+            android:layout_marginTop="7dp"
+            android:layout_alignTop="@+id/foodQuantity"
+            android:layout_centerHorizontal="true" />
 
     </RelativeLayout>
 
