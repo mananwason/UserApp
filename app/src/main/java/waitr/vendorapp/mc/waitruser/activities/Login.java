@@ -1,6 +1,8 @@
 package waitr.vendorapp.mc.waitruser.activities;
 
 import android.Manifest;
+import android.animation.AnimatorSet;
+import android.animation.ObjectAnimator;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentSender;
@@ -16,6 +18,10 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.animation.AccelerateDecelerateInterpolator;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.common.ConnectionResult;
@@ -28,10 +34,13 @@ import com.google.android.gms.common.api.Status;
 import com.google.android.gms.plus.Plus;
 import com.google.android.gms.plus.model.people.Person;
 
+import org.w3c.dom.Text;
+
 import retrofit.Callback;
 import retrofit.RetrofitError;
 import retrofit.client.Response;
 import waitr.vendorapp.mc.waitruser.Helpers.Constants;
+
 import waitr.vendorapp.mc.waitruser.R;
 import waitr.vendorapp.mc.waitruser.api.APIClient;
 import waitr.vendorapp.mc.waitruser.api.protocol.UserResponse;
@@ -50,12 +59,17 @@ public class Login extends AppCompatActivity implements GoogleApiClient.Connecti
     private View mLayout;
     private ConnectionResult mConnectionResult;
 
+    public static final String Email = "emailKey";
+//    SharedPreferences sharedpreferences;
+    TextView wecomeTextview;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
         mLayout = findViewById(R.id.relative_layout);
+        wecomeTextview = (TextView)findViewById(R.id.welcome_textView);
         mGoogleApiClient = new GoogleApiClient.Builder(this)
                 .addConnectionCallbacks(this)
                 .addOnConnectionFailedListener(this)
@@ -66,6 +80,7 @@ public class Login extends AppCompatActivity implements GoogleApiClient.Connecti
                 .build();
 
         findViewById(R.id.sign_in_button).setOnClickListener(this);
+        animation();
     }
 
     @Override
@@ -160,7 +175,7 @@ public class Login extends AppCompatActivity implements GoogleApiClient.Connecti
             id = Plus.AccountApi.getAccountName(mGoogleApiClient);
             APIClient apiClient = new APIClient();
 
-            apiClient.getmApi().getUserId("manan", "manan1@gmail.com", new Callback<UserResponse>() {
+            apiClient.getmApi().getUserId("siddharth", "siddharth13161@iiitd.ac.in", new Callback<UserResponse>() {
                 @Override
                 public void success(UserResponse userResponse, Response response) {
                     for (User user : userResponse.user) {
@@ -282,4 +297,14 @@ public class Login extends AppCompatActivity implements GoogleApiClient.Connecti
         }
 
     }
+
+
+    private void animation() {
+        wecomeTextview.setAlpha(1.0F);
+        Animation anim = AnimationUtils.loadAnimation(this, R.anim.translate_top_to_center);
+        wecomeTextview.startAnimation(anim);
+    }
+
+
+
 }

@@ -24,7 +24,6 @@ import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.Toast;
-
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.common.api.ResultCallback;
@@ -35,6 +34,7 @@ import com.squareup.otto.Subscribe;
 import com.squareup.picasso.Picasso;
 
 import waitr.vendorapp.mc.waitruser.Helpers.DataDownload;
+
 import waitr.vendorapp.mc.waitruser.Events.ItemDownloadDoneEvent;
 import waitr.vendorapp.mc.waitruser.Events.RefreshUiEvent;
 import waitr.vendorapp.mc.waitruser.Fragments.CartFragment;
@@ -76,7 +76,7 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.C
 
         DataDownload download = new DataDownload();
         download.downloadItems();
-        SharedPreferences sharedPreferences = getSharedPreferences(Constants.Prefs, MODE_PRIVATE);
+        SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
         download.downloadOrders(sharedPreferences.getInt(Constants.UserIdKey, -1));
 
         setUpToolbar();
@@ -97,24 +97,27 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.C
 //        if (displayPic != null) {
 //            Picasso.with(this).load(displayPic).transform(new CircleTransform()).into(header);
 //        }
+        if(sharedPreferences.getString(QuickstartPreferences.REGISTRATION_TOKEN,"").equals("")) {
 
-        mRegistrationBroadcastReceiver = new BroadcastReceiver() {
-            @Override
-            public void onReceive(Context context, Intent intent) {
-                SharedPreferences sharedPreferences =
-                        PreferenceManager.getDefaultSharedPreferences(context);
-                boolean sentToken = sharedPreferences
-                        .getBoolean(QuickstartPreferences.SENT_TOKEN_TO_SERVER, false);
-                if (sentToken) {
-                    //TODO: registration token sent to server, now?
-                } else {
-                    //TODO: registration token not sent to server, now?
+            mRegistrationBroadcastReceiver = new BroadcastReceiver() {
+                @Override
+                public void onReceive(Context context, Intent intent) {
+                    SharedPreferences sharedPreferences =
+                            PreferenceManager.getDefaultSharedPreferences(context);
+                    boolean sentToken = sharedPreferences
+                            .getBoolean(QuickstartPreferences.SENT_TOKEN_TO_SERVER, false);
+                    if (sentToken) {
+                        //TODO: registration token sent to server, now?
+                    } else {
+                        //TODO: registration token not sent to server, now?
+                    }
                 }
-            }
-        };
+            };
 
-        Intent intent = new Intent(this, RegistrationIntentService.class);
-        startService(intent);
+            Intent intent = new Intent(this, RegistrationIntentService.class);
+            startService(intent);
+        }
+
 
 
     }

@@ -43,4 +43,18 @@
         <item name="android:color">@color/button_color</item>
     </style>
 
+    <style name="TextViewAppearance" parent="@android:style/TextAppearance.Widget.TextView">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:paddingTop">8dp</item>
+        <item name="android:paddingBottom">8dp</item>
+        <item name="android:paddingLeft">26dp</item>
+        <item name="android:paddingRight">26dp</item>
+    </style>
+
+    <style name="TextViewAppearance.Headline2" parent="@style/TextViewAppearance">
+        <item name="android:textSize">24sp</item>
+        <item name="android:textColor">@color/cpb_white</item>
+    </style>
+
 </resources>

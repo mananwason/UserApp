@@ -49,6 +49,11 @@
             </intent-filter>
         </service>
 
+        <service
+            android:name=".Services.RegistrationIntentService"
+            android:exported="false">
+        </service>
+
 
         <activity
             android:name=".activities.MainActivity"

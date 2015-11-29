@@ -27,5 +27,6 @@
     <string name="place_order_string">Place Order</string>
     <string name="payment">Payment</string>
     <string name="gcm_defaultSenderId">1053716497536</string>
+    <string name="welcome_string">Welcome!</string>
 
 </resources>
