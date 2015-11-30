@@ -4,9 +4,11 @@ import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.media.RingtoneManager;
 import android.net.Uri;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.support.v4.app.NotificationCompat;
 import android.util.Log;
 
@@ -14,6 +16,7 @@ import com.google.android.gms.gcm.GcmListenerService;
 
 import java.util.Set;
 
+import waitr.vendorapp.mc.waitruser.Helpers.Constants;
 import waitr.vendorapp.mc.waitruser.R;
 import waitr.vendorapp.mc.waitruser.activities.MainActivity;
 
@@ -24,7 +27,7 @@ import waitr.vendorapp.mc.waitruser.activities.MainActivity;
 public class MyGcmListenerService extends GcmListenerService {
 
     private static final String TAG = "MyGcmListenerService";
-
+    SharedPreferences mSharedPreferences;
     /**
      * Called when message is received.
      *
@@ -43,16 +46,17 @@ public class MyGcmListenerService extends GcmListenerService {
         for (String s : mStringSet)
             keys += ", " + s;
         Log.d("keys", keys);
+        mSharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
 //        Log.d("keys1", data.getString("item"));
         String messageType = data.getString("collapse_key");
         if(messageType==null)
             Log.d("collapse","null");
         else{
             Log.d("collapse",messageType);
-            if(messageType.equals("Item")){
+            if(messageType.equals("Item")&&mSharedPreferences.getBoolean(Constants.RECEIVE_NOTIFICATIONS_NEW_ITEM,false)){
 
             }
-            else if(messageType.equals("")){
+            else if(messageType.equals("")&&mSharedPreferences.getBoolean(Constants.RECEIVE_NOTIFICATIONS_ORDER,false)){
 
             }
             else{
