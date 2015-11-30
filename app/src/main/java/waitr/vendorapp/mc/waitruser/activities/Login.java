@@ -226,7 +226,7 @@ public class Login extends AppCompatActivity implements GoogleApiClient.Connecti
 
                 @Override
                 public void failure(RetrofitError error) {
-//               Log.d("get user id fail", error.getCause().toString());
+//                    Log.d("get user id fail", error.getCause().toString());
                 }
             });
         }
