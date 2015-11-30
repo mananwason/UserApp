@@ -38,7 +38,7 @@ public class MyGcmListenerService extends GcmListenerService {
     // [START receive_message]
     @Override
     public void onMessageReceived(String from, Bundle data) {
-        String message = data.getString("item");
+
 //        Log.d(TAG, "From: " + from);
 //        Log.d(TAG, "Message: " + message);
         Set<String> mStringSet = data.keySet();
@@ -54,9 +54,11 @@ public class MyGcmListenerService extends GcmListenerService {
         else{
             Log.d("collapse",messageType);
             if(messageType.equals("Item")&&mSharedPreferences.getBoolean(Constants.RECEIVE_NOTIFICATIONS_NEW_ITEM,false)){
+                String item = data.getString("item");
+
 
             }
-            else if(messageType.equals("")&&mSharedPreferences.getBoolean(Constants.RECEIVE_NOTIFICATIONS_ORDER,false)){
+            else if(messageType.equals("Order")&&mSharedPreferences.getBoolean(Constants.RECEIVE_NOTIFICATIONS_ORDER,false)){
 
             }
             else{
@@ -65,7 +67,7 @@ public class MyGcmListenerService extends GcmListenerService {
 
         }
 
-        sendNotification(message);
+//        sendNotification(message);
 
     }
 

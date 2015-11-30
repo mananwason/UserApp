@@ -139,7 +139,7 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.C
         mExitAnimation = new AlphaAnimation(1f, 0f);
         mExitAnimation.setDuration(600);
         mExitAnimation.setFillAfter(true);
-        runOverlay_ContinueMethod();
+        //runOverlay_ContinueMethod();
 
     }
     private void runOverlay_ContinueMethod(){
@@ -157,31 +157,31 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.C
                         // note that there is not Overlay here, so the default one will be used
                 .playLater(cart);
 
-//        TourGuide tourGuide2 = TourGuide.init(this)
-//                .setToolTip(new ToolTip()
-//                                .setTitle("Tip")
-//                                .setDescription("Individual Overlay will be used when it's supplied.")
-//                                .setGravity(Gravity.BOTTOM | Gravity.LEFT)
-//                                .setBackgroundColor(Color.parseColor("#c0392b"))
-//                )
-//                .setOverlay(new Overlay()
-//                                .setBackgroundColor(Color.parseColor("#EE2c3e50"))
-//                                .setEnterAnimation(mEnterAnimation)
-//                                .setExitAnimation(mExitAnimation)
-//                )
-//                .playLater(navDrawerHamburgerIcon);
+        TourGuide tourGuide2 = TourGuide.init(this)
+                .setToolTip(new ToolTip()
+                                .setTitle("Tip")
+                                .setDescription("Individual Overlay will be used when it's supplied.")
+                                .setGravity(Gravity.BOTTOM | Gravity.LEFT)
+                                .setBackgroundColor(Color.parseColor("#c0392b"))
+                )
+                .setOverlay(new Overlay()
+                                .setBackgroundColor(Color.parseColor("#EE2c3e50"))
+                                .setEnterAnimation(mEnterAnimation)
+                                .setExitAnimation(mExitAnimation)
+                )
+                .playLater(navDrawerHamburgerIcon);
 
-//        TourGuide tourGuide3 = TourGuide.init(this)
-//                .setToolTip(new ToolTip()
-//                                .setTitle("ContinueMethod.Overlay")
-//                                .setDescription("When using this ContinueMethod, you don't need to call tourGuide.next() explicitly, TourGuide will do it for you.")
-//                                .setGravity(Gravity.TOP)
-//                )
-//                        // note that there is not Overlay here, so the default one will be used
-//                .playLater(mButton3);
+        TourGuide tourGuide3 = TourGuide.init(this)
+                .setToolTip(new ToolTip()
+                                .setTitle("ContinueMethod.Overlay")
+                                .setDescription("When using this ContinueMethod, you don't need to call tourGuide.next() explicitly, TourGuide will do it for you.")
+                                .setGravity(Gravity.TOP)
+                )
+                        // note that there is not Overlay here, so the default one will be used
+                .playLater(cart);
 
         Sequence sequence = new Sequence.SequenceBuilder()
-                .add(tourGuide1, tourGuide1,tourGuide1)
+                .add(tourGuide1, tourGuide2,tourGuide3)
                 .setDefaultOverlay(new Overlay()
                                 .setEnterAnimation(mEnterAnimation)
                                 .setExitAnimation(mExitAnimation)
