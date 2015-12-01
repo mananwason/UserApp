@@ -28,6 +28,7 @@ public class MyGcmListenerService extends GcmListenerService {
 
     private static final String TAG = "MyGcmListenerService";
     SharedPreferences mSharedPreferences;
+
     /**
      * Called when message is received.
      *
@@ -49,19 +50,17 @@ public class MyGcmListenerService extends GcmListenerService {
         mSharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
 //        Log.d("keys1", data.getString("item"));
         String messageType = data.getString("collapse_key");
-        if(messageType==null)
-            Log.d("collapse","null");
-        else{
-            Log.d("collapse",messageType);
-            if(messageType.equals("Item")&&mSharedPreferences.getBoolean(Constants.RECEIVE_NOTIFICATIONS_NEW_ITEM,false)){
+        if (messageType == null)
+            Log.d("collapse", "null");
+        else {
+            Log.d("collapse", messageType);
+            if (messageType.equals("Item") && mSharedPreferences.getBoolean(Constants.RECEIVE_NOTIFICATIONS_NEW_ITEM, false)) {
                 String item = data.getString("item");
 
+Log.d("abc", item);
+            } else if (messageType.equals("Order") && mSharedPreferences.getBoolean(Constants.RECEIVE_NOTIFICATIONS_ORDER, false)) {
 
-            }
-            else if(messageType.equals("Order")&&mSharedPreferences.getBoolean(Constants.RECEIVE_NOTIFICATIONS_ORDER,false)){
-
-            }
-            else{
+            } else {
 
             }
 

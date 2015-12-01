@@ -23,6 +23,7 @@ public class ItemsListResponseProcessor implements Callback<ItemsResponseList> {
 
     @Override
     public void success(final ItemsResponseList itemsResponseList, Response response) {
+        UserApp.postEventOnUIThread(new ItemDownloadDoneEvent(true));
 
         CommonTaskLoop.getInstance().post(new Runnable() {
             @Override
@@ -32,17 +33,17 @@ public class ItemsListResponseProcessor implements Callback<ItemsResponseList> {
 
                 for (Item item : itemsResponseList.items) {
                     String query = item.generateSql();
-                    Log.d("retro item", item.getId() + "");
+//                    Log.d("retro item", item.getId() + "");
                     queries.add(query);
-                    Log.d(TAG, query);
+//                    Log.d(TAG, query);
                 }
 
                 DbSingleton dbSingleton = DbSingleton.getInstance();
                 dbSingleton.clearDatabase(DbContract.Items.TABLE_NAME);
                 dbSingleton.insertQueries(queries);
 
-                UserApp.postEventOnUIThread(new ItemDownloadDoneEvent(true));
             }
+
         });
 
     }
@@ -52,8 +53,7 @@ public class ItemsListResponseProcessor implements Callback<ItemsResponseList> {
     public void failure(RetrofitError error) {
         UserApp.postEventOnUIThread(new ItemDownloadDoneEvent(false));
 
-        //TODO: PREVENT FROM CRASHING
-//        Log.d("retro", error.getCause().toString());
+//        if (error.getKind().equals(RetrofitError.Kind.NETWORK))
 
     }
 }

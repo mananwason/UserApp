@@ -5,7 +5,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.SharedPreferences;
-import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
@@ -18,11 +17,9 @@ import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
-import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.animation.Animation;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
@@ -37,11 +34,9 @@ import com.squareup.otto.Bus;
 import com.squareup.otto.Subscribe;
 import com.squareup.picasso.Picasso;
 
-import tourguide.tourguide.Overlay;
-import tourguide.tourguide.Sequence;
-import tourguide.tourguide.ToolTip;
-import tourguide.tourguide.TourGuide;
+import waitr.vendorapp.mc.waitruser.Events.CounterEvent;
 import waitr.vendorapp.mc.waitruser.Events.ItemDownloadDoneEvent;
+import waitr.vendorapp.mc.waitruser.Events.OrderDownloadDoneEvent;
 import waitr.vendorapp.mc.waitruser.Events.RefreshUiEvent;
 import waitr.vendorapp.mc.waitruser.Fragments.CartFragment;
 import waitr.vendorapp.mc.waitruser.Fragments.CompletedOrderFragment;
@@ -70,24 +65,24 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.C
     private int counter;
     private int eventsDone;
     private BroadcastReceiver mRegistrationBroadcastReceiver;
-    public TourGuide mTutorialHandler;
-    private Animation mEnterAnimation, mExitAnimation;
     View cart, navDrawerHamburgerIcon;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        counter = 1;
+        counter = 0;
         eventsDone = 0;
         downloadProgress = (ProgressBar) findViewById(R.id.progress);
         downloadProgress.setVisibility(View.VISIBLE);
         downloadProgress.setIndeterminate(true);
 
         DataDownload download = new DataDownload();
-        download.downloadItems();
         SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
-        download.downloadOrders(sharedPreferences.getInt(Constants.UserIdKey, -1));
+//        download.downloadOrders(sharedPreferences.getInt(Constants.UserIdKey, -1));
+//        download.downloadItems();
+        download.downloadAll(sharedPreferences.getInt(Constants.UserIdKey, -1));
+
 
         setUpToolbar();
         setUpNavDrawer();
@@ -349,7 +344,7 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.C
 
     @Subscribe
     public void ItemsDownloadDone(ItemDownloadDoneEvent event) {
-        Log.d("retro event", eventsDone + " " + counter);
+        Log.d("retro event", eventsDone + " " + counter + " " + !event.isState());
         if (event.isState()) {
             eventsDone++;
             Log.d("retro event", eventsDone + " " + counter);
@@ -362,4 +357,33 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.C
         }
 
     }
+
+    @Subscribe
+    public void OrderDownloadDone(OrderDownloadDoneEvent event) {
+        Log.d("retroevent", eventsDone + " " + counter);
+
+        if (event.isState()) {
+            eventsDone++;
+            Log.d("retroevent", counter + "  " + eventsDone);
+
+            if (counter == eventsDone) {
+                syncComplete();
+            }
+
+        } else {
+            Log.d("retroevent", "is state false");
+//            Snackbar.make(view, g÷tString(R.string.download_not_done), Snackbar.LENGTH_SHORT).show();
+
+//            downloadFailed();
+        }
+
+    }
+
+    @Subscribe
+    public void counterFunction(CounterEvent event) {
+        Log.d("download counter", event.getRequestsCount() + "");
+        counter = event.getRequestsCount();
+
+    }
+
 }
