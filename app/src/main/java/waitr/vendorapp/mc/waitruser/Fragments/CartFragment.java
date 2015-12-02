@@ -64,66 +64,6 @@ public class CartFragment extends Fragment {
 
             }
 
-//        Snackbar.make(frameLayout,
-//                "Total price: " + cartAdapter.getTotalCost(),
-//                Snackbar.LENGTH_INDEFINITE)
-//                .setAction("Proceed to payment", new View.OnClickListener() {
-//                    @Override
-//                    public void onClick(View v) {
-//                        Service = PaytmPGService.getStagingService(); //for testing environment
-//                        Map<String, String> paramMap = new HashMap<>();
-//                        Random randomGenerator = new Random();
-//                        String randomInt = String.valueOf(randomGenerator.nextInt(10000));
-//                        //these are mandatory parameters
-//                        paramMap.put("REQUEST_TYPE", "DEFAULT");
-//                        paramMap.put("ORDER_ID", randomInt);
-//                        paramMap.put("MID", "shopma19998593390567");
-//                        paramMap.put("CUST_ID", "sid0893");
-//                        paramMap.put("CHANNEL_ID", "WAP");
-//                        paramMap.put("INDUSTRY_TYPE_ID", "Retail");
-//                        paramMap.put("WEBSITE", "shpmteswap");
-//                        paramMap.put("TXN_AMOUNT", String.valueOf(cartAdapter.getTotalCost()));
-//                        paramMap.put("THEME", "merchant");
-//                        PaytmOrder Order = new PaytmOrder(paramMap);
-//                        PaytmMerchant Merchant = new PaytmMerchant("http://www.theshopmates.com/paytm/generate_checksum", "http://www.theshopmates.com/paytm/verify_checksum");
-//                        PaytmClientCertificate Certificate = null;
-//                        Service.initialize(Order, Merchant, Certificate);
-//                        Service.startPaymentTransaction(getContext(), true, true, new PaytmPaymentTransactionCallback() {
-//                            @Override
-//                            public void onTransactionSuccess(Bundle bundle) {
-//                                Toast.makeText(getContext(), "Success", Toast.LENGTH_SHORT).show();
-//                            }
-//
-//                            @Override
-//                            public void onTransactionFailure(String s, Bundle bundle) {
-//                                Toast.makeText(getContext(), "Failure", Toast.LENGTH_SHORT).show();
-//                            }
-//
-//                            @Override
-//                            public void networkNotAvailable() {
-//                                Toast.makeText(getContext(), "Nw unavailable", Toast.LENGTH_SHORT).show();
-//                            }
-//
-//                            @Override
-//                            public void clientAuthenticationFailed(String s) {
-//                                Toast.makeText(getContext(), "Client auth failed", Toast.LENGTH_SHORT).show();
-//                            }
-//
-//                            @Override
-//                            public void someUIErrorOccurred(String s) {
-//
-//                            }
-//
-//                            @Override
-//                            public void onErrorLoadingWebPage(int i, String s, String s2) {
-//
-//                            }
-//                        });
-//                    }
-//                })
-//                .setActionTextColor(Color.RED)
-//                .show();
-//        return view;
         });
 
         list =  dbSingleton.getCartList();

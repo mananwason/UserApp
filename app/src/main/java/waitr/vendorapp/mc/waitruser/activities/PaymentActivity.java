@@ -1,7 +1,9 @@
 package waitr.vendorapp.mc.waitruser.activities;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
@@ -30,6 +32,7 @@ import retrofit.RetrofitError;
 import retrofit.client.Response;
 import waitr.vendorapp.mc.waitruser.DbUtils.DbContract;
 import waitr.vendorapp.mc.waitruser.DbUtils.DbSingleton;
+import waitr.vendorapp.mc.waitruser.Helpers.Constants;
 import waitr.vendorapp.mc.waitruser.R;
 import waitr.vendorapp.mc.waitruser.api.APIClient;
 import waitr.vendorapp.mc.waitruser.api.protocol.newOrderResponse;
@@ -67,12 +70,13 @@ public class PaymentActivity extends AppCompatActivity {
                     DbSingleton dbSingleton = DbSingleton.getInstance();
                     dbSingleton.getItemsList();
                     builder = new StringBuilder();
-                    for(Item item: dbSingleton.getCartList()){
-                        builder.append(item.getId()).append(" ,");
+                    for (Item item : dbSingleton.getCartList()) {
+                        builder.append(item.getId()).append(",");
                     }
                     Log.d("builder", builder.toString());
+                    SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(PaymentActivity.this);
 
-                    Order order = new Order(1, 2, builder.toString(), getCurrentDate(), 280.0, false, false);
+                    Order order = new Order(1, sharedPreferences.getInt(Constants.UserIdKey, -1), builder.toString(), getCurrentDate(), Double.valueOf(totalCost.split(":")[1].replace(" ","")), false, false);
                     APIClient apiClient = new APIClient();
                     apiClient.getmApi().createOrder(order, new Callback<newOrderResponse>() {
                         @Override
@@ -81,7 +85,7 @@ public class PaymentActivity extends AppCompatActivity {
                             DbSingleton mDbSingleton = DbSingleton.getInstance();
                             mDbSingleton.deleteAllRecords(DbContract.Cart.TABLE_NAME);
 
-                            Toast.makeText(PaymentActivity.this, "Order Received",Toast.LENGTH_LONG).show();
+                            Toast.makeText(PaymentActivity.this, "Order Received", Toast.LENGTH_LONG).show();
 
                             Intent intent = new Intent(PaymentActivity.this, MainActivity.class);
                             startActivity(intent);
