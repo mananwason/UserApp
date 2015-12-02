@@ -27,13 +27,16 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.Viewholder> im
 
     public static TextView displayQuantity;
     ArrayList<Item> menuitem;
+    ArrayList<Integer> prevQty;
     RangeBar mRangebar;
     private double totalCost;
 
     public CartAdapter(ArrayList<Item> menuItem) {
         this.menuitem = menuItem;
+        prevQty = new ArrayList<>();
         for (Item mItem : menuitem) {
             totalCost += mItem.getPrice();
+            prevQty.add(1);
         }
     }
 
@@ -54,9 +57,9 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.Viewholder> im
 
 
     @Override
-    public void onBindViewHolder(final CartAdapter.Viewholder holder, int position) {
+    public void onBindViewHolder(final CartAdapter.Viewholder holder, final int position) {
 
-        Item current = menuitem.get(position);
+        final Item current = menuitem.get(position);
         holder.name.setText(current.getFoodName());
         holder.price.setText("Price : " + current.getPrice());
         holder.itemId.setText(current.getId() + "");
@@ -68,6 +71,11 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.Viewholder> im
             @Override
             public void onRangeChangeListener(RangeBar rangeBar, int leftPinIndex, int rightPinIndex, String leftPinValue, String rightPinValue) {
                 holder.quantity.setText("Quantity : " + rightPinValue);
+                totalCost = totalCost + (Integer.valueOf(rightPinValue) - prevQty.get(position)) *  current.getPrice();
+                prevQty.remove(position);
+                prevQty.add(position, Integer.valueOf(rightPinValue));
+                CartFragment.displayCost.setText("Total price: " + totalCost);
+
             }
         });
     }
@@ -133,7 +141,8 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.Viewholder> im
     public Item removeItem(int position) {
         // int id = menuitem.get(position).getId();
         final Item mMenuItemObject = menuitem.remove(position);
-        totalCost -= mMenuItemObject.getPrice();
+        totalCost = totalCost -  mMenuItemObject.getPrice() * prevQty.get(position);
+        prevQty.remove(position);
         CartFragment.displayCost.setText("Total price: " + totalCost);
         DbSingleton dbSingleton = DbSingleton.getInstance();
         dbSingleton.deleteRecord(DbContract.Cart.TABLE_NAME, DbContract.Cart.ITEM_ID + " = '" + mMenuItemObject.getId() + "'");
@@ -147,12 +156,23 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.Viewholder> im
         int pid = Integer.parseInt(((TextView) parent.findViewById(R.id.itemId)).getText().toString());
         int pos = -1;
         Log.d("ABC", "PID : " + pid);
+        pos = getposition(pid);
+//        for (int i = 0; i < menuitem.size(); i++)
+//            if (menuitem.get(i).getId() == pid) {
+//                pos = i;
+//                break;
+//            }
+        removeItem(pos);
+    }
+
+    int getposition(int pid){
+        int pos = -1;
         for (int i = 0; i < menuitem.size(); i++)
             if (menuitem.get(i).getId() == pid) {
                 pos = i;
                 break;
             }
-        removeItem(pos);
+        return pos;
     }
 
 
