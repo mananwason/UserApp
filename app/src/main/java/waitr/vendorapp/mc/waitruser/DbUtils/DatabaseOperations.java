@@ -58,7 +58,7 @@ public class DatabaseOperations {
         return items;
     }
 
-    public ArrayList<Item> getCartList(SQLiteDatabase mDb){
+    public ArrayList<Item> getCartList(SQLiteDatabase mDb) {
         String sortOrder = DbContract.Cart.ITEM_ID + ASCENDING;
         Cursor cur = mDb.query(
                 DbContract.Cart.TABLE_NAME,
@@ -93,7 +93,8 @@ public class DatabaseOperations {
 
     public ArrayList<Order> getCompletedOrderList(SQLiteDatabase mDb, int userId) {
         String selection = DbContract.Orders.USER_ID + EQUAL + userId + " and " +
-                DbContract.Orders.IS_ORDER_COMPLETED + EQUAL + " '1'";
+                DbContract.Orders.IS_ORDER_COMPLETED + EQUAL + " '1'" + " and " +
+                DbContract.Orders.IS_PAYMENT_DONE + EQUAL + " '1'";
 
         String sortOrder = DbContract.Orders.ORDER_ID + ASCENDING;
         Cursor cur = mDb.query(
@@ -111,25 +112,25 @@ public class DatabaseOperations {
 
         cur.moveToFirst();
         while (!cur.isAfterLast()) {
-//            temp = new Order(
-//                    cur.getInt(cur.getColumnIndex(DbContract.Orders.ORDER_ID)),
-//                    cur.getInt(cur.getColumnIndex(DbContract.Orders.USER_ID)),
-//                    cur.getString(cur.getColumnIndex(DbContract.Orders.ITEMS)),
-//                    cur.getString(cur.getColumnIndex(DbContract.Orders.TIME)),
-//                    cur.getInt(cur.getColumnIndex(DbContract.Orders.COST)),
-//                    cur.getInt(cur.getColumnIndex(DbContract.Orders.IS_ORDER_COMPLETED))>0 ,
-//                    cur.getInt(cur.getColumnIndex(DbContract.Orders.IS_PAYMENT_DONE)) >0);
-//            orders.add(temp);
-//            cur.moveToNext();
+            temp = new Order(
+                    cur.getInt(cur.getColumnIndex(DbContract.Orders.ORDER_ID)),
+                    cur.getInt(cur.getColumnIndex(DbContract.Orders.USER_ID)),
+                    cur.getString(cur.getColumnIndex(DbContract.Orders.ITEMS)),
+                    cur.getString(cur.getColumnIndex(DbContract.Orders.TIME)),
+                    cur.getInt(cur.getColumnIndex(DbContract.Orders.COST)),
+                    cur.getInt(cur.getColumnIndex(DbContract.Orders.IS_ORDER_COMPLETED)) > 0,
+                    cur.getInt(cur.getColumnIndex(DbContract.Orders.IS_PAYMENT_DONE)) > 0);
+            orders.add(temp);
+            cur.moveToNext();
         }
         cur.close();
         return orders;
     }
 
-    public ArrayList<Order> getPendingOrderList(SQLiteDatabase mDb,int userId){
-        String selection = DbContract.Orders.USER_ID + EQUAL + userId + " and " +
-                DbContract.Orders.IS_ORDER_COMPLETED + EQUAL + " '1'";
-
+    public ArrayList<Order> getPendingOrderList(SQLiteDatabase mDb, int userId) {
+        String selection = DbContract.Orders.USER_ID + EQUAL + userId + " and (" +
+                DbContract.Orders.IS_PAYMENT_DONE + EQUAL + " '0' or (" + DbContract.Orders.IS_PAYMENT_DONE + EQUAL +
+                " '1' and " + DbContract.Orders.IS_ORDER_COMPLETED + EQUAL + " '0'))";
         String sortOrder = DbContract.Orders.ORDER_ID + ASCENDING;
         Cursor cur = mDb.query(
                 DbContract.Orders.TABLE_NAME,
@@ -146,15 +147,15 @@ public class DatabaseOperations {
 
         cur.moveToFirst();
         while (!cur.isAfterLast()) {
-//            temp = new Order(
-//                    cur.getInt(cur.getColumnIndex(DbContract.Orders.ORDER_ID)),
-//                    cur.getInt(cur.getColumnIndex(DbContract.Orders.USER_ID)),
-//                    cur.getString(cur.getColumnIndex(DbContract.Orders.ITEMS)),
-//                    cur.getString(cur.getColumnIndex(DbContract.Orders.TIME)),
-//                    cur.getInt(cur.getColumnIndex(DbContract.Orders.COST)),
-//                    cur.getInt(cur.getColumnIndex(DbContract.Orders.IS_ORDER_COMPLETED))>0,
-//                    cur.getInt(cur.getColumnIndex(DbContract.Orders.IS_PAYMENT_DONE))>0);
-//            orders.add(temp);
+            temp = new Order(
+                    cur.getInt(cur.getColumnIndex(DbContract.Orders.ORDER_ID)),
+                    cur.getInt(cur.getColumnIndex(DbContract.Orders.USER_ID)),
+                    cur.getString(cur.getColumnIndex(DbContract.Orders.ITEMS)),
+                    cur.getString(cur.getColumnIndex(DbContract.Orders.TIME)),
+                    cur.getInt(cur.getColumnIndex(DbContract.Orders.COST)),
+                    cur.getInt(cur.getColumnIndex(DbContract.Orders.IS_ORDER_COMPLETED))>0,
+                    cur.getInt(cur.getColumnIndex(DbContract.Orders.IS_PAYMENT_DONE))>0);
+            orders.add(temp);
             cur.moveToNext();
         }
         cur.close();
@@ -176,9 +177,9 @@ public class DatabaseOperations {
         db.execSQL("delete from " + DatabaseUtils.sqlEscapeString(tableName));
     }
 
-    public void deleteRecord(String tableName,String condition, SQLiteDatabase db){
+    public void deleteRecord(String tableName, String condition, SQLiteDatabase db) {
 
-        db.execSQL("delete from "+ DatabaseUtils.sqlEscapeString(tableName)+ " where "+ condition);
+        db.execSQL("delete from " + DatabaseUtils.sqlEscapeString(tableName) + " where " + condition);
     }
 
 

@@ -106,8 +106,8 @@ public class Order {
                 "df",        //TODO: fill in actual items names instead of ids, would be easy if we get names not ids from server.
                 "dsds",
                 (int)costOfOrder,
-                1,
-                1);
+                isOrderCompleted?1:0,
+                isPaymentMade?1:0);
 
                 /*isOrderCompleted?"completed":"not completed",
                 isPaymentMade?"paid":"not paid");*/
