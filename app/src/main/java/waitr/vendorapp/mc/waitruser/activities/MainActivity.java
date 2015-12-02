@@ -79,9 +79,9 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.C
 
         DataDownload download = new DataDownload();
         SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
-//        download.downloadOrders(sharedPreferences.getInt(Constants.UserIdKey, -1));
+        download.downloadOrders(sharedPreferences.getInt(Constants.UserIdKey, -1));
 //        download.downloadItems();
-        download.downloadAll(sharedPreferences.getInt(Constants.UserIdKey, -1));
+//        download.downloadAll(sharedPreferences.getInt(Constants.UserIdKey, -1));
 
 
         setUpToolbar();

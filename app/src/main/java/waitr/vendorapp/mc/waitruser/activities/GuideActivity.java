@@ -4,9 +4,10 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -23,17 +24,19 @@ public class GuideActivity extends AppCompatActivity {
     Button next;
     Bitmap largeIcon;
     int count;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_guide);
         count = 1;
-        background = (ImageView)findViewById(R.id.backgroundImage);
+        background = (ImageView) findViewById(R.id.backgroundImage);
         mSharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
-        if(mSharedPreferences.getBoolean(Constants.FirstTime,true)){
-            mSharedPreferences.edit().putBoolean(Constants.FirstTime,false).apply();
-            next = (Button)findViewById(R.id.buttonNext);
-            background = (ImageView)findViewById(R.id.backgroundImage);
+        if (mSharedPreferences.getBoolean(Constants.FirstTime, true)) {
+            mSharedPreferences.edit().putBoolean(Constants.FirstTime, false).apply();
+            Log.d("first time", mSharedPreferences.getBoolean(Constants.FirstTime, true)+"");
+            next = (Button) findViewById(R.id.buttonNext);
+            background = (ImageView) findViewById(R.id.backgroundImage);
             largeIcon = BitmapFactory.decodeResource(getResources(), R.drawable.img1);
             background.setImageBitmap(largeIcon);
             next.setOnClickListener(new View.OnClickListener() {
@@ -75,7 +78,10 @@ public class GuideActivity extends AppCompatActivity {
             });
 
 
-
+        }
+        else {
+            Intent mIntent = new Intent(GuideActivity.this, Login.class);
+            startActivity(mIntent);
 
         }
     }
